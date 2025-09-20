@@ -86,7 +86,7 @@ const Cadastro = () => {
               Selecione o tipo de conta
             </option>
             <option value="jogadora">Jogadora</option>
-            <option value="treinador">Treinador</option>
+            <option value="treinador">Olheiro(a)</option>
           </select>
 
           <button
