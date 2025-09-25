@@ -49,7 +49,6 @@ const Cadastro = () => {
             required
             className="border border-[#F06292] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F06292]"
           />
-
           <input
             type="date"
             value={dataNascimento}
@@ -57,7 +56,6 @@ const Cadastro = () => {
             required
             className="border border-[#F06292] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F06292]"
           />
-
           <input
             type="email"
             placeholder="E-mail"
@@ -66,7 +64,6 @@ const Cadastro = () => {
             required
             className="border border-[#F06292] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F06292]"
           />
-
           <input
             type="password"
             placeholder="Senha"
@@ -75,7 +72,6 @@ const Cadastro = () => {
             required
             className="border border-[#F06292] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F06292]"
           />
-
           <select
             value={tipo}
             onChange={(e) => setTipo(e.target.value)}
@@ -88,14 +84,12 @@ const Cadastro = () => {
             <option value="jogadora">Jogadora</option>
             <option value="treinador">Olheiro(a)</option>
           </select>
-
           <button
             type="submit"
             className="bg-[#F06292] text-white font-semibold py-3 rounded-lg hover:bg-[#d94d7f] transition"
           >
             Cadastrar
           </button>
-
           <p
             onClick={() => navigate("/login")}
             className="text-center text-sm text-[#0A192F] mt-2 cursor-pointer hover:underline"
