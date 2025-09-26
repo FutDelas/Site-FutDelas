@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const PerfilJogadora = () => {
   const [usuario, setUsuario] = useState(null);
@@ -11,10 +12,13 @@ const PerfilJogadora = () => {
     localizacao: "",
     sobre: "",
     habilidades: "",
-    foto: "",
+    fotoPerfil: "",
     galeriasFotos: [],
     galeriasVideos: []
   });
+  const [publicacoes, setPublicacoes] = useState([]);
+  const [novaPublicacao, setNovaPublicacao] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const logado = JSON.parse(localStorage.getItem("usuarioLogado"));
@@ -28,29 +32,42 @@ const PerfilJogadora = () => {
         localizacao: logado.localizacao || "",
         sobre: logado.sobre || "",
         habilidades: logado.habilidades ? logado.habilidades.join(", ") : "",
-        foto: logado.foto || "",
+        fotoPerfil: logado.fotoPerfil || "",
         galeriasFotos: logado.galeriasFotos || [],
         galeriasVideos: logado.galeriasVideos || []
       });
     } else {
       window.location.href = "/login";
     }
+
+    const postsSalvos = JSON.parse(localStorage.getItem("publicacoes")) || [];
+    setPublicacoes(postsSalvos);
   }, []);
 
-  if (!usuario) return <p className="text-center mt-10">Carregando...</p>;
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
+  // Atualiza foto de perfil
   const handleFotoChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => setFormData(prev => ({ ...prev, foto: reader.result }));
-      reader.readAsDataURL(file);
-    }
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const novaFoto = reader.result;
+      setUsuario(prev => {
+        const atualizado = { ...prev, fotoPerfil: novaFoto };
+        localStorage.setItem("usuarioLogado", JSON.stringify(atualizado));
+
+        // Atualiza no array de usuários
+        const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+        const index = usuarios.findIndex(u => u.email === atualizado.email);
+        if (index !== -1) {
+          usuarios[index].fotoPerfil = novaFoto;
+          localStorage.setItem("usuarios", JSON.stringify(usuarios));
+        }
+
+        return atualizado;
+      });
+      setFormData(prev => ({ ...prev, fotoPerfil: novaFoto }));
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleGaleria = (e, tipo) => {
@@ -67,142 +84,186 @@ const PerfilJogadora = () => {
     });
   };
 
-  const salvarPerfil = () => {
-    // Transformar habilidades em array
-    const habilidadesArray = formData.habilidades
-      ? formData.habilidades.split(",").map(h => h.trim())
-      : [];
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
+  const salvarPerfil = () => {
     const usuarioAtualizado = {
       ...usuario,
-      ...formData,
-      habilidades: habilidadesArray
+      nome: formData.nome,
+      posicao: formData.posicao,
+      altura: formData.altura,
+      peso: formData.peso,
+      localizacao: formData.localizacao,
+      sobre: formData.sobre,
+      habilidades: formData.habilidades
+        ? formData.habilidades.split(",").map(h => h.trim())
+        : [],
+      fotoPerfil: formData.fotoPerfil,
+      galeriasFotos: formData.galeriasFotos,
+      galeriasVideos: formData.galeriasVideos
     };
 
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-    const index = usuarios.findIndex(u => u.email === usuario.email);
+    localStorage.setItem("usuarioLogado", JSON.stringify(usuarioAtualizado));
 
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const index = usuarios.findIndex(u => u.email === usuarioAtualizado.email);
     if (index !== -1) {
       usuarios[index] = usuarioAtualizado;
       localStorage.setItem("usuarios", JSON.stringify(usuarios));
-      localStorage.setItem("usuarioLogado", JSON.stringify(usuarioAtualizado));
-      setUsuario(usuarioAtualizado);
-      setEditando(false);
-      alert("Perfil salvo com sucesso!");
-    } else {
-      alert("Erro ao salvar: usuário não encontrado.");
     }
+
+    setUsuario(usuarioAtualizado);
+    setEditando(false);
   };
 
-  return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Banner */}
-      <div className="relative h-64 bg-gradient-to-r from-pink-400 to-pink-600 rounded-b-3xl shadow-md">
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
-          <img
-            src={formData.foto || "https://via.placeholder.com/120"}
-            alt="Perfil"
-            className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover"
-          />
-          {editando && (
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFotoChange}
-              className="absolute bottom-0 right-0 bg-white p-1 rounded-full cursor-pointer"
-            />
-          )}
-        </div>
-      </div>
+  const handlePostar = () => {
+    if (!novaPublicacao.trim()) return;
+    const novoPost = {
+      id: Date.now(),
+      autor: usuario.nome,
+      fotoPerfil: usuario.fotoPerfil,
+      texto: novaPublicacao,
+      data: new Date().toLocaleString("pt-BR"),
+      curtidas: 0,
+      comentarios: []
+    };
+    const atualizado = [novoPost, ...publicacoes];
+    setPublicacoes(atualizado);
+    localStorage.setItem("publicacoes", JSON.stringify(atualizado));
+    setNovaPublicacao("");
+  };
 
-      {/* Conteúdo principal */}
-      <div className="max-w-5xl mx-auto mt-20 bg-white rounded-2xl shadow-lg p-8">
-        {/* Nome e botão editar */}
-        <div className="flex justify-between items-center mb-6">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-800">{usuario.nome}</h1>
-            <p className="text-gray-600">{usuario.posicao || "Posição não informada"}</p>
+  const curtirPost = (id) => {
+    const atualizado = publicacoes.map(p =>
+      p.id === id ? { ...p, curtidas: p.curtidas + 1 } : p
+    );
+    setPublicacoes(atualizado);
+    localStorage.setItem("publicacoes", JSON.stringify(atualizado));
+  };
+
+  const adicionarComentario = (id, comentario) => {
+    if (!comentario.trim()) return;
+    const atualizado = publicacoes.map(p =>
+      p.id === id ? { ...p, comentarios: [...p.comentarios, comentario] } : p
+    );
+    setPublicacoes(atualizado);
+    localStorage.setItem("publicacoes", JSON.stringify(atualizado));
+  };
+
+  if (!usuario) return <p className="text-center mt-10">Carregando...</p>;
+
+  return (
+    <div className="min-h-screen bg-[#F0F4F8] flex gap-6 p-6">
+      {/* COLUNA ESQUERDA - PERFIL + EVENTOS */}
+      <div className="w-1/4 flex flex-col gap-4">
+        {/* PERFIL */}
+        <div className="bg-white rounded-xl shadow-md p-4">
+          <div className="relative">
+            <img
+              src={formData.fotoPerfil || "https://via.placeholder.com/150"}
+              alt="Foto de perfil"
+              className="w-24 h-24 mx-auto rounded-full object-cover"
+            />
+            {editando && (
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFotoChange}
+                className="absolute bottom-0 right-0 bg-white p-1 rounded-full cursor-pointer"
+              />
+            )}
           </div>
+          <h2 className="text-center text-xl font-bold mt-2">{usuario.nome}</h2>
+          <p className="text-center text-gray-600">{usuario.posicao || "Jogadora"}</p>
           <button
-            onClick={() => editando ? salvarPerfil() : setEditando(true)}
-            className="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition"
+            onClick={() => navigate("/perfil")}
+            className="block w-full mt-4 bg-[#003B5C] text-white py-2 rounded-lg hover:bg-[#005080] transition"
           >
-            {editando ? "Salvar" : "Editar Perfil"}
+            Ver Perfil Completo
           </button>
         </div>
 
-        {/* Informações básicas */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <div><strong>Idade:</strong> {usuario.dataNascimento ? new Date().getFullYear() - new Date(usuario.dataNascimento).getFullYear() : "-"}</div>
-          <div>
-            <strong>Altura:</strong>{" "}
-            {editando ? <input type="number" name="altura" value={formData.altura} onChange={handleInputChange} className="border p-1 rounded w-full"/> : usuario.altura ? `${usuario.altura} cm` : "-"}
-          </div>
-          <div>
-            <strong>Peso:</strong>{" "}
-            {editando ? <input type="number" name="peso" value={formData.peso} onChange={handleInputChange} className="border p-1 rounded w-full"/> : usuario.peso ? `${usuario.peso} kg` : "-"}
-          </div>
-          <div>
-            <strong>Localização:</strong>{" "}
-            {editando ? <input type="text" name="localizacao" value={formData.localizacao} onChange={handleInputChange} className="border p-1 rounded w-full"/> : usuario.localizacao || "-"}
-          </div>
+        {/* EVENTOS */}
+        <div className="bg-white rounded-xl shadow-md p-4">
+          <h2 className="text-lg font-bold text-[#003B5C] mb-2">Próximos Eventos</h2>
+          <ul className="space-y-2">
+            <li className="p-2 bg-gray-100 rounded-lg">🏆 Torneio Feminino - Sábado</li>
+            <li className="p-2 bg-gray-100 rounded-lg">📅 Treino Comunitário - Segunda</li>
+            <li className="p-2 bg-gray-100 rounded-lg">🎓 Workshop de Técnicas - Quarta</li>
+          </ul>
+        </div>
+      </div>
+
+      {/* COLUNA CENTRAL - PUBLICAÇÕES */}
+      <div className="w-3/4">
+        {/* FORMULÁRIO DE POSTAGEM */}
+        <div className="bg-white rounded-xl shadow-md p-4 mb-4">
+          <textarea
+            placeholder="Compartilhe algo..."
+            value={novaPublicacao}
+            onChange={(e) => setNovaPublicacao(e.target.value)}
+            className="w-full p-2 border rounded-lg mb-2 resize-none"
+            rows={3}
+          />
+          <button
+            onClick={handlePostar}
+            className="bg-[#003B5C] text-white px-4 py-2 rounded-lg hover:bg-[#005080] transition"
+          >
+            Publicar
+          </button>
         </div>
 
-        {/* Sobre mim */}
-        <div className="mb-6">
-          <h2 className="text-xl font-bold text-gray-700 mb-2">Sobre mim</h2>
-          {editando ? (
-            <textarea name="sobre" value={formData.sobre} onChange={handleInputChange} className="border p-2 rounded w-full"/>
-          ) : (
-            <p className="text-gray-600">{usuario.sobre || "Não informado"}</p>
-          )}
-        </div>
+        {/* FEED DE PUBLICAÇÕES */}
+        {publicacoes.length === 0 ? (
+          <p className="text-gray-500 text-center">Nenhuma publicação ainda.</p>
+        ) : (
+          publicacoes.map(post => (
+            <div key={post.id} className="bg-white rounded-xl shadow-md p-4 mb-4">
+              <div className="flex gap-4 items-start">
+                <img
+                  src={post.fotoPerfil || "https://via.placeholder.com/50"}
+                  alt="Autor"
+                  className="w-12 h-12 rounded-full object-cover"
+                />
+                <div className="flex-1">
+                  <h3 className="font-bold text-[#003B5C]">{post.autor}</h3>
+                  <p className="text-gray-700">{post.texto}</p>
+                  <p className="text-xs text-gray-500 mt-1">{post.data}</p>
 
-        {/* Habilidades */}
-        <div className="mb-6">
-          <h2 className="text-xl font-bold text-gray-700 mb-2">Habilidades</h2>
-          {editando ? (
-            <input
-              type="text"
-              name="habilidades"
-              value={formData.habilidades}
-              onChange={handleInputChange}
-              className="border p-2 rounded w-full"
-              placeholder="Separe por vírgula"
-            />
-          ) : (
-            <div className="flex flex-wrap gap-2">
-              {usuario.habilidades && usuario.habilidades.length > 0
-                ? usuario.habilidades.map((h, i) => (
-                    <span key={i} className="bg-pink-500 text-white px-3 py-1 rounded-full text-sm">{h}</span>
-                  ))
-                : <span className="text-gray-400">Nenhuma habilidade cadastrada</span>
-              }
+                  {/* Curtidas e comentários */}
+                  <div className="flex gap-4 mt-2 items-center">
+                    <button
+                      onClick={() => curtirPost(post.id)}
+                      className="text-sm text-blue-500 hover:underline"
+                    >
+                      Curtir ({post.curtidas})
+                    </button>
+                  </div>
+
+                  <div className="mt-2">
+                    {post.comentarios.map((c, i) => (
+                      <p key={i} className="text-sm text-gray-600">💬 {c}</p>
+                    ))}
+                    <input
+                      type="text"
+                      placeholder="Comentar..."
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          adicionarComentario(post.id, e.target.value);
+                          e.target.value = "";
+                        }
+                      }}
+                      className="w-full border p-1 rounded mt-1 text-sm"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
-          )}
-        </div>
-
-        {/* Galeria de Fotos */}
-        <div className="mb-6">
-          <h2 className="text-xl font-bold text-gray-700 mb-2">Galeria de Fotos</h2>
-          {editando && <input type="file" accept="image/*" multiple onChange={(e)=>handleGaleria(e,"galeriasFotos")} className="border p-2 rounded w-full mb-2"/>}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {formData.galeriasFotos.map((foto,i)=>(
-              <img key={i} src={foto} alt={`Foto ${i}`} className="w-full h-32 object-cover rounded-lg shadow"/>
-            ))}
-          </div>
-        </div>
-
-        {/* Galeria de Vídeos */}
-        <div className="mb-6">
-          <h2 className="text-xl font-bold text-gray-700 mb-2">Galeria de Vídeos</h2>
-          {editando && <input type="file" accept="video/*" multiple onChange={(e)=>handleGaleria(e,"galeriasVideos")} className="border p-2 rounded w-full mb-2"/>}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {formData.galeriasVideos.map((video,i)=>(
-              <video key={i} src={video} controls className="w-full h-48 rounded-lg shadow"/>
-            ))}
-          </div>
-        </div>
+          ))
+        )}
       </div>
     </div>
   );

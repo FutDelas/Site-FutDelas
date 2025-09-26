@@ -10,6 +10,7 @@ import Encontros from './routes/Encontros';
 import Login from './routes/Login';
 import CanalDosPaiseResponsaveis from "./routes/CanalDePaiseResponsaveis";
 import PerfilJogadora from './routes/PerfilJogadora';
+import Perfil from './routes/Perfil.jsx'
 import PerfilOlheiro from './routes/PerfilOlheiro';
 import Recompensas from './routes/Recompensas';
 import Escolinhas from "./routes/Escolinhas";
@@ -30,6 +31,7 @@ function App() {
 
           {/* Rotas de perfil */}
           <Route path="/perfil-jogadora" element={<PerfilJogadora/>}/>
+          <Route path="/perfil" element={<Perfil/>}/>
           <Route path="/perfil-olheiro" element={<PerfilOlheiro/>}/>
 
           {/* Outras rotas */}
