@@ -1,0 +1,18 @@
+[
+  {
+    "id": "f1593323-edbe-4713-bab9-e7892ecb1adf",
+    "nome": "giovanna",
+    "dataNascimento": "2025-09-16",
+    "email": "giosay@hotmail.com",
+    "senha": "1234",
+    "tipo": "jogadora"
+  },
+  {
+    "id": "250a1814-63db-4812-8e8b-b1bd1c51eac9",
+    "nome": "Ágatha Melissa",
+    "dataNascimento": "2025-09-03",
+    "email": "acde@fgh.com",
+    "senha": "1234",
+    "tipo": "jogadora"
+  }
+]

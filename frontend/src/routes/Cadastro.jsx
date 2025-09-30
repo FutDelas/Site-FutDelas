@@ -1,37 +1,45 @@
 import { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Cadastro = () => {
-  //declarando a URL da API que será consumida
   const API_URL = "http://localhost:3001/perfil";
+  const navigate = useNavigate();
 
+  const [perfil, setPerfil] = useState([]);
+  const [novoPerfil, setNovoPerfil] = useState({
+    nome: "",
+    dataNascimento: "",
+    email: "",
+    senha: "",
+    tipo: "",
+  });
 
-
-
-
-  const handleCadastro = (e) => {
-    e.preventDefault();
-
-    if (!tipo) {
-      alert("Por favor, selecione o tipo de conta.");
+  const cadastrarPerfil = async () => {
+    if (
+      !novoPerfil.nome ||
+      !novoPerfil.dataNascimento ||
+      !novoPerfil.email ||
+      !novoPerfil.senha ||
+      !novoPerfil.tipo
+    ) {
+      alert("Campos obrigatórios");
       return;
     }
 
-    const novoUsuario = { nome, dataNascimento, email, senha, tipo };
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
-    const existe = usuarios.find((u) => u.email === email);
-    if (existe) {
-      alert("E-mail já cadastrado! Vá para o login.");
-      navigate("/login");
-      return;
+    try {
+      const response = await axios.post(API_URL, novoPerfil);
+      setPerfil([...perfil, response.data]);
+      setNovoPerfil({
+        nome: "",
+        dataNascimento: "",
+        email: "",
+        senha: "",
+        tipo: "",
+      });
+    } catch (error) {
+      console.log("Erro ao cadastrar perfil", error);
     }
-
-    usuarios.push(novoUsuario);
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
-    alert("Cadastro realizado com sucesso!");
-    navigate("/login");
   };
 
   return (
@@ -40,43 +48,54 @@ const Cadastro = () => {
         <h1 className="text-3xl font-bold text-center text-[#0A192F] mb-6">
           Cadastro
         </h1>
-        <form onSubmit={handleCadastro} className="flex flex-col gap-4">
+        <form
+          className="flex flex-col gap-4"
+          onSubmit={(e) => {
+            e.preventDefault();
+            cadastrarPerfil();
+          }}
+        >
           <input
             type="text"
             placeholder="Nome completo"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-            required
+            value={novoPerfil.nome}
+            onChange={(e) =>
+              setNovoPerfil({ ...novoPerfil, nome: e.target.value })
+            }
             className="border border-[#F06292] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F06292]"
           />
           <input
             type="date"
-            value={dataNascimento}
-            onChange={(e) => setDataNascimento(e.target.value)}
-            required
+            value={novoPerfil.dataNascimento}
+            onChange={(e) =>
+              setNovoPerfil({ ...novoPerfil, dataNascimento: e.target.value })
+            }
             className="border border-[#F06292] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F06292]"
           />
           <input
             type="email"
             placeholder="E-mail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+            value={novoPerfil.email}
+            onChange={(e) =>
+              setNovoPerfil({ ...novoPerfil, email: e.target.value })
+            }
             className="border border-[#F06292] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F06292]"
           />
           <input
             type="password"
             placeholder="Senha"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            required
+            value={novoPerfil.senha}
+            onChange={(e) =>
+              setNovoPerfil({ ...novoPerfil, senha: e.target.value })
+            }
             className="border border-[#F06292] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F06292]"
           />
           <select
-            value={tipo}
-            onChange={(e) => setTipo(e.target.value)}
+            value={novoPerfil.tipo}
+            onChange={(e) =>
+              setNovoPerfil({ ...novoPerfil, tipo: e.target.value })
+            }
             className="border border-[#F06292] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F06292] text-[#0A192F]"
-            required
           >
             <option value="" disabled>
               Selecione o tipo de conta
