@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Cadastro = () => {
-  const [nome, setNome] = useState("");
-  const [dataNascimento, setDataNascimento] = useState("");
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [tipo, setTipo] = useState("");
-  const navigate = useNavigate();
+  //declarando a URL da API que será consumida
+  const API_URL = "http://localhost:3001/perfil";
+
+
+
+
 
   const handleCadastro = (e) => {
     e.preventDefault();
@@ -82,7 +82,8 @@ const Cadastro = () => {
               Selecione o tipo de conta
             </option>
             <option value="jogadora">Jogadora</option>
-            <option value="treinador">Olheiro(a)</option>
+            <option value="treinador">Treinador</option>
+            <option value="empresa/patrocinador">Empresa/Patrocinador</option>
           </select>
           <button
             type="submit"

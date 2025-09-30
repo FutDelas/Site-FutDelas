@@ -36,7 +36,7 @@ const Login = () => {
           <button type="submit" className="bg-[#F06292] text-white font-semibold py-3 rounded-lg hover:bg-[#d94d7f] transition">Entrar</button>
           <p className="text-center text-sm text-[#0A192F] mt-2">
             Não tem conta?{" "}
-            <span className="cursor-pointer text-[#F06292] hover:underline" onClick={() => navigate("/cadastro-jogadora")}>Cadastre-se Jogadora</span> |{" "}
+            <span className="cursor-pointer text-[#F06292] hover:underline" onClick={() => navigate("/cadastro")}>Cadastre-se</span> |{" "}
             <span className="cursor-pointer text-[#F06292] hover:underline" onClick={() => navigate("/cadastro-olheiro")}>Cadastre-se Olheiro</span>
           </p>
         </form>
