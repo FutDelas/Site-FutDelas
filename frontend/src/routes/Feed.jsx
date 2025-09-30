@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const PerfilJogadora = () => {
+const Feed = () => {
   const [usuario, setUsuario] = useState(null);
   const [editando, setEditando] = useState(false);
   const [formData, setFormData] = useState({
@@ -269,4 +269,4 @@ const PerfilJogadora = () => {
   );
 };
 
-export default PerfilJogadora;
+export default Feed;

@@ -8,9 +8,9 @@ import Error from './routes/Error';
 import Mapa from './routes/Mapa';
 import Encontros from './routes/Encontros';
 import Login from './routes/Login';
-import CanalDosPaiseResponsaveis from "./routes/CanalDePaiseResponsaveis";
-import PerfilJogadora from './routes/PerfilJogadora';
-import Perfil from './routes/Perfil.jsx'
+import CanalDePaiseResponsaveis from "./routes/CanalDePaiseResponsaveis";
+import Perfil from './routes/Perfil';
+import Feed from './routes/Feed';
 import PerfilOlheiro from './routes/PerfilOlheiro';
 import Recompensas from './routes/Recompensas';
 import Escolinhas from "./routes/Escolinhas";
@@ -30,14 +30,14 @@ function App() {
           <Route path="/login" element={<Login/>}/>
 
           {/* Rotas de perfil */}
-          <Route path="/perfil-jogadora" element={<PerfilJogadora/>}/>
+          <Route path="/feed" element={<Feed/>}/>
           <Route path="/perfil" element={<Perfil/>}/>
           <Route path="/perfil-olheiro" element={<PerfilOlheiro/>}/>
 
           {/* Outras rotas */}
           <Route path="/mapa" element={<Mapa/>}/>
           <Route path="/encontros" element={<Encontros/>}/>
-          <Route path="/canal-de-pais-e-responsaveis" element={<CanalDosPaiseResponsaveis/>}/>
+          <Route path="/canal-de-pais-e-responsaveis" element={<CanalDePaiseResponsaveis/>}/>
           <Route path="/recompensas" element={<Recompensas/>}/>
           <Route path="/escolinhas" element={<Escolinhas />} />
 

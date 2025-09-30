@@ -25,7 +25,7 @@ const Login = () => {
 
         // Redireciona de acordo com o tipo
         if (usuario.tipo === "jogadora") {
-          navigate("/perfil-jogadora");
+          navigate("/feed");
         } else {
           navigate("/perfil-olheiro");
         }
