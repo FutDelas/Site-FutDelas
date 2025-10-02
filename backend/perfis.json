@@ -57,5 +57,17 @@
     "peso": "",
     "localizacao": "",
     "habilidades": []
+  },
+  {
+    "id": "92e7cb9f-63c1-42bd-8c75-223e9aa12079",
+    "nome": "Maria Joaquina",
+    "dataNascimento": "2025-10-01",
+    "email": "mariajoaquina@email.com",
+    "senha": "$2b$10$PEObDClOQhuxv9vkSfeL5.5jcGE/7DbXEhbfT5dmLC1vFeSTyHWru",
+    "tipo": "jogadora",
+    "foto": "",
+    "localAtuacao": "",
+    "experiencia": "",
+    "sobre": ""
   }
 ]

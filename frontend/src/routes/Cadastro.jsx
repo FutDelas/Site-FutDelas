@@ -6,7 +6,6 @@ const Cadastro = () => {
   const API_URL = "http://localhost:3001/perfil";
   const navigate = useNavigate();
 
-  const [perfil, setPerfil] = useState([]);
   const [novoPerfil, setNovoPerfil] = useState({
     nome: "",
     dataNascimento: "",
@@ -23,13 +22,17 @@ const Cadastro = () => {
       !novoPerfil.senha ||
       !novoPerfil.tipo
     ) {
-      alert("Campos obrigatórios");
+      alert("Todos os campos são obrigatórios");
       return;
     }
 
     try {
       const response = await axios.post(API_URL, novoPerfil);
-      setPerfil([...perfil, response.data]);
+
+      // Mensagem de sucesso
+      alert(`Usuário ${response.data.nome} cadastrado com sucesso!`);
+
+      // Limpa o formulário
       setNovoPerfil({
         nome: "",
         dataNascimento: "",
@@ -37,8 +40,16 @@ const Cadastro = () => {
         senha: "",
         tipo: "",
       });
+
+      // Redireciona para a página de login
+      navigate("/login");
     } catch (error) {
       console.log("Erro ao cadastrar perfil", error);
+      if (error.response && error.response.data.message) {
+        alert(error.response.data.message);
+      } else {
+        alert("Erro ao cadastrar. Tente novamente.");
+      }
     }
   };
 
