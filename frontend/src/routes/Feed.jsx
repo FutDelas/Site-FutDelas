@@ -212,7 +212,9 @@ const Feed = () => {
             )}
           </div>
           <h2 className="text-center text-xl font-bold mt-2 text-[#003B5C]">{usuario.nome}</h2>
-          <p className="text-center text-gray-600">{usuario.posicao || "Jogadora"}</p>
+          <p className="text-center text-gray-600">{usuario.posicao || ""}</p>
+          <p className="text-center text-gray-600">{usuario.sobre || ""}</p>
+          <p className="text-center text-gray-600">{usuario.habilidades || ""}</p>
           <button
             onClick={() => navigate("/perfil-jogadora")}
             className="cursor-pointer block w-full mt-4 bg-[#003B5C] text-white py-2 rounded-lg hover:bg-[#005080] transition"
@@ -304,7 +306,7 @@ const Feed = () => {
                           {c.autor === usuario.nome && (
                             <button
                               onClick={() => deletarComentario(post.id, i)}
-                              className="ml-2 text-red-500 hover:text-red-700 text-sm"
+                              className="cursor-pointer ml-2 text-red-500 hover:text-red-700 text-sm"
                             >
                               🗑️
                             </button>

@@ -79,6 +79,9 @@ const PerfilJogadora = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg">
+      <h1 className="text-2xl font-bold text-center text-[#003B5C] mb-6">
+          Perfil 👤
+        </h1>
         {/* Foto e botão editar */}
         <div className="flex flex-col items-center mb-6">
           <img
@@ -96,23 +99,27 @@ const PerfilJogadora = () => {
           )}
           <button
             onClick={() => (editando ? salvarPerfil() : setEditando(true))}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+            className="cursor-pointer bg-[#003B5C] text-white px-4 py-2 rounded-lg hover:bg-[#14001dff] transition"
           >
             {editando ? "Salvar" : "Editar Perfil"}
           </button>
         </div>
 
         {/* Informações */}
-        <div className="space-y-4">
-          <div>
-            <strong>Nome:</strong>{" "}
+
+        <div className="space-y-8">
+                 <div>
+            <strong className="text-[#003B5C]">Email:</strong> {usuario.email}
+        </div>
+          <div className="">
+            <strong className="text-[#003B5C]">Nome:</strong>{" "}
             {editando ? (
               <input
                 type="text"
                 name="nome"
                 value={formData.nome}
                 onChange={handleInputChange}
-                className="border p-1 rounded w-full"
+                className="border border-gray-300 p-1 rounded-lg w-full"
               />
             ) : (
               usuario.nome
@@ -120,18 +127,14 @@ const PerfilJogadora = () => {
           </div>
 
           <div>
-            <strong>Email:</strong> {usuario.email}
-          </div>
-
-          <div>
-            <strong>Posição:</strong>{" "}
+            <strong className="text-[#003B5C]">Posição:</strong>{" "}
             {editando ? (
               <input
                 type="text"
                 name="posicao"
                 value={formData.posicao}
                 onChange={handleInputChange}
-                className="border p-1 rounded w-full"
+                className="border border-gray-300 p-1 rounded-lg w-full"
               />
             ) : (
               usuario.posicao || "-"
@@ -139,65 +142,65 @@ const PerfilJogadora = () => {
           </div>
 
           <div>
-            <strong>Altura:</strong>{" "}
+            <strong className="text-[#003B5C]">Altura:</strong>{" "}
             {editando ? (
               <input
                 type="number"
                 name="altura"
                 value={formData.altura}
                 onChange={handleInputChange}
-                className="border p-1 rounded w-full"
+                className="border border-gray-300 p-1 rounded-lg w-full"
               />
             ) : usuario.altura ? `${usuario.altura} cm` : "-"}
           </div>
 
           <div>
-            <strong>Peso:</strong>{" "}
+            <strong className="text-[#003B5C]">Peso:</strong>{" "}
             {editando ? (
               <input
                 type="number"
                 name="peso"
                 value={formData.peso}
                 onChange={handleInputChange}
-                className="border p-1 rounded w-full"
+                className="border border-gray-300 p-1 rounded-lg w-full"
               />
             ) : usuario.peso ? `${usuario.peso} kg` : "-"}
           </div>
 
           <div>
-            <strong>Localização:</strong>{" "}
+            <strong className="text-[#003B5C]">Localização:</strong>{" "}
             {editando ? (
               <input
                 type="text"
                 name="localizacao"
                 value={formData.localizacao}
                 onChange={handleInputChange}
-                className="border p-1 rounded w-full"
+                className="border border-gray-300 p-1 rounded-lg w-full"
               />
             ) : usuario.localizacao || "-"}
           </div>
 
           <div>
-            <strong>Sobre:</strong>{" "}
+            <strong className="text-[#003B5C]"g>Sobre:</strong>{" "}
             {editando ? (
               <textarea
                 name="sobre"
                 value={formData.sobre}
                 onChange={handleInputChange}
-                className="border p-2 rounded w-full"
+                className="border border-gray-300 p-1 rounded-lg w-full"
               />
             ) : usuario.sobre || "-"}
           </div>
 
           <div>
-            <strong>Habilidades:</strong>{" "}
+            <strong className="text-[#003B5C]">Habilidades:</strong>{" "}
             {editando ? (
               <input
                 type="text"
                 name="habilidades"
                 value={formData.habilidades}
                 onChange={handleInputChange}
-                className="border p-2 rounded w-full"
+                className="border border-gray-300 p-1 rounded-lg w-full"
                 placeholder="Separe por vírgula"
               />
             ) : usuario.habilidades && usuario.habilidades.length > 0 ? (
