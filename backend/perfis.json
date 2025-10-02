@@ -14,5 +14,13 @@
     "email": "acde@fgh.com",
     "senha": "1234",
     "tipo": "jogadora"
+  },
+  {
+    "id": "28fd70f6-5318-4dc9-891e-0c145352d213",
+    "nome": "Pedro Oliveira",
+    "dataNascimento": "1987-07-16",
+    "email": "pedro@email.com",
+    "senha": "pedro123",
+    "tipo": "olheiro"
   }
 ]

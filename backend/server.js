@@ -48,7 +48,6 @@ app.post("/perfil", (req, res) => {
   perfis.push(novoPerfil);
   salvarPerfis(perfis);
 
-  // Agora devolve o objeto criado
   res.status(201).json(novoPerfil);
 });
 

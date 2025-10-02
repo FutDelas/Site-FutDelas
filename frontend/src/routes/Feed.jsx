@@ -157,7 +157,6 @@ const Feed = () => {
 
   return (
     <div className="min-h-screen bg-[#F0F4F8] flex gap-6 p-6">
-      {/* COLUNA ESQUERDA - PERFIL + EVENTOS */}
       <div className="w-1/4 flex flex-col gap-4">
         {/* PERFIL */}
         <div className="bg-white rounded-xl shadow-md p-4">
@@ -179,7 +178,7 @@ const Feed = () => {
           <h2 className="text-center text-xl font-bold mt-2">{usuario.nome}</h2>
           <p className="text-center text-gray-600">{usuario.posicao || "Jogadora"}</p>
           <button
-            onClick={() => navigate("/perfil")}
+            onClick={() => navigate("/perfil-jogadora")}
             className="block w-full mt-4 bg-[#003B5C] text-white py-2 rounded-lg hover:bg-[#005080] transition"
           >
             Ver Perfil Completo

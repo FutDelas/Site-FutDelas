@@ -10,24 +10,20 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      // Faz a requisição para o backend
       const response = await fetch("http://localhost:3001/perfis");
       const usuarios = await response.json();
 
-      // Verifica se o email e senha existem no backend
       const usuario = usuarios.find(
         (u) => u.email === email && u.senha === senha
       );
 
       if (usuario) {
-        // Salva o usuário logado no localStorage (para manter sessão)
         localStorage.setItem("usuarioLogado", JSON.stringify(usuario));
 
-        // Redireciona de acordo com o tipo
         if (usuario.tipo === "jogadora") {
           navigate("/feed");
         } else {
-          navigate("/perfil-olheiro");
+          navigate("/atletas");
         }
       } else {
         alert("E-mail ou senha inválidos!");
@@ -67,22 +63,23 @@ const Login = () => {
           >
             Entrar
           </button>
-          <p className="text-center text-sm text-[#0A192F] mt-2">
-            Não tem conta?{" "}
+
+
+          <div className="flex justify-center gap-4 mt-2 text-sm">
             <span
               className="cursor-pointer text-[#F06292] hover:underline"
               onClick={() => navigate("/cadastro")}
             >
-              Cadastre-se
-            </span>{" "}
-            |{" "}
+              Cadastre-se como Jogadora
+            </span>
+            <span className="text-[#0A192F]">|</span>
             <span
               className="cursor-pointer text-[#F06292] hover:underline"
               onClick={() => navigate("/cadastro-olheiro")}
             >
-              Cadastre-se Olheiro
+              Cadastre-se como Olheiro
             </span>
-          </p>
+          </div>
         </form>
       </div>
     </div>

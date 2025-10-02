@@ -9,9 +9,10 @@ import Mapa from './routes/Mapa';
 import Encontros from './routes/Encontros';
 import Login from './routes/Login';
 import CanalDePaiseResponsaveis from "./routes/CanalDePaiseResponsaveis";
-import Perfil from './routes/Perfil';
+import PerfilJogadora from './routes/PerfilJogadora';
 import Feed from './routes/Feed';
 import PerfilOlheiro from './routes/PerfilOlheiro';
+import Atletas from './routes/Atletas';
 import Recompensas from './routes/Recompensas';
 import Escolinhas from "./routes/Escolinhas";
 
@@ -30,9 +31,10 @@ function App() {
           <Route path="/login" element={<Login/>}/>
 
           {/* Rotas de perfil */}
+          <Route path="/perfil-jogadora" element={<PerfilJogadora/>}/>
           <Route path="/feed" element={<Feed/>}/>
-          <Route path="/perfil" element={<Perfil/>}/>
           <Route path="/perfil-olheiro" element={<PerfilOlheiro/>}/>
+          <Route path="/atletas" element={<Atletas/>}/>
 
           {/* Outras rotas */}
           <Route path="/mapa" element={<Mapa/>}/>

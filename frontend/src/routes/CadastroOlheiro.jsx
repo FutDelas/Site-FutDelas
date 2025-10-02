@@ -12,7 +12,7 @@ const CadastroOlheiro = () => {
     dataNascimento: "",
     email: "",
     senha: "",
-    tipo: "olheiro", // 👈 já define direto
+    tipo: "olheiro", 
   });
 
   const cadastrarPerfil = async () => {
@@ -34,7 +34,7 @@ const CadastroOlheiro = () => {
         dataNascimento: "",
         email: "",
         senha: "",
-        tipo: "olheiro", // 👈 mantém sempre fixo
+        tipo: "olheiro", 
       });
       alert("Olheiro cadastrado com sucesso!");
       navigate("/login");
