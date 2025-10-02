@@ -1,19 +1,33 @@
 [
   {
     "id": "f1593323-edbe-4713-bab9-e7892ecb1adf",
-    "nome": "giovanna",
-    "dataNascimento": "2025-09-16",
+    "nome": "Giovanna Alves",
+    "dataNascimento": "2003-09-16",
     "email": "giosay@hotmail.com",
     "senha": "1234",
-    "tipo": "jogadora"
+    "tipo": "jogadora",
+    "posicao": "",
+    "altura": "",
+    "peso": "",
+    "localizacao": "São Paulo",
+    "sobre": "",
+    "habilidades": [],
+    "foto": "uploads/1759414789806-giovanna-alves.png"
   },
   {
     "id": "250a1814-63db-4812-8e8b-b1bd1c51eac9",
     "nome": "Ágatha Melissa",
-    "dataNascimento": "2025-09-03",
+    "dataNascimento": "2013-09-03",
     "email": "acde@fgh.com",
     "senha": "1234",
-    "tipo": "jogadora"
+    "tipo": "jogadora",
+    "foto": "uploads/1759415922765-agatha-melissa.jpg",
+    "posicao": "",
+    "altura": "",
+    "peso": "",
+    "localizacao": "",
+    "sobre": "",
+    "habilidades": []
   },
   {
     "id": "28fd70f6-5318-4dc9-891e-0c145352d213",
@@ -21,6 +35,27 @@
     "dataNascimento": "1987-07-16",
     "email": "pedro@email.com",
     "senha": "pedro123",
-    "tipo": "olheiro"
+    "tipo": "olheiro",
+    "foto": "uploads/1759413349587-pedro-oliveira.jpg",
+    "localAtuacao": "São Paulo",
+    "experiencia": "Trabalho a 5 anos com o passa a bola",
+    "sobre": ""
+  },
+  {
+    "id": "b9458795-fba6-4297-b276-49b6a908cc20",
+    "nome": "Luísa Pacheco",
+    "dataNascimento": "2001-11-13",
+    "email": "luisa@email.com",
+    "senha": "luisa123",
+    "tipo": "jogadora",
+    "foto": "uploads/1759413845490-luisa-pacheco.jpg",
+    "localAtuacao": "",
+    "experiencia": "",
+    "sobre": "",
+    "posicao": "",
+    "altura": "",
+    "peso": "",
+    "localizacao": "",
+    "habilidades": []
   }
 ]

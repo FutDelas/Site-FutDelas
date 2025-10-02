@@ -36,13 +36,14 @@ const Atletas = () => {
 
   const jogadorasFiltradas = jogadoras.filter(j => {
     const atendePosicao = filtroPosicao ? j.posicao === filtroPosicao : true;
-    const atendeAno = filtroAno ? j.anoNascimento === filtroAno : true;
-    const atendeEstado = filtroEstado ? j.estado === filtroEstado : true;
+    const atendeAno = filtroAno ? j.dataNascimento?.split("-")[0] === filtroAno : true;
+    const atendeEstado = filtroEstado ? j.localizacao === filtroEstado : true;
     return atendePosicao && atendeAno && atendeEstado;
   });
 
   return (
     <div className="min-h-screen bg-[#F0F4F8] p-6">
+      {/* Layout com coluna à esquerda */}
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6">
         
         {/* Coluna do Olheiro */}
@@ -51,14 +52,6 @@ const Atletas = () => {
           <p><strong>Email:</strong> {usuario.email}</p>
           <p><strong>Local de atuação:</strong> {usuario.localAtuacao || "Não informado"}</p>
           <p><strong>Experiência:</strong> {usuario.experiencia || "Não informada"}</p>
-          
-          {/* Botão Editar Perfil */}
-          <button
-            onClick={() => window.location.href = "/perfil-olheiro"}
-            className="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
-          >
-            Editar Perfil
-          </button>
         </div>
 
         {/* Coluna principal */}
@@ -105,14 +98,14 @@ const Atletas = () => {
                   onClick={() => setSelecionada(jogadora)}
                 >
                   <img
-                    src={jogadora.foto || "https://via.placeholder.com/150"}
+                    src={jogadora.foto ? `http://localhost:3001/${jogadora.foto}` : "https://via.placeholder.com/150"}
                     alt={jogadora.nome}
                     className="w-full h-48 object-cover rounded-lg mb-2"
                   />
                   <h3 className="text-xl font-bold">{jogadora.nome}</h3>
                   <p><strong>Posição:</strong> {jogadora.posicao || "Não informada"}</p>
-                  <p><strong>Ano Nasc.:</strong> {jogadora.anoNascimento || "-"}</p>
-                  <p><strong>Estado:</strong> {jogadora.estado || "-"}</p>
+                  <p><strong>Ano Nasc.:</strong> {jogadora.dataNascimento?.split("-")[0] || "-"}</p>
+                  <p><strong>Estado:</strong> {jogadora.localizacao || "-"}</p>
                   <p><strong>Altura:</strong> {jogadora.altura ? `${jogadora.altura} cm` : "-"}</p>
                   <p><strong>Peso:</strong> {jogadora.peso ? `${jogadora.peso} kg` : "-"}</p>
                 </div>
@@ -135,39 +128,19 @@ const Atletas = () => {
             </button>
             <div className="flex flex-col md:flex-row gap-4">
               <img
-                src={selecionada.foto || "https://via.placeholder.com/150"}
+                src={selecionada.foto ? `http://localhost:3001/${selecionada.foto}` : "https://via.placeholder.com/150"}
                 alt={selecionada.nome}
                 className="w-48 h-48 object-cover rounded-lg"
               />
               <div className="flex-1">
                 <h2 className="text-2xl font-bold mb-2">{selecionada.nome}</h2>
                 <p><strong>Posição:</strong> {selecionada.posicao || "Não informada"}</p>
-                <p><strong>Ano de Nascimento:</strong> {selecionada.anoNascimento || "Não informado"}</p>
-                <p><strong>Estado:</strong> {selecionada.estado || "Não informado"}</p>
+                <p><strong>Ano de Nascimento:</strong> {selecionada.dataNascimento?.split("-")[0] || "Não informado"}</p>
+                <p><strong>Estado:</strong> {selecionada.localizacao || "Não informado"}</p>
                 <p><strong>Altura:</strong> {selecionada.altura ? `${selecionada.altura} cm` : "-"}</p>
                 <p><strong>Peso:</strong> {selecionada.peso ? `${selecionada.peso} kg` : "-"}</p>
                 <p><strong>Sobre:</strong> {selecionada.sobre || "Não informado"}</p>
                 <p><strong>Habilidades:</strong> {selecionada.habilidades && selecionada.habilidades.length > 0 ? selecionada.habilidades.join(", ") : "Nenhuma habilidade cadastrada"}</p>
-                {selecionada.galeriasFotos && selecionada.galeriasFotos.length > 0 && (
-                  <div className="mt-4">
-                    <h3 className="font-bold mb-2">Fotos</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                      {selecionada.galeriasFotos.map((foto, idx) => (
-                        <img key={idx} src={foto} alt={`Foto ${idx}`} className="w-full h-32 object-cover rounded-lg"/>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                {selecionada.galeriasVideos && selecionada.galeriasVideos.length > 0 && (
-                  <div className="mt-4">
-                    <h3 className="font-bold mb-2">Vídeos</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                      {selecionada.galeriasVideos.map((video, idx) => (
-                        <video key={idx} src={video} controls className="w-full h-48 rounded-lg"/>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           </div>

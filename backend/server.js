@@ -4,12 +4,14 @@ const bodyParser = require("body-parser");
 const { v4: uuid } = require("uuid");
 const fs = require("fs");
 const path = require("path");
+const multer = require("multer");
 
 const app = express();
-const Port = 3001;
+const PORT = 3001;
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // Serve as fotos
 
 const caminho = path.join(__dirname, "perfis.json");
 
@@ -35,6 +37,13 @@ const salvarPerfis = (data) => {
 
 let perfis = lerPerfis();
 
+// Configuração do multer para upload de fotos
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, "uploads/"),
+  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname)
+});
+const upload = multer({ storage });
+
 // Rota cadastrar perfis
 app.post("/perfil", (req, res) => {
   const { nome, dataNascimento, email, senha, tipo } = req.body;
@@ -43,8 +52,7 @@ app.post("/perfil", (req, res) => {
     return res.status(400).json({ message: "Todos os campos são obrigatórios" });
   }
 
-  const novoPerfil = { id: uuid(), nome, dataNascimento, email, senha, tipo };
-
+  const novoPerfil = { id: uuid(), nome, dataNascimento, email, senha, tipo, foto: "", localAtuacao: "", experiencia: "", sobre: "" };
   perfis.push(novoPerfil);
   salvarPerfis(perfis);
 
@@ -59,9 +67,7 @@ app.get("/perfis", (req, res) => {
 // Rota para consulta personalizada
 app.get("/perfil/search", (req, res) => {
   const { pesquisa } = req.query;
-  if (!pesquisa) {
-    return res.status(400).json({ message: "Pesquisa não encontrada" });
-  }
+  if (!pesquisa) return res.status(400).json({ message: "Pesquisa não encontrada" });
 
   const termoPesquisa = pesquisa.toLowerCase();
   const resultado = perfis.filter((perfil) =>
@@ -71,6 +77,32 @@ app.get("/perfil/search", (req, res) => {
   res.json(resultado);
 });
 
-app.listen(Port, () => {
-  console.log(`Servidor rodando na porta ${Port}`);
+// Atualizar perfil
+app.put("/perfil/:id", (req, res) => {
+  const { id } = req.params;
+  const index = perfis.findIndex(p => p.id === id);
+  if (index === -1) return res.status(404).json({ message: "Perfil não encontrado" });
+
+  perfis[index] = { ...perfis[index], ...req.body };
+  salvarPerfis(perfis);
+
+  res.json(perfis[index]);
+});
+
+// Upload de foto
+app.post("/perfil/upload", upload.single("foto"), (req, res) => {
+  const { email } = req.body;
+  const foto = req.file.path.replace(/\\/g, "/"); // Corrige caminho no Windows
+
+  const perfilIndex = perfis.findIndex(p => p.email === email);
+  if (perfilIndex !== -1) {
+    perfis[perfilIndex].foto = foto;
+    salvarPerfis(perfis);
+    return res.json({ foto });
+  }
+  res.status(404).json({ message: "Perfil não encontrado" });
+});
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
