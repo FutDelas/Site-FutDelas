@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,35 +10,27 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3001/login", {
-        email,
-        senha,
-      });
+      const response = await fetch("http://localhost:3001/perfis");
+      const usuarios = await response.json();
 
-      const { token, message } = response.data;
+      const usuario = usuarios.find(
+        (u) => u.email === email && u.senha === senha
+      );
 
-      // Salva token e email no localStorage
-      localStorage.setItem("token", token);
-      localStorage.setItem("usuarioEmail", email);
+      if (usuario) {
+        localStorage.setItem("usuarioLogado", JSON.stringify(usuario));
 
-      alert(message);
-
-      // Redireciona dependendo do tipo (precisamos buscar o perfil)
-      const perfilRes = await axios.get("http://localhost:3001/perfis");
-      const usuario = perfilRes.data.find((u) => u.email === email);
-
-      if (usuario.tipo === "jogadora") {
-        navigate("/feed");
+        if (usuario.tipo === "jogadora") {
+          navigate("/feed");
+        } else {
+          navigate("/atletas");
+        }
       } else {
-        navigate("/atletas");
+        alert("E-mail ou senha inválidos!");
       }
     } catch (error) {
       console.error("Erro ao fazer login:", error);
-      if (error.response && error.response.data.message) {
-        alert(error.response.data.message);
-      } else {
-        alert("Erro de conexão com o servidor.");
-      }
+      alert("Erro de conexão com o servidor.");
     }
   };
 
@@ -72,6 +63,7 @@ const Login = () => {
           >
             Entrar
           </button>
+
 
           <div className="flex justify-center gap-4 mt-2 text-sm">
             <span

@@ -1,35 +1,5 @@
 [
   {
-    "id": "f1593323-edbe-4713-bab9-e7892ecb1adf",
-    "nome": "Giovanna Alves",
-    "dataNascimento": "2003-09-16",
-    "email": "giosay@hotmail.com",
-    "senha": "1234",
-    "tipo": "jogadora",
-    "posicao": "",
-    "altura": "",
-    "peso": "",
-    "localizacao": "São Paulo",
-    "sobre": "",
-    "habilidades": [],
-    "foto": "uploads/1759414789806-giovanna-alves.png"
-  },
-  {
-    "id": "250a1814-63db-4812-8e8b-b1bd1c51eac9",
-    "nome": "Ágatha Melissa",
-    "dataNascimento": "2013-09-03",
-    "email": "acde@fgh.com",
-    "senha": "1234",
-    "tipo": "jogadora",
-    "foto": "uploads/1759415922765-agatha-melissa.jpg",
-    "posicao": "",
-    "altura": "",
-    "peso": "",
-    "localizacao": "",
-    "sobre": "",
-    "habilidades": []
-  },
-  {
     "id": "28fd70f6-5318-4dc9-891e-0c145352d213",
     "nome": "Pedro Oliveira",
     "dataNascimento": "1987-07-16",
@@ -38,8 +8,46 @@
     "tipo": "olheiro",
     "foto": "uploads/1759413349587-pedro-oliveira.jpg",
     "localAtuacao": "São Paulo",
-    "experiencia": "Trabalho a 5 anos com o passa a bola",
-    "sobre": ""
+    "experiencia": "Trabalho há 5 anos com o Passa a Bola, avaliando jogadoras em categorias de base e profissionais.",
+    "sobre": "Olheiro experiente, especializado na identificação de talentos femininos em clubes e escolinhas."
+  },
+  {
+    "id": "f1593323-edbe-4713-bab9-e7892ecb1adf",
+    "nome": "Giovanna Alves",
+    "dataNascimento": "2003-09-16",
+    "email": "gioalves@email.com",
+    "senha": "giovanna123",
+    "tipo": "jogadora",
+    "posicao": "Centroavante",
+    "altura": "1.73",
+    "peso": "75",
+    "localizacao": "São Paulo",
+    "sobre": "Centroavante com boa finalização e presença de área. Destaca-se pela força física e bom posicionamento.",
+    "habilidades": [
+      "Finalização",
+      "Cabeceio",
+      "Posicionamento ofensivo"
+    ],
+    "foto": "uploads/1759414789806-giovanna-alves.png"
+  },
+  {
+    "id": "250a1814-63db-4812-8e8b-b1bd1c51eac9",
+    "nome": "Ágatha Melissa",
+    "dataNascimento": "2013-09-03",
+    "email": "agatha@email.com",
+    "senha": "melissa123",
+    "tipo": "jogadora",
+    "foto": "uploads/1759415922765-agatha-melissa.jpg",
+    "posicao": "Meia ofensiva",
+    "altura": "1.50",
+    "peso": "45",
+    "localizacao": "Curitiba",
+    "sobre": "Jovem promessa com excelente controle de bola e visão de jogo. Atua como meia criadora.",
+    "habilidades": [
+      "Drible curto",
+      "Passe preciso",
+      "Visão de jogo"
+    ]
   },
   {
     "id": "b9458795-fba6-4297-b276-49b6a908cc20",
@@ -49,25 +57,186 @@
     "senha": "luisa123",
     "tipo": "jogadora",
     "foto": "uploads/1759413845490-luisa-pacheco.jpg",
-    "localAtuacao": "",
-    "experiencia": "",
-    "sobre": "",
-    "posicao": "",
-    "altura": "",
-    "peso": "",
-    "localizacao": "",
-    "habilidades": []
+    "posicao": "Zagueira",
+    "altura": "1.78",
+    "peso": "70",
+    "localizacao": "Belo Horizonte",
+    "sobre": "Zagueira firme na marcação e boa na saída de bola. Líder natural dentro de campo.",
+    "habilidades": [
+      "Desarme",
+      "Jogo aéreo",
+      "Posicionamento defensivo"
+    ]
   },
   {
-    "id": "92e7cb9f-63c1-42bd-8c75-223e9aa12079",
-    "nome": "Maria Joaquina",
-    "dataNascimento": "2025-10-01",
-    "email": "mariajoaquina@email.com",
-    "senha": "$2b$10$PEObDClOQhuxv9vkSfeL5.5jcGE/7DbXEhbfT5dmLC1vFeSTyHWru",
+    "id": "9d1fbe7a-76a9-4b32-9b63-8e9c06a8d5f3",
+    "nome": "Isabela Martins",
+    "dataNascimento": "2004-04-22",
+    "email": "isabela.martins@email.com",
+    "senha": "isa123",
     "tipo": "jogadora",
-    "foto": "",
-    "localAtuacao": "",
-    "experiencia": "",
-    "sobre": ""
+    "foto": "uploads/1759612400009-isabela-martins.jpg",
+    "posicao": "Meia defensiva",
+    "altura": "1.69",
+    "peso": "63",
+    "localizacao": "Natal",
+    "sobre": "Meia defensiva com grande capacidade de marcação e boa distribuição de passes. Atua como volante moderna, com visão de jogo e controle de ritmo.",
+    "habilidades": [
+      "Desarme",
+      "Passe longo",
+      "Posicionamento tático"
+    ]
+  },
+  {
+    "id": "1a01fbd9-56aa-43b1-8fa7-cd92d6ce2f91",
+    "nome": "Beatriz Nunes",
+    "dataNascimento": "2002-02-14",
+    "email": "bea.nunes@email.com",
+    "senha": "bea123",
+    "tipo": "jogadora",
+    "foto": "uploads/1759612400001-beatriz-nunes.jpg",
+    "posicao": "Goleira",
+    "altura": "1.79",
+    "peso": "72",
+    "localizacao": "Recife",
+    "sobre": "Goleira segura e com ótima leitura de jogo. Destaque nas defesas em bolas aéreas.",
+    "habilidades": [
+      "Reflexo",
+      "Reposição de bola",
+      "Saídas do gol"
+    ]
+  },
+  {
+    "id": "2c0de4e8-38f7-4c88-8fb2-3237d58c8c6b",
+    "nome": "Camila Rocha",
+    "dataNascimento": "1999-05-09",
+    "email": "camila.rocha@email.com",
+    "senha": "camila123",
+    "tipo": "jogadora",
+    "foto": "uploads/1759612400002-camila-rocha.jpg",
+    "posicao": "Lateral-direita",
+    "altura": "1.66",
+    "peso": "60",
+    "localizacao": "Fortaleza",
+    "sobre": "Lateral-direita com boa resistência e precisão nos cruzamentos. Atua tanto na defesa quanto no apoio ofensivo.",
+    "habilidades": [
+      "Velocidade",
+      "Cruzamento",
+      "Marcação"
+    ]
+  },
+  {
+    "id": "3f7a1bb4-4f9b-4529-900d-9a381ab68b93",
+    "nome": "Helena Duarte",
+    "dataNascimento": "2004-12-21",
+    "email": "helena.duarte@email.com",
+    "senha": "helena123",
+    "tipo": "jogadora",
+    "foto": "uploads/1759614692963-helena-duarte.png",
+    "posicao": "Volante",
+    "altura": "1.70",
+    "peso": "64",
+    "localizacao": "Brasília",
+    "sobre": "Volante com bom poder de marcação e passes certeiros. Garante equilíbrio entre defesa e ataque.",
+    "habilidades": [
+      "Desarme",
+      "Passe curto",
+      "Cobertura"
+    ]
+  },
+  {
+    "id": "4b6612b2-8cd5-4c5f-9a4a-44fce30f3221",
+    "nome": "Larissa Mendes",
+    "dataNascimento": "2012-03-11",
+    "email": "lari.mendes@email.com",
+    "senha": "larissa123",
+    "tipo": "jogadora",
+    "foto": "uploads/1759614249748-larissa-mendes.jpg",
+    "posicao": "Ponta-direita",
+    "altura": "1.62",
+    "peso": "54",
+    "localizacao": "Campinas",
+    "sobre": "Jogadora ágil e criativa, especialista em jogadas individuais pelo lado direito.",
+    "habilidades": [
+      "Drible",
+      "Velocidade",
+      "Finalização"
+    ]
+  },
+  {
+    "id": "5c9a43f7-5d8e-41e7-8e13-9d8d73fa761a",
+    "nome": "Mariana Torres",
+    "dataNascimento": "2000-07-27",
+    "email": "mariana.torres@email.com",
+    "senha": "mari123",
+    "tipo": "jogadora",
+    "foto": "uploads/1759612400005-mariana-torres.jpg",
+    "posicao": "Meia central",
+    "altura": "1.68",
+    "peso": "61",
+    "localizacao": "Porto Alegre",
+    "sobre": "Meia central com excelente visão de jogo e domínio de bola. Comanda o meio-campo.",
+    "habilidades": [
+      "Passe longo",
+      "Controle de bola",
+      "Organização tática"
+    ]
+  },
+  {
+    "id": "6aa8e4d3-b0fb-4d24-bc89-6b87c67a92e9",
+    "nome": "Clara Lima",
+    "dataNascimento": "2007-01-19",
+    "email": "clara.lima@email.com",
+    "senha": "clara123",
+    "tipo": "jogadora",
+    "foto": "uploads/1759612400006-clara-lima.jpg",
+    "posicao": "Lateral-esquerda",
+    "altura": "1.60",
+    "peso": "52",
+    "localizacao": "Salvador",
+    "sobre": "Lateral-esquerda jovem com ótimo preparo físico e apoio ofensivo constante.",
+    "habilidades": [
+      "Velocidade",
+      "Cruzamento",
+      "Resistência"
+    ]
+  },
+  {
+    "id": "7de0f15b-1788-4b67-a197-6dc8d0a4eab9",
+    "nome": "Júlia Ferreira",
+    "dataNascimento": "1998-08-30",
+    "email": "julia.ferreira@email.com",
+    "senha": "julia123",
+    "tipo": "jogadora",
+    "foto": "uploads/1759612400007-julia-ferreira.jpg",
+    "posicao": "Zagueira",
+    "altura": "1.75",
+    "peso": "69",
+    "localizacao": "Curitiba",
+    "sobre": "Jogadora experiente na defesa, conhecida pela liderança e firmeza nas disputas.",
+    "habilidades": [
+      "Marcação",
+      "Cabeceio",
+      "Saída de bola"
+    ]
+  },
+  {
+    "id": "8c2e1e12-3e90-4db0-9df6-0a3a8ef12d21",
+    "nome": "Sofia Cardoso",
+    "dataNascimento": "2003-11-02",
+    "email": "sofia.cardoso@email.com",
+    "senha": "sofia123",
+    "tipo": "jogadora",
+    "foto": "uploads/1759612400008-sofia-cardoso.jpg",
+    "posicao": "Centroavante",
+    "altura": "1.74",
+    "peso": "68",
+    "localizacao": "Florianópolis",
+    "sobre": "Centroavante técnica e veloz, com faro de gol e ótimo posicionamento dentro da área.",
+    "habilidades": [
+      "Finalização",
+      "Movimentação",
+      "Controle de bola"
+    ]
   }
 ]

@@ -7,7 +7,35 @@ const Atletas = () => {
 
   const [filtroPosicao, setFiltroPosicao] = useState("");
   const [filtroAno, setFiltroAno] = useState("");
-  const [filtroEstado, setFiltroEstado] = useState("");
+  const [filtroRegiao, setFiltroRegiao] = useState("");
+
+  const categoriasPosicao = {
+    "Goleira": ["Goleira"],
+    "Defensoras": ["Zagueira", "Lateral-direita", "Lateral-esquerda"],
+    "Meio-campo": ["Meia defensiva", "Meia ofensiva", "Volante", "Meia central"],
+    "Atacantes": ["Centroavante", "Ponta-direita"]
+  };
+
+  const cidadeParaRegiao = (estado) => {
+    const regioes = {
+      "Norte": ["AM","PA","RO","RR","AP","AC","TO"],
+      "Nordeste": ["BA","PE","CE","RN","PI","AL","SE","MA","PB"],
+      "Centro-Oeste": ["GO","MT","MS","DF"],
+      "Sudeste": ["SP","RJ","MG","ES"],
+      "Sul": ["RS","PR","SC"]
+    };
+    for (const reg in regioes) {
+      if (regioes[reg].includes(estado)) return reg;
+    }
+    return estado;
+  };
+
+  const eventos = [
+    { titulo: "Treinamento Regional", data: "12/10/2025", local: "Centro de Treinamento XYZ" },
+    { titulo: "Observação Sub-20", data: "20/10/2025", local: "Estádio ABC" },
+    { titulo: "Workshop Técnico", data: "05/11/2025", local: "Sala de Eventos FIAP" },
+    { titulo: "Seleção Estadual", data: "15/11/2025", local: "Ginásio Municipal" }
+  ];
 
   useEffect(() => {
     const logado = JSON.parse(localStorage.getItem("usuarioLogado"));
@@ -34,55 +62,90 @@ const Atletas = () => {
 
   if (!usuario) return <p className="text-center mt-10">Carregando...</p>;
 
+  const atendeFaixaAno = (dataNascimento) => {
+    if (!filtroAno || !dataNascimento) return true;
+    const ano = parseInt(dataNascimento.split("-")[0]);
+    switch(filtroAno) {
+      case "2001-2010": return ano >= 2001 && ano <= 2010;
+      case "2011-2020": return ano >= 2011 && ano <= 2020;
+      default: return true;
+    }
+  }
+
   const jogadorasFiltradas = jogadoras.filter(j => {
-    const atendePosicao = filtroPosicao ? j.posicao === filtroPosicao : true;
-    const atendeAno = filtroAno ? j.dataNascimento?.split("-")[0] === filtroAno : true;
-    const atendeEstado = filtroEstado ? j.localizacao === filtroEstado : true;
-    return atendePosicao && atendeAno && atendeEstado;
+    const atendePosicao = filtroPosicao
+      ? categoriasPosicao[filtroPosicao]?.includes(j.posicao)
+      : true;
+    const atendeAno = atendeFaixaAno(j.dataNascimento);
+    const atendeRegiao = filtroRegiao ? cidadeParaRegiao(j.localizacao) === filtroRegiao : true;
+    return atendePosicao && atendeAno && atendeRegiao;
   });
 
   return (
     <div className="min-h-screen bg-[#F0F4F8] p-6">
-      {/* Layout com coluna à esquerda */}
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6">
-        
-        {/* Coluna do Olheiro */}
-        <div className="md:w-1/4 bg-white rounded-2xl shadow-lg p-6 flex-shrink-0">
-          <h1 className="text-3xl font-bold text-[#003B5C] mb-4">{usuario.nome}</h1>
-          <p><strong>Email:</strong> {usuario.email}</p>
-          <p><strong>Local de atuação:</strong> {usuario.localAtuacao || "Não informado"}</p>
-          <p><strong>Experiência:</strong> {usuario.experiencia || "Não informada"}</p>
+
+        {/* Coluna esquerda: Olheiro + Eventos */}
+        <div className="md:w-1/4 flex flex-col gap-6">
+
+          {/* Perfil do Olheiro */}
+          <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center">
+            <img
+              src={usuario.foto ? `http://localhost:3001/${usuario.foto}` : "https://via.placeholder.com/150"}
+              alt={usuario.nome}
+              className="w-28 h-28 object-cover rounded-full mb-4"
+            />
+            <h1 className="text-2xl font-bold text-[#003B5C] mb-2 text-center">{usuario.nome}</h1>
+            <p><strong>Local de atuação:</strong> {usuario.localAtuacao || "Não informado"}</p>
+            <p><strong>Experiência:</strong> {usuario.experiencia || "Não informada"}</p>
+            <button
+              onClick={() => window.location.href = "/perfil-olheiro"}
+              className="mt-4 w-full bg-[#003B5C] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#00527A] transition"
+            >
+              Ver meu perfil
+            </button>
+          </div>
+
+          {/* Seção de Eventos (abaixo do Olheiro) */}
+          <div className="bg-white rounded-2xl shadow-lg p-4">
+            <h2 className="text-xl font-bold text-[#003B5C] mb-4 text-center">Eventos</h2>
+            <div className="flex flex-col gap-3">
+              {eventos.map((evento, i) => (
+                <div key={i} className="bg-[#E8E8E8] p-3 rounded-lg">
+                  <h3 className="font-semibold text-[#6a1838]">{evento.titulo}</h3>
+                  <p className="text-sm text-[#003B5C]"><strong>Data:</strong> {evento.data}</p>
+                  <p className="text-sm text-[#003B5C]"><strong>Local:</strong> {evento.local}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Coluna principal */}
+        {/* Coluna direita: Jogadoras */}
         <div className="md:w-3/4 flex flex-col gap-6">
 
           {/* Filtros */}
           <div className="bg-white p-4 rounded-2xl shadow grid grid-cols-1 md:grid-cols-3 gap-4">
             <select value={filtroPosicao} onChange={(e) => setFiltroPosicao(e.target.value)} className="p-2 border rounded">
               <option value="">Todas as posições</option>
-              <option value="Goleira">Goleira</option>
-              <option value="Zagueira">Zagueira</option>
-              <option value="Lateral">Lateral</option>
-              <option value="Meio-campo">Meio-campo</option>
-              <option value="Atacante">Atacante</option>
+              {Object.keys(categoriasPosicao).map((cat, i) => (
+                <option key={i} value={cat}>{cat}</option>
+              ))}
             </select>
 
             <select value={filtroAno} onChange={(e) => setFiltroAno(e.target.value)} className="p-2 border rounded">
-              <option value="">Todos os anos</option>
-              <option value="2005">2005</option>
-              <option value="2006">2006</option>
-              <option value="2007">2007</option>
-              <option value="2008">2008</option>
+              <option value="">Todas as faixas</option>
+              <option value="2001-2010">2001-2010</option>
+              <option value="2011-2020">2011-2020</option>
             </select>
 
-            <select value={filtroEstado} onChange={(e) => setFiltroEstado(e.target.value)} className="p-2 border rounded">
-              <option value="">Todos os estados</option>
-              <option value="SP">São Paulo</option>
-              <option value="RJ">Rio de Janeiro</option>
-              <option value="MG">Minas Gerais</option>
-              <option value="RS">Rio Grande do Sul</option>
-              <option value="BA">Bahia</option>
+            <select value={filtroRegiao} onChange={(e) => setFiltroRegiao(e.target.value)} className="p-2 border rounded">
+              <option value="">Todas as regiões</option>
+              <option value="Norte">Norte</option>
+              <option value="Nordeste">Nordeste</option>
+              <option value="Centro-Oeste">Centro-Oeste</option>
+              <option value="Sudeste">Sudeste</option>
+              <option value="Sul">Sul</option>
             </select>
           </div>
 
@@ -112,7 +175,6 @@ const Atletas = () => {
               ))}
             </div>
           )}
-
         </div>
       </div>
 
@@ -140,13 +202,12 @@ const Atletas = () => {
                 <p><strong>Altura:</strong> {selecionada.altura ? `${selecionada.altura} cm` : "-"}</p>
                 <p><strong>Peso:</strong> {selecionada.peso ? `${selecionada.peso} kg` : "-"}</p>
                 <p><strong>Sobre:</strong> {selecionada.sobre || "Não informado"}</p>
-                <p><strong>Habilidades:</strong> {selecionada.habilidades && selecionada.habilidades.length > 0 ? selecionada.habilidades.join(", ") : "Nenhuma habilidade cadastrada"}</p>
+                <p><strong>Habilidades:</strong> {selecionada.habilidades?.length ? selecionada.habilidades.join(", ") : "Nenhuma habilidade cadastrada"}</p>
               </div>
             </div>
           </div>
         </div>
       )}
-
     </div>
   );
 };
