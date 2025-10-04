@@ -74,8 +74,15 @@ const Feed = () => {
       }
       return p;
     });
+
     setPublicacoes(atualizado);
     localStorage.setItem("publicacoes", JSON.stringify(atualizado));
+
+    // Atualiza também a publicação aberta, se for o mesmo post
+    if (publicacaoAberta && publicacaoAberta.id === id) {
+      const postAtualizado = atualizado.find((p) => p.id === id);
+      setPublicacaoAberta(postAtualizado);
+    }
   };
 
   // Comentar
@@ -88,6 +95,12 @@ const Feed = () => {
     );
     setPublicacoes(atualizado);
     localStorage.setItem("publicacoes", JSON.stringify(atualizado));
+
+    // Atualiza também a publicação aberta se for a mesma
+    if (publicacaoAberta && publicacaoAberta.id === id) {
+      const postAtualizado = atualizado.find((p) => p.id === id);
+      setPublicacaoAberta(postAtualizado);
+    }
   };
 
   // Excluir publicação
@@ -135,7 +148,7 @@ const Feed = () => {
 
         {/* EVENTOS */}
         <div className="bg-white rounded-xl shadow-md p-4 border-l-4 border-pink-500">
-          <h2 className="text-purple-900 text-lg font-bold text-[#14001dff] mb-2">Próximos Eventos</h2>
+          <h2 className="text-purple-900 text-lg font-bold mb-2">Próximos Eventos</h2>
           <ul className="space-y-2">
             <li className="p-2 bg-gray-100 rounded-lg">🏆 Torneio Feminino - Sábado</li>
             <li className="p-2 bg-gray-100 rounded-lg">📅 Treino Comunitário - Segunda</li>
@@ -196,7 +209,7 @@ const Feed = () => {
                 <div className="mt-3 flex items-center gap-6">
                   <button
                     onClick={(e) => {
-                      e.stopPropagation(); // evita abrir o modal ao curtir
+                      e.stopPropagation();
                       curtirPost(pub.id);
                     }}
                     className={`cursor-pointer text-sm ${

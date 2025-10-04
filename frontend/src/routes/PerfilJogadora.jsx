@@ -36,7 +36,7 @@ const PerfilJogadora = () => {
     }
   }, []);
 
-  if (!usuario) return <p className="text-center mt-10">Carregando...</p>;
+  if (!usuario) return <p className="text-center mt-10 text-purple-900 font-semibold">Carregando...</p>;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -77,136 +77,142 @@ const PerfilJogadora = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg">
-      <h1 className="text-2xl font-bold text-center text-[#003B5C] mb-6">
-          Perfil 👤
-        </h1>
+    <div className="min-h-screen bg-[#F0F4F8] p-6 flex justify-center">
+      <div className="w-full max-w-3xl bg-white rounded-2xl shadow-lg p-8">
+        <h1 className="text-3xl font-bold text-center text-purple-900 mb-6">Perfil 👤</h1>
+
         {/* Foto e botão editar */}
-        <div className="flex flex-col items-center mb-6">
+        <div className="flex flex-col items-center mb-8">
           <img
             src={formData.foto ? `http://localhost:3001/${formData.foto}` : "https://via.placeholder.com/150"}
             alt="Perfil"
-            className="w-32 h-32 rounded-full object-cover mb-2"
+            className="w-32 h-32 rounded-full object-cover mb-4"
           />
           {editando && (
             <input
               type="file"
               accept="image/*"
               onChange={handleFotoChange}
-              className="mb-2"
+              className="mb-4 cursor-pointer"
             />
           )}
           <button
             onClick={() => (editando ? salvarPerfil() : setEditando(true))}
-            className="cursor-pointer bg-[#003B5C] text-white px-4 py-2 rounded-lg hover:bg-[#14001dff] transition"
+            className="cursor-pointer bg-purple-900 text-white px-6 py-2 rounded-xl hover:bg-pink-600 transition font-semibold"
           >
             {editando ? "Salvar" : "Editar Perfil"}
           </button>
         </div>
 
         {/* Informações */}
+        <div className="space-y-6">
+          <div className="flex flex-col md:flex-row gap-4 items-start">
+            <strong className="text-purple-900 w-32">Email:</strong>
+            <span>{usuario.email}</span>
+          </div>
 
-        <div className="space-y-8">
-                 <div>
-            <strong className="text-[#003B5C]">Email:</strong> {usuario.email}
-        </div>
-          <div className="">
-            <strong className="text-[#003B5C]">Nome:</strong>{" "}
+          <div className="flex flex-col md:flex-row gap-4 items-start">
+            <strong className="text-purple-900 w-32">Nome:</strong>
             {editando ? (
               <input
                 type="text"
                 name="nome"
                 value={formData.nome}
                 onChange={handleInputChange}
-                className="border border-gray-300 p-1 rounded-lg w-full"
+                className="border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
             ) : (
-              usuario.nome
+              <span>{usuario.nome}</span>
             )}
           </div>
 
-          <div>
-            <strong className="text-[#003B5C]">Posição:</strong>{" "}
+          <div className="flex flex-col md:flex-row gap-4 items-start">
+            <strong className="text-purple-900 w-32">Posição:</strong>
             {editando ? (
               <input
                 type="text"
                 name="posicao"
                 value={formData.posicao}
                 onChange={handleInputChange}
-                className="border border-gray-300 p-1 rounded-lg w-full"
+                className="border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
             ) : (
-              usuario.posicao || "-"
+              <span>{usuario.posicao || "-"}</span>
             )}
           </div>
 
-          <div>
-            <strong className="text-[#003B5C]">Altura:</strong>{" "}
+          <div className="flex flex-col md:flex-row gap-4 items-start">
+            <strong className="text-purple-900 w-32">Altura:</strong>
             {editando ? (
               <input
                 type="number"
                 name="altura"
                 value={formData.altura}
                 onChange={handleInputChange}
-                className="border border-gray-300 p-1 rounded-lg w-full"
+                className="border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
-            ) : usuario.altura ? `${usuario.altura} cm` : "-"}
+            ) : (
+              <span>{usuario.altura ? `${usuario.altura} cm` : "-"}</span>
+            )}
           </div>
 
-          <div>
-            <strong className="text-[#003B5C]">Peso:</strong>{" "}
+          <div className="flex flex-col md:flex-row gap-4 items-start">
+            <strong className="text-purple-900 w-32">Peso:</strong>
             {editando ? (
               <input
                 type="number"
                 name="peso"
                 value={formData.peso}
                 onChange={handleInputChange}
-                className="border border-gray-300 p-1 rounded-lg w-full"
+                className="border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
-            ) : usuario.peso ? `${usuario.peso} kg` : "-"}
+            ) : (
+              <span>{usuario.peso ? `${usuario.peso} kg` : "-"}</span>
+            )}
           </div>
 
-          <div>
-            <strong className="text-[#003B5C]">Localização:</strong>{" "}
+          <div className="flex flex-col md:flex-row gap-4 items-start">
+            <strong className="text-purple-900 w-32">Localização:</strong>
             {editando ? (
               <input
                 type="text"
                 name="localizacao"
                 value={formData.localizacao}
                 onChange={handleInputChange}
-                className="border border-gray-300 p-1 rounded-lg w-full"
+                className="border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
-            ) : usuario.localizacao || "-"}
+            ) : (
+              <span>{usuario.localizacao || "-"}</span>
+            )}
           </div>
 
-          <div>
-            <strong className="text-[#003B5C]"g>Sobre:</strong>{" "}
+          <div className="flex flex-col md:flex-row gap-4 items-start">
+            <strong className="text-purple-900 w-32">Sobre:</strong>
             {editando ? (
               <textarea
                 name="sobre"
                 value={formData.sobre}
                 onChange={handleInputChange}
-                className="border border-gray-300 p-1 rounded-lg w-full"
+                className="border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
-            ) : usuario.sobre || "-"}
+            ) : (
+              <span>{usuario.sobre || "-"}</span>
+            )}
           </div>
 
-          <div>
-            <strong className="text-[#003B5C]">Habilidades:</strong>{" "}
+          <div className="flex flex-col md:flex-row gap-4 items-start">
+            <strong className="text-purple-900 w-32">Habilidades:</strong>
             {editando ? (
               <input
                 type="text"
                 name="habilidades"
                 value={formData.habilidades}
                 onChange={handleInputChange}
-                className="border border-gray-300 p-1 rounded-lg w-full"
                 placeholder="Separe por vírgula"
+                className="border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
-            ) : usuario.habilidades && usuario.habilidades.length > 0 ? (
-              usuario.habilidades.join(", ")
             ) : (
-              "-"
+              <span>{usuario.habilidades && usuario.habilidades.length > 0 ? usuario.habilidades.join(", ") : "-"}</span>
             )}
           </div>
         </div>
