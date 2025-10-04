@@ -3,21 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 const Feed = () => {
   const [usuario, setUsuario] = useState(null);
-  const [editando, setEditando] = useState(false);
-  const [formData, setFormData] = useState({
-    nome: "",
-    posicao: "",
-    altura: "",
-    peso: "",
-    localizacao: "",
-    sobre: "",
-    habilidades: "",
-    fotoPerfil: "",
-    galeriasFotos: [],
-    galeriasVideos: [],
-  });
+  const [formData, setFormData] = useState({});
   const [publicacoes, setPublicacoes] = useState([]);
   const [novaPublicacao, setNovaPublicacao] = useState("");
+  const [publicacaoAberta, setPublicacaoAberta] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,81 +33,7 @@ const Feed = () => {
     setPublicacoes(postsSalvos);
   }, []);
 
-  // Atualiza foto de perfil
-  const handleFotoChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      const novaFoto = reader.result;
-      setUsuario((prev) => {
-        const atualizado = { ...prev, fotoPerfil: novaFoto };
-        localStorage.setItem("usuarioLogado", JSON.stringify(atualizado));
-
-        // Atualiza no array de usuários
-        const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-        const index = usuarios.findIndex((u) => u.email === atualizado.email);
-        if (index !== -1) {
-          usuarios[index].fotoPerfil = novaFoto;
-          localStorage.setItem("usuarios", JSON.stringify(usuarios));
-        }
-
-        return atualizado;
-      });
-      setFormData((prev) => ({ ...prev, fotoPerfil: novaFoto }));
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleGaleria = (e, tipo) => {
-    const files = Array.from(e.target.files);
-    files.forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setFormData((prev) => ({
-          ...prev,
-          [tipo]: [...prev[tipo], reader.result],
-        }));
-      };
-      reader.readAsDataURL(file);
-    });
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const salvarPerfil = () => {
-    const usuarioAtualizado = {
-      ...usuario,
-      nome: formData.nome,
-      posicao: formData.posicao,
-      altura: formData.altura,
-      peso: formData.peso,
-      localizacao: formData.localizacao,
-      sobre: formData.sobre,
-      habilidades: formData.habilidades
-        ? formData.habilidades.split(",").map((h) => h.trim())
-        : [],
-      fotoPerfil: formData.fotoPerfil,
-      galeriasFotos: formData.galeriasFotos,
-      galeriasVideos: formData.galeriasVideos,
-    };
-
-    localStorage.setItem("usuarioLogado", JSON.stringify(usuarioAtualizado));
-
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-    const index = usuarios.findIndex((u) => u.email === usuarioAtualizado.email);
-    if (index !== -1) {
-      usuarios[index] = usuarioAtualizado;
-      localStorage.setItem("usuarios", JSON.stringify(usuarios));
-    }
-
-    setUsuario(usuarioAtualizado);
-    setEditando(false);
-  };
-
+  // Criar nova publicação
   const handlePostar = () => {
     if (!novaPublicacao.trim()) return;
     const novoPost = {
@@ -128,6 +43,7 @@ const Feed = () => {
       texto: novaPublicacao,
       data: new Date().toLocaleString("pt-BR"),
       curtidas: 0,
+      curtidoPor: [],
       comentarios: [],
     };
     const atualizado = [novoPost, ...publicacoes];
@@ -136,14 +52,33 @@ const Feed = () => {
     setNovaPublicacao("");
   };
 
+  // Curtir / Descurtir postagem
   const curtirPost = (id) => {
-    const atualizado = publicacoes.map((p) =>
-      p.id === id ? { ...p, curtidas: p.curtidas + 1 } : p
-    );
+    const atualizado = publicacoes.map((p) => {
+      if (p.id === id) {
+        if (p.curtidoPor.includes(usuario.nome)) {
+          // Descurtir
+          return {
+            ...p,
+            curtidas: p.curtidas - 1,
+            curtidoPor: p.curtidoPor.filter((nome) => nome !== usuario.nome),
+          };
+        } else {
+          // Curtir
+          return {
+            ...p,
+            curtidas: p.curtidas + 1,
+            curtidoPor: [...p.curtidoPor, usuario.nome],
+          };
+        }
+      }
+      return p;
+    });
     setPublicacoes(atualizado);
     localStorage.setItem("publicacoes", JSON.stringify(atualizado));
   };
 
+  // Comentar
   const adicionarComentario = (id, comentario) => {
     if (!comentario.trim()) return;
     const atualizado = publicacoes.map((p) =>
@@ -155,29 +90,11 @@ const Feed = () => {
     localStorage.setItem("publicacoes", JSON.stringify(atualizado));
   };
 
-  const deletarComentario = (postId, comentarioIndex) => {
-    const atualizado = publicacoes.map((p) => {
-      if (p.id === postId) {
-        const comentariosAtualizados = [...p.comentarios];
-        const comentario = comentariosAtualizados[comentarioIndex];
-        if (comentario && comentario.autor === usuario.nome) {
-          comentariosAtualizados.splice(comentarioIndex, 1);
-          return { ...p, comentarios: comentariosAtualizados };
-        } else {
-          alert("Você só pode deletar seus próprios comentários.");
-          return p;
-        }
-      }
-      return p;
-    });
-    setPublicacoes(atualizado);
-    localStorage.setItem("publicacoes", JSON.stringify(atualizado));
-  };
-
+  // Excluir publicação
   const deletarPostagem = (postId) => {
     const atualizado = publicacoes.filter((p) => {
       if (p.id === postId) {
-        return p.autor !== usuario.nome; // Remove apenas se for do usuário atual
+        return p.autor !== usuario.nome;
       }
       return true;
     });
@@ -186,6 +103,7 @@ const Feed = () => {
     } else {
       setPublicacoes(atualizado);
       localStorage.setItem("publicacoes", JSON.stringify(atualizado));
+      setPublicacaoAberta(null);
     }
   };
 
@@ -193,39 +111,31 @@ const Feed = () => {
 
   return (
     <div className="min-h-screen bg-[#F0F4F8] flex gap-6 p-6">
+      {/* SIDEBAR PERFIL */}
       <div className="w-1/4 flex flex-col gap-4">
-        {/* PERFIL */}
-        <div className="bg-white rounded-xl shadow-md p-4">
-          <div className="relative">
+        <div className="bg-white rounded-xl shadow-md p-4 border-l-4 border-pink-500">
+          <div className="relative flex flex-col items-center">
             <img
               src={formData.fotoPerfil || ""}
               alt="Foto de perfil"
-              className="w-24 h-24 mx-auto rounded-full object-cover"
+              className="w-24 h-24 rounded-full object-cover"
             />
-            {editando && (
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleFotoChange}
-                className="absolute bottom-0 right-0 bg-white p-1 rounded-full cursor-pointer border border-[#003B5C]"
-              />
-            )}
+            <h2 className="text-center text-xl font-bold mt-2 text-pink-600">{usuario.nome}</h2>
+            <p className="text-center text-gray-500">{usuario.posicao || ""}</p>
+            <p className="text-center text-gray-500">{usuario.sobre || ""}</p>
+            <p className="text-center text-gray-500">{usuario.habilidades || ""}</p>
+            <button
+              onClick={() => navigate("/perfil-jogadora")}
+              className="cursor-pointer block w-full mt-4 bg-purple-900 text-white py-2 rounded-lg hover:bg-pink-600 transition"
+            >
+              Ver Perfil Completo
+            </button>
           </div>
-          <h2 className="text-center text-xl font-bold mt-2 text-[#003B5C]">{usuario.nome}</h2>
-          <p className="text-center text-gray-600">{usuario.posicao || ""}</p>
-          <p className="text-center text-gray-600">{usuario.sobre || ""}</p>
-          <p className="text-center text-gray-600">{usuario.habilidades || ""}</p>
-          <button
-            onClick={() => navigate("/perfil-jogadora")}
-            className="cursor-pointer block w-full mt-4 bg-[#003B5C] text-white py-2 rounded-lg hover:bg-[#005080] transition"
-          >
-            Ver Perfil Completo
-          </button>
         </div>
 
         {/* EVENTOS */}
-        <div className="bg-white rounded-xl shadow-md p-4">
-          <h2 className="text-lg font-bold text-[#14001dff] mb-2">Próximos Eventos</h2>
+        <div className="bg-white rounded-xl shadow-md p-4 border-l-4 border-pink-500">
+          <h2 className="text-purple-900 text-lg font-bold text-[#14001dff] mb-2">Próximos Eventos</h2>
           <ul className="space-y-2">
             <li className="p-2 bg-gray-100 rounded-lg">🏆 Torneio Feminino - Sábado</li>
             <li className="p-2 bg-gray-100 rounded-lg">📅 Treino Comunitário - Segunda</li>
@@ -234,104 +144,169 @@ const Feed = () => {
         </div>
       </div>
 
-      {/* COLUNA CENTRAL - PUBLICAÇÕES */}
+      {/* FEED */}
       <div className="w-3/4">
-        {/* FORMULÁRIO DE POSTAGEM */}
+        {/* Criar Post */}
         <div className="bg-white rounded-xl shadow-md p-4 mb-4">
           <textarea
             placeholder="Compartilhe algo..."
             value={novaPublicacao}
             onChange={(e) => setNovaPublicacao(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-lg mb-2 resize-none focus:outline-none focus:ring-2 focus:ring-[#003B5C]"
+            className="w-full p-2 border border-gray-300 rounded-lg mb-2 resize-none focus:outline-none focus:ring-2 focus:ring-pink-500"
             rows={3}
           />
           <button
             onClick={handlePostar}
-            className="cursor-pointer bg-[#003B5C] text-white px-4 py-2 rounded-lg hover:bg-[#005080] transition"
+            className="cursor-pointer bg-purple-900 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition"
           >
             Publicar
           </button>
         </div>
 
-        {/* FEED DE PUBLICAÇÕES */}
-        {publicacoes.length === 0 ? (
-          <p className="text-gray-500 text-center bg-white rounded-xl shadow-md p-4">
-            Nenhuma publicação ainda.
-          </p>
-        ) : (
-          publicacoes.map((post) => (
-            <div
-              key={post.id}
-              className="bg-white rounded-xl shadow-md p-4 mb-4 border-l-4 border-[#003B5C]"
-            >
-              <div className="flex justify-between items-start">
-                <div className="flex gap-4 items-start">
+        {/* Lista de publicações */}
+        <div className="space-y-6">
+          {publicacoes.length === 0 ? (
+            <p className="text-gray-500 text-center bg-white rounded-xl shadow-md p-4">
+              Nenhuma publicação ainda.
+            </p>
+          ) : (
+            publicacoes.map((pub) => (
+              <div
+                key={pub.id}
+                className="bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition cursor-pointer"
+                onClick={() => setPublicacaoAberta(pub)}
+              >
+                {/* Cabeçalho */}
+                <div className="flex gap-4 items-center">
                   <img
+                    src={pub.fotoPerfil || ""}
                     alt="Autor"
                     className="w-12 h-12 rounded-full object-cover"
                   />
-                  <div className="flex-1">
-                    <div className="flex justify-between items-start">
-                      <h3 className="font-bold text-[#003B5C]">{post.autor}</h3>
-                      {post.autor === usuario.nome && (
-                        <button
-                          onClick={() => deletarPostagem(post.id)}
-                          className="cursor-pointer text-red-500 hover:text-red-700 text-sm"
-                        >
-                          🗑️
-                        </button>
-                      )}
-                    </div>
-                      <div className="bg-gray-200 w-260 p-3 rounded-lg mt-3">
-                        <p className="text-gray-800">{post.texto}</p>
-                        <p className="text-xs text-gray-500 mt-1">{post.data}</p>
-                      </div>
-
-                    {/* Curtidas e comentários */}
-                    <div className="flex gap-4 mt-2 items-center">
-                      <button
-                        onClick={() => curtirPost(post.id)}
-                        className="cursor-pointer text-sm text-blue-500 hover:underline"
-                      >
-                        💜 ({post.curtidas})
-                      </button>
-                    </div>
-
-                    <div className="mt-2">
-                      {post.comentarios.map((c, i) => (
-                        <div key={i} className="flex justify-between items-start mb-2 bg-gray-50 p-2 rounded-lg">
-                          <p className="text-sm text-gray-600">
-                            💬 <strong>{c.autor}:</strong> {c.texto}
-                          </p>
-                          {c.autor === usuario.nome && (
-                            <button
-                              onClick={() => deletarComentario(post.id, i)}
-                              className="cursor-pointer ml-2 text-red-500 hover:text-red-700 text-sm"
-                            >
-                              🗑️
-                            </button>
-                          )}
-                        </div>
-                      ))}
-                      <input
-                        type="text"
-                        placeholder="Comentar..."
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") {
-                            adicionarComentario(post.id, e.target.value);
-                            e.target.value = "";
-                          }
-                        }}
-                        className="w-full border border-gray-200 p-1 rounded-lg mt-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#003B5C]"
-                      />
-                    </div>
+                  <div>
+                    <h3 className="font-bold text-pink-600">{pub.autor}</h3>
+                    <p className="text-xs text-gray-400">{pub.data}</p>
                   </div>
                 </div>
+
+                {/* Texto */}
+                <p className="mt-3 text-gray-800">{pub.texto}</p>
+
+                {/* Curtir / Descurtir */}
+                <div className="mt-3 flex items-center gap-6">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation(); // evita abrir o modal ao curtir
+                      curtirPost(pub.id);
+                    }}
+                    className={`cursor-pointer text-sm ${
+                      pub.curtidoPor.includes(usuario.nome)
+                        ? "text-purple-900 font-semibold"
+                        : "text-purple-900 hover:underline"
+                    }`}
+                  >
+                    {pub.curtidoPor.includes(usuario.nome) ? "💜 Curtir" : "💜 Curtir"} ({pub.curtidas})
+                  </button>
+                </div>
+
+                {/* Comentários */}
+                <div className="mt-4" onClick={(e) => e.stopPropagation()}>
+                  {pub.comentarios.map((c, i) => (
+                    <p key={i} className="text-sm text-purple-900 bg-gray-100 p-2 rounded-lg mb-2">
+                      💬 <strong>{c.autor}:</strong> {c.texto}
+                    </p>
+                  ))}
+                  <input
+                    type="text"
+                    placeholder="Comentar..."
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && e.target.value.trim() !== "") {
+                        adicionarComentario(pub.id, e.target.value);
+                        e.target.value = "";
+                      }
+                    }}
+                    className="w-full border border-pink-600 p-2 rounded-lg text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  />
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+
+      {/* MODAL */}
+      {publicacaoAberta && (
+        <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
+          <div className="bg-white rounded-xl shadow-lg p-6 w-2/3 max-h-[80vh] overflow-y-auto relative">
+            {/* Fechar */}
+            <button
+              onClick={() => setPublicacaoAberta(null)}
+              className="cursor-pointer absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-xl"
+            >
+              ❌
+            </button>
+
+            {/* Autor */}
+            <div className="flex gap-4 items-center">
+              <img
+                src={publicacaoAberta.fotoPerfil || ""}
+                alt="Autor"
+                className="w-12 h-12 rounded-full object-cover"
+              />
+              <div>
+                <h3 className="font-bold text-pink-600">{publicacaoAberta.autor}</h3>
+                <p className="text-xs text-gray-400">{publicacaoAberta.data}</p>
               </div>
             </div>
-          ))
-        )}
-      </div>
+
+            {/* Texto */}
+            <p className="mt-4 text-gray-800">{publicacaoAberta.texto}</p>
+
+            {/* Curtir / Descurtir + excluir */}
+            <div className="mt-4 flex gap-6 items-center">
+              <button
+                onClick={() => curtirPost(publicacaoAberta.id)}
+                className={`cursor-pointer text-sm ${
+                  publicacaoAberta.curtidoPor.includes(usuario.nome)
+                    ? "text-purple-900 font-semibold"
+                    : "text-purple-900 hover:underline"
+                }`}
+              >
+                {publicacaoAberta.curtidoPor.includes(usuario.nome) ? "💜 Curtir" : "💜 Curtir"} ({publicacaoAberta.curtidas})
+              </button>
+
+              {publicacaoAberta.autor === usuario.nome && (
+                <button
+                  onClick={() => deletarPostagem(publicacaoAberta.id)}
+                  className="cursor-pointer text-sm text-red-500 hover:underline"
+                >
+                  🗑️ Excluir
+                </button>
+              )}
+            </div>
+
+            {/* Comentários */}
+            <div className="mt-4">
+              {publicacaoAberta.comentarios.map((c, i) => (
+                <p key={i} className="text-sm text-purple-900 bg-gray-50 p-2 rounded-lg mb-2">
+                  💬 <strong>{c.autor}:</strong> {c.texto}
+                </p>
+              ))}
+              <input
+                type="text"
+                placeholder="Comentar..."
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && e.target.value.trim() !== "") {
+                    adicionarComentario(publicacaoAberta.id, e.target.value);
+                    e.target.value = "";
+                  }
+                }}
+                className="w-full border border-pink-600 p-2 rounded-lg text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
