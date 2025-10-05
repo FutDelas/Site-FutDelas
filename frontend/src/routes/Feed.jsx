@@ -3,103 +3,110 @@ import { useNavigate } from "react-router-dom";
 
 const Feed = () => {
   const [usuario, setUsuario] = useState(null);
-  const [formData, setFormData] = useState({});
   const [publicacoes, setPublicacoes] = useState([]);
   const [novaPublicacao, setNovaPublicacao] = useState("");
   const [publicacaoAberta, setPublicacaoAberta] = useState(null);
   const navigate = useNavigate();
 
+  // Carrega usuário logado e todos os posts do backend
   useEffect(() => {
     const logado = JSON.parse(localStorage.getItem("usuarioLogado"));
-    if (logado && logado.tipo === "jogadora") {
-      setUsuario(logado);
-      setFormData({
-        nome: logado.nome || "",
-        posicao: logado.posicao || "",
-        altura: logado.altura || "",
-        peso: logado.peso || "",
-        localizacao: logado.localizacao || "",
-        sobre: logado.sobre || "",
-        habilidades: logado.habilidades ? logado.habilidades.join(", ") : "",
-        foto: logado.foto || "",
-      });
-    } else {
-      window.location.href = "/login";
+    if (!logado || logado.tipo !== "jogadora") {
+      navigate("/login");
+      return;
     }
+    setUsuario(logado);
 
-    const postsSalvos = JSON.parse(localStorage.getItem("publicacoes")) || [];
-    setPublicacoes(postsSalvos);
-  }, []);
+    const carregarPosts = async () => {
+      try {
+        const res = await fetch("http://localhost:3001/posts"); // agora pega todos os posts
+        const data = await res.json();
+        setPublicacoes(data.reverse()); // mostra os mais recentes primeiro
+      } catch (err) {
+        console.error("Erro ao carregar posts:", err);
+      }
+    };
+
+    carregarPosts();
+  }, [navigate]);
 
   // Criar nova publicação
-  const handlePostar = () => {
+  const handlePostar = async () => {
     if (!novaPublicacao.trim()) return;
-    const novoPost = {
-      id: Date.now(),
-      autor: usuario.nome,
-      foto: usuario.foto,
-      texto: novaPublicacao,
-      data: new Date().toLocaleString("pt-BR"),
-      curtidas: 0,
-      curtidoPor: [],
-      comentarios: [],
-    };
-    const atualizado = [novoPost, ...publicacoes];
-    setPublicacoes(atualizado);
-    localStorage.setItem("publicacoes", JSON.stringify(atualizado));
-    setNovaPublicacao("");
+
+    try {
+      const res = await fetch("http://localhost:3001/post", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          autorEmail: usuario.email,
+          autorNome: usuario.nome,
+          foto: usuario.foto,
+          texto: novaPublicacao,
+        }),
+      });
+
+      if (res.ok) {
+        const postCriado = await res.json();
+        setPublicacoes((prev) => [postCriado, ...prev]);
+        setNovaPublicacao("");
+      } else {
+        alert("Erro ao criar postagem");
+      }
+    } catch (err) {
+      console.error("Erro ao postar:", err);
+    }
   };
 
-  // Curtir / Descurtir postagem
-  const curtirPost = (id) => {
+  // Curtir / descurtir
+  const curtirPost = async (id) => {
     const atualizado = publicacoes.map((p) => {
       if (p.id === id) {
-        if (p.curtidoPor.includes(usuario.nome)) {
+        if (p.curtidoPor?.includes(usuario.nome)) {
           return { ...p, curtidas: p.curtidas - 1, curtidoPor: p.curtidoPor.filter((n) => n !== usuario.nome) };
         } else {
-          return { ...p, curtidas: p.curtidas + 1, curtidoPor: [...p.curtidoPor, usuario.nome] };
+          return { ...p, curtidas: p.curtidas + 1, curtidoPor: [...(p.curtidoPor || []), usuario.nome] };
         }
       }
       return p;
     });
 
     setPublicacoes(atualizado);
-    localStorage.setItem("publicacoes", JSON.stringify(atualizado));
-
     if (publicacaoAberta && publicacaoAberta.id === id) {
-      const postAtualizado = atualizado.find((p) => p.id === id);
-      setPublicacaoAberta(postAtualizado);
+      setPublicacaoAberta(atualizado.find((p) => p.id === id));
     }
   };
 
-  // Comentar
+  // Adicionar comentário
   const adicionarComentario = (id, comentario) => {
     if (!comentario.trim()) return;
     const atualizado = publicacoes.map((p) =>
-      p.id === id ? { ...p, comentarios: [...p.comentarios, { texto: comentario, autor: usuario.nome }] } : p
+      p.id === id ? { ...p, comentarios: [...(p.comentarios || []), { texto: comentario, autor: usuario.nome }] } : p
     );
     setPublicacoes(atualizado);
-    localStorage.setItem("publicacoes", JSON.stringify(atualizado));
-
     if (publicacaoAberta && publicacaoAberta.id === id) {
-      const postAtualizado = atualizado.find((p) => p.id === id);
-      setPublicacaoAberta(postAtualizado);
+      setPublicacaoAberta(atualizado.find((p) => p.id === id));
     }
   };
 
-  // Excluir publicação
+  // Excluir postagem
   const deletarPostagem = (postId) => {
-    const atualizado = publicacoes.filter((p) => {
-      if (p.id === postId) return p.autor !== usuario.nome;
-      return true;
-    });
-    if (atualizado.length === publicacoes.length) {
+    const post = publicacoes.find((p) => p.id === postId);
+    if (!post || post.autorEmail !== usuario.email) {
       alert("Você só pode deletar suas próprias postagens.");
-    } else {
-      setPublicacoes(atualizado);
-      localStorage.setItem("publicacoes", JSON.stringify(atualizado));
-      setPublicacaoAberta(null);
+      return;
     }
+
+    fetch(`http://localhost:3001/post/${postId}`, { method: "DELETE" })
+      .then((res) => {
+        if (res.ok) {
+          setPublicacoes((prev) => prev.filter((p) => p.id !== postId));
+          setPublicacaoAberta(null);
+        } else {
+          alert("Erro ao deletar postagem");
+        }
+      })
+      .catch((err) => console.error(err));
   };
 
   if (!usuario) return <p className="text-center mt-10">Carregando...</p>;
@@ -108,7 +115,6 @@ const Feed = () => {
     <div className="min-h-screen bg-[#F0F4F8] flex gap-6 p-6">
       {/* SIDEBAR PERFIL */}
       <div className="w-1/4 flex flex-col gap-4">
-        {/* Card de Perfil */}
         <div className="bg-white rounded-xl shadow-md p-4 border-l-4 border-pink-500 flex flex-col items-center">
           <img
             src={usuario.foto ? `http://localhost:3001/${usuario.foto}` : "https://via.placeholder.com/150"}
@@ -125,7 +131,6 @@ const Feed = () => {
           </button>
         </div>
 
-        {/* Eventos */}
         <div className="bg-white rounded-xl shadow-md p-4 border-l-4 border-pink-500">
           <h2 className="text-purple-900 text-lg font-bold mb-2">Próximos Eventos</h2>
           <ul className="space-y-2">
@@ -138,7 +143,6 @@ const Feed = () => {
 
       {/* FEED */}
       <div className="w-3/4">
-        {/* Criar Post */}
         <div className="bg-white rounded-xl shadow-md p-4 mb-4">
           <textarea
             placeholder="Compartilhe algo..."
@@ -155,7 +159,6 @@ const Feed = () => {
           </button>
         </div>
 
-        {/* Lista de publicações */}
         <div className="space-y-6">
           {publicacoes.length === 0 ? (
             <p className="text-gray-500 text-center bg-white rounded-xl shadow-md p-4">
@@ -168,7 +171,6 @@ const Feed = () => {
                 className="bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition cursor-pointer"
                 onClick={() => setPublicacaoAberta(pub)}
               >
-                {/* Cabeçalho */}
                 <div className="flex gap-4 items-center">
                   <img
                     src={pub.foto ? `http://localhost:3001/${pub.foto}` : "https://via.placeholder.com/150"}
@@ -177,48 +179,23 @@ const Feed = () => {
                   />
                   <div>
                     <h3 className="font-bold text-pink-600">{pub.autor}</h3>
-                    <p className="text-xs text-gray-400">{pub.data}</p>
+                    <p className="text-xs text-gray-400">{pub.data || ""}</p>
                   </div>
                 </div>
 
-                {/* Texto */}
                 <p className="mt-3 text-gray-800">{pub.texto}</p>
 
-                {/* Curtir / Descurtir */}
                 <div className="mt-3 flex items-center gap-6">
                   <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      curtirPost(pub.id);
-                    }}
+                    onClick={(e) => { e.stopPropagation(); curtirPost(pub.id); }}
                     className={`cursor-pointer text-sm ${
-                      pub.curtidoPor.includes(usuario.nome)
+                      pub.curtidoPor?.includes(usuario.nome)
                         ? "text-purple-900 font-semibold"
                         : "text-purple-900 hover:underline"
                     }`}
                   >
-                    {pub.curtidoPor.includes(usuario.nome) ? "💜 Curtir" : "💜 Curtir"} ({pub.curtidas})
+                    {pub.curtidoPor?.includes(usuario.nome) ? "💜 Curtir" : "💜 Curtir"} ({pub.curtidas || 0})
                   </button>
-                </div>
-
-                {/* Comentários */}
-                <div className="mt-4" onClick={(e) => e.stopPropagation()}>
-                  {pub.comentarios.map((c, i) => (
-                    <p key={i} className="text-sm text-purple-900 bg-gray-100 p-2 rounded-lg mb-2">
-                      💬 <strong>{c.autor}:</strong> {c.texto}
-                    </p>
-                  ))}
-                  <input
-                    type="text"
-                    placeholder="Comentar..."
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" && e.target.value.trim() !== "") {
-                        adicionarComentario(pub.id, e.target.value);
-                        e.target.value = "";
-                      }
-                    }}
-                    className="w-full border border-pink-600 p-2 rounded-lg text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500"
-                  />
                 </div>
               </div>
             ))
@@ -255,15 +232,15 @@ const Feed = () => {
               <button
                 onClick={() => curtirPost(publicacaoAberta.id)}
                 className={`cursor-pointer text-sm ${
-                  publicacaoAberta.curtidoPor.includes(usuario.nome)
+                  publicacaoAberta.curtidoPor?.includes(usuario.nome)
                     ? "text-purple-900 font-semibold"
                     : "text-purple-900 hover:underline"
                 }`}
               >
-                {publicacaoAberta.curtidoPor.includes(usuario.nome) ? "💜 Curtir" : "💜 Curtir"} ({publicacaoAberta.curtidas})
+                {publicacaoAberta.curtidoPor?.includes(usuario.nome) ? "💜 Curtir" : "💜 Curtir"} ({publicacaoAberta.curtidas || 0})
               </button>
 
-              {publicacaoAberta.autor === usuario.nome && (
+              {publicacaoAberta.autorEmail === usuario.email && (
                 <button
                   onClick={() => deletarPostagem(publicacaoAberta.id)}
                   className="cursor-pointer text-sm text-red-500 hover:underline"
@@ -274,7 +251,7 @@ const Feed = () => {
             </div>
 
             <div className="mt-4">
-              {publicacaoAberta.comentarios.map((c, i) => (
+              {publicacaoAberta.comentarios?.map((c, i) => (
                 <p key={i} className="text-sm text-purple-900 bg-gray-50 p-2 rounded-lg mb-2">
                   💬 <strong>{c.autor}:</strong> {c.texto}
                 </p>

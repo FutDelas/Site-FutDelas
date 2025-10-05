@@ -28,7 +28,11 @@
       "Cabeceio",
       "Posicionamento ofensivo"
     ],
-    "foto": "uploads/1759414789806-giovanna-alves.png"
+    "foto": "uploads/1759414789806-giovanna-alves.png",
+    "midias": [
+      "uploads/1759634574574-encontro1.jpg",
+      "uploads/1759635911979-encontro2.jpg"
+    ]
   },
   {
     "id": "250a1814-63db-4812-8e8b-b1bd1c51eac9",
@@ -66,6 +70,11 @@
       "Desarme",
       "Jogo aéreo",
       "Posicionamento defensivo"
+    ],
+    "midias": [
+      "uploads/1759634021619-encontro1.jpg",
+      "uploads/1759634034021-encontro2.jpg",
+      "uploads/1759634140602-encontro3.jpg"
     ]
   },
   {
@@ -132,7 +141,7 @@
     "email": "helena.duarte@email.com",
     "senha": "helena123",
     "tipo": "jogadora",
-    "foto": "",
+    "foto": "uploads/1759624912080-helena-duarte.png",
     "posicao": "Volante",
     "altura": "1.70",
     "peso": "64",

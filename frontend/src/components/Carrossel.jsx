@@ -10,7 +10,7 @@ import treinadora1 from "../assets/treinadora.jpg";
 
 const depoimentos = [
   {
-    nome: "Ana Vasconcelos",
+    nome: "Júlia Ferreira",
     idade: "",
     texto: "O Passa a Bola me ajudou a encontrar meu clube ideal e melhorar meu desempenho. Agora sinto que tenho oportunidades reais!",
     foto: jogadora1,

@@ -1,0 +1,46 @@
+[
+  {
+    "id": "19792420-cfa9-4042-b156-5164422d990a",
+    "autorEmail": "gioalves@email.com",
+    "autor": "Giovanna Alves",
+    "foto": "uploads/1759414789806-giovanna-alves.png",
+    "texto": "aaaaaaaaaa",
+    "data": "05/10/2025, 00:40:48",
+    "curtidas": 0,
+    "curtidoPor": [],
+    "comentarios": []
+  },
+  {
+    "id": "d84f0ff2-5f61-4bd1-bbd5-e08701c21f7d",
+    "autorEmail": "gioalves@email.com",
+    "autor": "Giovanna Alves",
+    "foto": "uploads/1759414789806-giovanna-alves.png",
+    "texto": "Ansiosa para o encontro amanha",
+    "data": "05/10/2025, 00:42:03",
+    "curtidas": 0,
+    "curtidoPor": [],
+    "comentarios": []
+  },
+  {
+    "id": "fe854650-60a5-4937-8e52-b14f01b3c39e",
+    "autorEmail": "clara.lima@email.com",
+    "autor": "Clara Lima",
+    "foto": "",
+    "texto": "aaaaa",
+    "data": "05/10/2025, 00:43:18",
+    "curtidas": 0,
+    "curtidoPor": [],
+    "comentarios": []
+  },
+  {
+    "id": "a20e52a9-fda1-4346-b9d6-b83a87d3ce41",
+    "autorEmail": "luisa@email.com",
+    "autor": "Luísa Pacheco",
+    "foto": "uploads/1759413845490-luisa-pacheco.jpg",
+    "texto": "aaaaaaaaaa",
+    "data": "05/10/2025, 00:47:47",
+    "curtidas": 0,
+    "curtidoPor": [],
+    "comentarios": []
+  }
+]

@@ -10,6 +10,7 @@ import Encontros from './routes/Encontros';
 import Login from './routes/Login';
 import CanalDePaiseResponsaveis from "./routes/CanalDePaiseResponsaveis";
 import PerfilJogadora from './routes/PerfilJogadora';
+import EditarJogadora from './routes/EditarJogadora';
 import Feed from './routes/Feed';
 import PerfilOlheiro from './routes/PerfilOlheiro';
 import Atletas from './routes/Atletas';
@@ -32,6 +33,7 @@ function App() {
 
           {/* Rotas de perfil */}
           <Route path="/perfil-jogadora" element={<PerfilJogadora/>}/>
+          <Route path="/editar-jogadora" element={<EditarJogadora/>}/>
           <Route path="/feed" element={<Feed/>}/>
           <Route path="/perfil-olheiro" element={<PerfilOlheiro/>}/>
           <Route path="/atletas" element={<Atletas/>}/>
