@@ -61,7 +61,7 @@ const CadastroJogadora = () => {
           <input type="text" placeholder="Localização" value={localizacao} onChange={e => setLocalizacao(e.target.value)} className="border border-[#F06292] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F06292]" />
           <textarea placeholder="Sobre mim" value={sobre} onChange={e => setSobre(e.target.value)} className="border border-[#F06292] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F06292]" />
           <input type="text" placeholder="Habilidades (separe por vírgula)" value={habilidades} onChange={e => setHabilidades(e.target.value)} className="border border-[#F06292] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F06292]" />
-          <button type="submit" className="bg-[#F06292] text-white font-semibold py-3 rounded-lg hover:bg-[#d94d7f] transition">Cadastrar</button>
+          <button type="submit" className="cursor-pointer bg-[#F06292] text-white font-semibold py-3 rounded-lg hover:bg-[#d94d7f] transition">Cadastrar</button>
           <p onClick={() => navigate("/login")} className="text-center text-sm text-[#0A192F] mt-2 cursor-pointer hover:underline">Já tem conta? Faça login</p>
         </form>
       </div>

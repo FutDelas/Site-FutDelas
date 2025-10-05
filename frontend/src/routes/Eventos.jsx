@@ -103,7 +103,7 @@ const Eventos = () => {
           <div className="mt-auto w-full">
             <button
               onClick={() => navigate("/perfil-jogadora")}
-              className="w-full text-sm py-2 bg-[#003B5C] text-white rounded hover:bg-[#5a8ca6] transition"
+              className="cursor-pointer w-full text-sm py-2 bg-[#003B5C] text-white rounded hover:bg-[#5a8ca6] transition"
             >
               Ver Perfil
             </button>
@@ -129,7 +129,7 @@ const Eventos = () => {
               <div className="mt-auto">
                 <button
                   onClick={() => navigate("/feed")}
-                  className="w-full text-sm py-2 bg-[#003B5C] text-white rounded hover:bg-[#5a8ca6] transition"
+                  className="cursor-pointer w-full text-sm py-2 bg-[#003B5C] text-white rounded hover:bg-[#5a8ca6] transition"
                 >
                   Ver no Feed
                 </button>
@@ -153,7 +153,7 @@ const Eventos = () => {
           <div className="mt-auto w-full">
             <button
               onClick={() => navigate("/recompensas")}
-              className="w-full text-sm py-2 bg-white text-[#F06292] rounded hover:bg-[#E8E8E8] transition"
+              className="cursor-pointer w-full text-sm py-2 bg-white text-[#F06292] rounded hover:bg-[#E8E8E8] transition"
             >
               Ver Recompensas
             </button>
@@ -215,7 +215,7 @@ const Eventos = () => {
           <div className="bg-white rounded-xl shadow-lg p-6 w-2/3 max-h-[80vh] overflow-y-auto relative">
             <button
               onClick={() => setEventoAberto(null)}
-              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-xl"
+              className="cursor-pointer absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-xl"
             >
               ❌
             </button>
@@ -263,7 +263,7 @@ const Eventos = () => {
                 className={`mt-4 px-6 py-2 rounded-lg transition w-full ${
                   (eventoAberto.inscritos?.length || 0) >= eventoAberto.vagas
                     ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-[#003B5C] text-white hover:bg-[#5a8ca6]"
+                    : "cursor-pointer bg-[#003B5C] text-white hover:bg-[#5a8ca6]"
                 }`}
                 disabled={(eventoAberto.inscritos?.length || 0) >= eventoAberto.vagas}
               >

@@ -95,7 +95,7 @@ const CanalDosPais = () => {
             ></textarea>
             <button
               type="submit"
-              className="bg-[#F06292] hover:bg-[#d94d7f] text-white font-semibold px-4 py-2 rounded-lg transition"
+              className="cursor-pointer bg-[#F06292] hover:bg-[#d94d7f] text-white font-semibold px-4 py-2 rounded-lg transition"
             >
               Enviar
             </button>

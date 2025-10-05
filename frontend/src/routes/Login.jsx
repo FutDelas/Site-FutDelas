@@ -59,7 +59,7 @@ const Login = () => {
           />
           <button
             type="submit"
-            className="bg-[#F06292] text-white font-semibold py-3 rounded-lg hover:bg-[#d94d7f] transition"
+            className="cursor-pointer bg-[#F06292] text-white font-semibold py-3 rounded-lg hover:bg-[#d94d7f] transition"
           >
             Entrar
           </button>

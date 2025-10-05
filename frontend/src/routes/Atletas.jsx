@@ -124,7 +124,7 @@ const Atletas = () => {
             <p><strong>Experiência:</strong> {usuario.experiencia || "Não informada"}</p>
             <button
               onClick={() => navigate("/perfil-olheiro")}
-              className="mt-4 w-full bg-[#003B5C] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#00527A] transition"
+              className="cursor-pointer mt-4 w-full bg-[#003B5C] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#00527A] transition"
             >
               Ver meu perfil
             </button>
@@ -202,7 +202,7 @@ const Atletas = () => {
                       e.stopPropagation(); // evita abrir modal
                       navigate(`/perfil-jogadora-olheiro/${jogadora.id}`);
                     }}
-                    className="mt-3 w-full bg-[#6a1838] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#8a2050] transition"
+                    className="cursor-pointer mt-3 w-full bg-[#6a1838] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#8a2050] transition"
                   >
                     Ver Perfil
                   </button>

@@ -37,7 +37,7 @@ const Home = () => {
               </p>
               <button
                 onClick={() => navigate("/mapa")}
-                className="bg-[#F06292] text-white font-bold py-2 px-5 rounded-full hover:bg-[#E65A7F] transition transform hover:scale-105 shadow-lg"
+                className="cursor-pointer bg-[#F06292] text-white font-bold py-2 px-5 rounded-full hover:bg-[#E65A7F] transition transform hover:scale-105 shadow-lg"
               >
                 Ver Peneiras
               </button>
@@ -55,7 +55,7 @@ const Home = () => {
               </p>
               <button
                 onClick={() => navigate("/encontros")}
-                className="bg-white text-[#1E3A5F] font-bold py-2 px-5 rounded-full hover:bg-[#FCE4EC] transition transform hover:scale-105 shadow-lg"
+                className="cursor-pointer bg-white text-[#1E3A5F] font-bold py-2 px-5 rounded-full hover:bg-[#FCE4EC] transition transform hover:scale-105 shadow-lg"
               >
                 Participar
               </button>
@@ -73,7 +73,7 @@ const Home = () => {
               </p>
               <button
                 onClick={() => navigate("/canal-de-pais-e-responsaveis")}
-                className="bg-[#F06292] text-white font-bold py-2 px-5 rounded-full hover:bg-[#E65A7F] transition transform hover:scale-105 shadow-lg"
+                className="cursor-pointer bg-[#F06292] text-white font-bold py-2 px-5 rounded-full hover:bg-[#E65A7F] transition transform hover:scale-105 shadow-lg"
               >
                 Acessar Canal dos Pais
               </button>
@@ -96,7 +96,7 @@ const Home = () => {
             </p>
             <button
               onClick={() => navigate("/encontros")}
-              className="py-3 px-6 rounded-full transition transform hover:scale-105"
+              className="cursor-pointer py-3 px-6 rounded-full transition transform hover:scale-105"
               style={{ backgroundColor: "#F06292", color: "#FFFFFF" }}
             >
               Se inscreva!
@@ -156,7 +156,7 @@ const Home = () => {
         <div className="mt-10">
           <button
             onClick={() => navigate("/escolinhas")}
-            className="py-3 px-6 rounded-full transition transform hover:scale-105"
+            className="cursor-pointer py-3 px-6 rounded-full transition transform hover:scale-105"
             style={{ backgroundColor: "#F06292", color: "#FFFFFF" }}
           >
             Ver Todas as Escolinhas
@@ -176,7 +176,7 @@ const Home = () => {
           </p>
           <button
             onClick={() => navigate("/recompensas")}
-            className="py-3 px-6 rounded-full transition transform hover:scale-105"
+            className="cursor-pointer py-3 px-6 rounded-full transition transform hover:scale-105"
             style={{ backgroundColor: "#FFFFFF", color: "#F06292" }}
           >
             Ver Recompensas
@@ -205,7 +205,7 @@ const Home = () => {
         <div className="mt-10">
           <button
             onClick={() => navigate("/mapa")}
-            className="py-3 px-6 rounded-full transition transform hover:scale-105"
+            className="cursor-pointer py-3 px-6 rounded-full transition transform hover:scale-105"
             style={{ backgroundColor: "#F06292", color: "#FFFFFF" }}
           >
             Ver Mapa Completo
@@ -241,7 +241,7 @@ const Home = () => {
         </p>
         <button
           onClick={() => navigate("/canal-de-pais-e-responsaveis")}
-          className="py-3 px-6 rounded-full transition transform hover:scale-105"
+          className="cursor-pointer py-3 px-6 rounded-full transition transform hover:scale-105"
           style={{ backgroundColor: "#F06292", color: "#FFFFFF" }}
         >
           Acessar Canal dos Pais

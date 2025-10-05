@@ -123,7 +123,7 @@ const Escolinhas = () => {
               <p><strong>Preço:</strong> R${e.preco}</p>
               <p><strong>Nível:</strong> {e.nivel}</p>
               <button 
-                className="mt-2 py-2 px-4 bg-gradient-to-r from-[#F06292] to-[#E65A7F] text-white rounded-full hover:from-[#E65A7F] hover:to-[#F06292] transition transform hover:scale-105 cursor-pointer">
+                className="cursor-pointer mt-2 py-2 px-4 bg-gradient-to-r from-[#F06292] to-[#E65A7F] text-white rounded-full hover:from-[#E65A7F] hover:to-[#F06292] transition transform hover:scale-105 cursor-pointer">
                 Quero saber mais
               </button>
             </div>
@@ -133,8 +133,8 @@ const Escolinhas = () => {
 
       {/* Navegação */}
       <div className="flex justify-center mt-6 gap-4">
-        <button disabled={pagina===0} onClick={() => setPagina(pagina-1)} className="py-2 px-4 bg-[#F06292] text-white rounded-full disabled:opacity-50 hover:bg-[#E65A7F] transition">Anterior</button>
-        <button disabled={pagina+1>=totalPaginas} onClick={() => setPagina(pagina+1)} className="py-2 px-4 bg-[#F06292] text-white rounded-full disabled:opacity-50 hover:bg-[#E65A7F] transition">Próximo</button>
+        <button disabled={pagina===0} onClick={() => setPagina(pagina-1)} className="cursor-pointer py-2 px-4 bg-[#F06292] text-white rounded-full disabled:opacity-50 hover:bg-[#E65A7F] transition">Anterior</button>
+        <button disabled={pagina+1>=totalPaginas} onClick={() => setPagina(pagina+1)} className="cursor-pointer py-2 px-4 bg-[#F06292] text-white rounded-full disabled:opacity-50 hover:bg-[#E65A7F] transition">Próximo</button>
       </div>
     </div>
   );

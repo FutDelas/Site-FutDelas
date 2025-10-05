@@ -205,7 +205,7 @@ export default function Encontros() {
                     : abrirModal(encontro)
                 }
                 disabled={botaoDisabled}
-                className={`mt-auto px-5 py-2 rounded-xl font-medium shadow-md w-full transition ${botaoEstilo}`}
+                className={`cursor-pointer mt-auto px-5 py-2 rounded-xl font-medium shadow-md w-full transition ${botaoEstilo}`}
               >
                 {encontro.status === "em_breve"
                   ? "Em Breve"
@@ -270,13 +270,13 @@ export default function Encontros() {
             <div className="flex justify-between mt-4">
               <button
                 onClick={() => setModalAberto(false)}
-                className="px-4 py-2 rounded-xl bg-[#0A192F] text-white hover:bg-[#14233C]"
+                className="cursor-pointer px-4 py-2 rounded-xl bg-[#0A192F] text-white hover:bg-[#14233C]"
               >
                 Fechar
               </button>
               <button
                 onClick={confirmarPresenca}
-                className="px-4 py-2 rounded-xl bg-[#F06292] text-white hover:bg-[#E65A7F]"
+                className="cursor-pointer px-4 py-2 rounded-xl bg-[#F06292] text-white hover:bg-[#E65A7F]"
               >
                 Confirmar
               </button>
@@ -317,7 +317,7 @@ export default function Encontros() {
 
             <button
               onClick={() => setVisualizacaoAberta(false)}
-              className="mt-4 px-4 py-2 rounded-xl bg-[#FAD1DF] text-[#0A192F] hover:bg-[#F9C7D8]"
+              className="cursor-pointer mt-4 px-4 py-2 rounded-xl bg-[#FAD1DF] text-[#0A192F] hover:bg-[#F9C7D8]"
             >
               Fechar
             </button>

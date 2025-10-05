@@ -86,7 +86,7 @@ const PerfilOlheiro = () => {
           )}
           <button
             onClick={() => (editando ? salvarPerfil() : setEditando(true))}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+            className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
           >
             {editando ? "Salvar" : "Editar Perfil"}
           </button>

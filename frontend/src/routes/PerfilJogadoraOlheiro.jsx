@@ -137,7 +137,7 @@ const PerfilJogadoraOlheiro = () => {
               />
               <button
                 onClick={() => setAbrirFoto(null)}
-                className="absolute top-2 right-2 text-white text-3xl font-bold"
+                className="cursor-pointer absolute top-2 right-2 text-white text-3xl font-bold"
               >
                 ×
               </button>

@@ -137,7 +137,7 @@ const PerfilJogadora = () => {
 
             <button
               onClick={() => navigate("/editar-jogadora")}
-              className="mt-4 bg-[#F06292] hover:bg-[#E65A7F] text-white font-semibold px-6 py-2 rounded-xl transition-colors w-max"
+              className="cursor-pointer mt-4 bg-[#F06292] hover:bg-[#E65A7F] text-white font-semibold px-6 py-2 rounded-xl transition-colors w-max"
             >
               Editar Perfil
             </button>
@@ -154,7 +154,7 @@ const PerfilJogadora = () => {
       {midias.length > 0 ? (
         <button
           onClick={() => setMidias([])}
-          className="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded transition font-semibold text-sm"
+          className="cursor-pointer bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded transition font-semibold text-sm"
         >
           Remover Prévia
         </button>
@@ -175,7 +175,7 @@ const PerfilJogadora = () => {
       {midias.length > 0 ? (
         <button
           onClick={enviarMidias}
-          className="bg-[#F06292] text-white px-3 py-1 rounded hover:bg-[#E65A7F] transition font-semibold text-sm"
+          className="cursor-pointer bg-[#F06292] text-white px-3 py-1 rounded hover:bg-[#E65A7F] transition font-semibold text-sm"
         >
           Enviar
         </button>
@@ -264,7 +264,7 @@ const PerfilJogadora = () => {
       <div className="relative max-w-4xl w-full flex justify-center">
         <button
           onClick={() => setMidiaSelecionada(null)}
-          className="absolute top-4 right-4 bg-red-600 text-white rounded-full px-3 py-1 text-sm font-bold hover:bg-red-700 transition"
+          className="cursor-pointer absolute top-4 right-4 bg-red-600 text-white rounded-full px-3 py-1 text-sm font-bold hover:bg-red-700 transition"
         >
           X
         </button>
