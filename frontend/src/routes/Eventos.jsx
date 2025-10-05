@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { MdLocationOn, MdDateRange, MdAccessTime } from "react-icons/md";
+import { FaTrophy } from "react-icons/fa";
 
 const Eventos = () => {
   const [usuario, setUsuario] = useState(null);
@@ -16,7 +18,6 @@ const Eventos = () => {
     }
     setUsuario(logado);
 
-    // Carregar eventos
     const carregarEventos = async () => {
       try {
         const res = await fetch("http://localhost:3001/eventos");
@@ -27,7 +28,6 @@ const Eventos = () => {
       }
     };
 
-    // Carregar todos os posts
     const carregarPosts = async () => {
       try {
         const res = await fetch(`http://localhost:3001/posts`);
@@ -45,176 +45,187 @@ const Eventos = () => {
 
   if (!usuario) return <p className="text-center mt-10">Carregando...</p>;
 
-  // Filtra eventos por tipo
   const campeonatos = eventos.filter(e => e.tipo === "campeonato");
   const encontrosSemanais = eventos.filter(e => e.tipo === "semanal");
   const peneiras = eventos.filter(e => e.tipo === "peneira");
 
   const renderCards = (lista) => {
     return lista.map((ev) => {
-      let bgColor = "bg-white";
-      let cardClasses = "rounded-xl shadow-md p-6 hover:shadow-xl transition flex flex-col items-center justify-center cursor-pointer";
+      let bgColor = "#FFFFFF";
+      let textColor = "#003B5C";
 
-      if (ev.tipo === "semanal") bgColor = "bg-yellow-100";
-      if (ev.tipo === "peneira") bgColor = "bg-blue-100";
-      if ((ev.inscritos?.length || 0) >= ev.vagas) bgColor = "bg-gray-200";
+      if (ev.tipo === "semanal") {
+        bgColor = "#FBC02D";
+        textColor = "#003B5C";
+      }
+      if (ev.tipo === "peneira") {
+        bgColor = "#5a8ca6";
+        textColor = "#FFFFFF";
+      }
+      if ((ev.inscritos?.length || 0) >= ev.vagas) {
+        bgColor = "#E8E8E8";
+        textColor = "#003B5C";
+      }
 
       return (
         <div
           key={ev.id}
-          className={`${bgColor} ${cardClasses}`}
+          className="rounded-lg shadow-md p-3 text-center cursor-pointer flex-1 flex flex-col justify-between transition hover:shadow-xl"
+          style={{ backgroundColor: bgColor, color: textColor }}
           onClick={() => setEventoAberto(ev)}
         >
-          <div className="text-4xl mb-3">{ev.emoji}</div>
-          <h2 className={`font-bold text-center ${ev.tipo === "campeonato" ? "text-2xl text-white" : "text-lg text-pink-600"}`}>
-            {ev.titulo}
-          </h2>
-          <p className={`mt-1 text-center ${ev.tipo === "campeonato" ? "text-white/90" : "text-gray-500"}`}>{ev.dia}</p>
-          {ev.tipo === "semanal" && <span className="mt-2 text-sm text-yellow-700 font-semibold">Semanal</span>}
-          {ev.tipo === "peneira" && <span className="mt-2 text-sm text-blue-700 font-semibold">Peneira</span>}
-          <p
-            className={`mt-2 text-sm text-center ${
-              (ev.inscritos?.length || 0) >= ev.vagas
-                ? "text-red-500"
-                : ev.tipo === "campeonato"
-                ? "text-white"
-                : "text-gray-700"
-            }`}
-          >
-            Inscritas: {ev.inscritos?.length || 0} / {ev.vagas} vagas
-          </p>
+          <div className="flex flex-col items-center gap-2">
+            <div className="text-3xl">{ev.emoji}</div>
+            <h2 className="font-bold text-lg">{ev.titulo}</h2>
+            <p className="text-xs mt-1">{ev.dia}</p>
+            {(ev.tipo === "semanal") && <span className="text-xs font-semibold">Semanal</span>}
+            {(ev.tipo === "peneira") && <span className="text-xs font-semibold">Peneira</span>}
+          </div>
+          <p className="text-xs mt-2">{ev.inscritos?.length || 0} / {ev.vagas} vagas</p>
         </div>
       );
     });
   };
 
   return (
-    <div className="min-h-screen bg-[#F0F4F8] flex gap-6 p-6">
-      {/* SIDEBAR PERFIL */}
-      <div className="w-1/4 flex flex-col gap-4">
-        {/* Card de perfil */}
-        <div className="bg-white rounded-xl shadow-md p-4 border-l-4 border-pink-500 flex flex-col items-center">
+    <div className="h-screen w-screen flex gap-4 p-3 bg-[#F8FAFC] overflow-hidden">
+      {/* SIDEBAR */}
+      <div className="w-1/4 flex flex-col gap-4 h-full">
+        {/* Perfil */}
+        <div className="rounded-lg shadow-md p-4 flex flex-col items-center flex-1 min-h-[220px] border-l-4 border-[#F06292]" style={{ backgroundColor: "#FFFFFF" }}>
           <img
             src={usuario.foto ? `http://localhost:3001/${usuario.foto}` : "https://via.placeholder.com/150"}
             alt="Foto de perfil"
-            className="w-24 h-24 rounded-full object-cover"
+            className="w-20 h-20 rounded-full object-cover"
           />
-          <h2 className="text-center text-xl font-bold mt-2 text-pink-600">{usuario.nome}</h2>
-          <p className="text-center text-gray-500">{usuario.posicao || ""}</p>
-          <button
-            onClick={() => navigate("/perfil-jogadora")}
-            className="cursor-pointer block w-full mt-4 bg-purple-900 text-white py-3 rounded-lg text-lg hover:bg-pink-600 transition"
-          >
-            Ver Perfil Completo
-          </button>
+          <h2 className="text-center text-lg font-bold mt-2 text-[#F06292]">{usuario.nome}</h2>
+          <p className="text-center text-sm text-gray-500">{usuario.posicao || ""}</p>
+          <div className="mt-auto w-full">
+            <button
+              onClick={() => navigate("/perfil-jogadora")}
+              className="w-full text-sm py-2 bg-[#003B5C] text-white rounded hover:bg-[#5a8ca6] transition"
+            >
+              Ver Perfil
+            </button>
+          </div>
         </div>
 
-        {/* Card de Última Publicação */}
-        <div className="bg-white rounded-xl shadow-md p-4 border-l-4 border-yellow-500 flex flex-col gap-3 hover:shadow-lg transition">
-          {/* Título do card */}
-          <h2 className="text-lg font-bold text-yellow-600 mb-2">Última Publicação</h2>
-
+        {/* Última Publicação */}
+        <div className="rounded-lg shadow-md p-4 flex flex-col gap-3 flex-1 min-h-[220px] border-l-4 border-[#FBC02D]" style={{ backgroundColor: "#FFFFFF" }}>
+          <h2 className="text-lg font-bold text-[#FBC02D]">Última Publicação</h2>
           {publicacoes.length > 0 ? (
-            <div className="flex items-start gap-3">
-              {/* Foto do autor do post */}
-              <img
-                src={publicacoes[0].foto ? `http://localhost:3001/${publicacoes[0].foto}` : usuario.foto ? `http://localhost:3001/${usuario.foto}` : "https://via.placeholder.com/80"}
-                alt="Foto do autor do post"
-                className="w-14 h-14 rounded-full object-cover"
-              />
-
-              {/* Conteúdo do post */}
-              <div className="flex flex-col gap-1 flex-1">
-                <h3 className="text-base font-bold text-yellow-600">{publicacoes[0].autor}</h3>
-                <p className="text-gray-700 text-sm line-clamp-3">{publicacoes[0].texto}</p>
+            <div className="flex flex-col gap-2 flex-1">
+              <div className="flex items-start gap-3">
+                <img
+                  src={publicacoes[0].foto ? `http://localhost:3001/${publicacoes[0].foto}` : usuario.foto ? `http://localhost:3001/${usuario.foto}` : "https://via.placeholder.com/80"}
+                  alt="Autor"
+                  className="w-10 h-10 rounded-full object-cover"
+                />
+                <div className="flex flex-col gap-1 text-sm text-[#003B5C]">
+                  <h3 className="font-bold">{publicacoes[0].autor}</h3>
+                  <p className="line-clamp-3 break-words">{publicacoes[0].texto}</p>
+                </div>
+              </div>
+              <div className="mt-auto">
                 <button
                   onClick={() => navigate("/feed")}
-                  className="self-start mt-2 bg-yellow-600 text-white text-sm py-2 px-4 rounded-lg hover:bg-yellow-500 transition"
+                  className="w-full text-sm py-2 bg-[#003B5C] text-white rounded hover:bg-[#5a8ca6] transition"
                 >
                   Ver no Feed
                 </button>
               </div>
             </div>
           ) : (
-            <div className="flex items-start gap-3">
-              <img
-                src={usuario.foto ? `http://localhost:3001/${usuario.foto}` : "https://via.placeholder.com/80"}
-                alt="Foto da jogadora"
-                className="w-14 h-14 rounded-full object-cover"
-              />
-              <div className="flex flex-col gap-1 flex-1">
-                <h3 className="text-base font-bold text-yellow-600">Nenhum post ainda</h3>
-                <p className="text-gray-400 text-sm">Quando você ou outras jogadoras postarem, aqui aparecerá a última publicação.</p>
-              </div>
+            <div className="flex flex-col gap-2 text-sm text-gray-400 flex-1 justify-center items-center">
+              <p>Nenhum post ainda</p>
             </div>
           )}
+        </div>
+
+        {/* Recompensas */}
+        <div className="rounded-lg shadow-md p-4 flex flex-col gap-2 flex-1 min-h-[180px] border-l-4 border-[#F06292]" style={{ backgroundColor: "#F06292", color: "#FFFFFF" }}>
+          <h2 className="text-lg font-bold mb-2">Recompensas</h2>
+          <ul className="text-sm space-y-1 flex-1">
+            <li>🏅 Medalha - 10 pontos</li>
+            <li>🎯 Melhor Jogadora - 50 pontos</li>
+            <li>💎 Recompensa Especial - 100 pontos</li>
+          </ul>
+          <div className="mt-auto w-full">
+            <button
+              onClick={() => navigate("/recompensas")}
+              className="w-full text-sm py-2 bg-white text-[#F06292] rounded hover:bg-[#E8E8E8] transition"
+            >
+              Ver Recompensas
+            </button>
+          </div>
         </div>
       </div>
 
       {/* CONTEÚDO PRINCIPAL */}
-      <div className="w-3/4 space-y-8">
-        {/* CAMPEONATO FUTDELAS */}
+      <div className="w-3/4 flex flex-col gap-3 h-full">
+        {/* Campeonatos */}
         {campeonatos.length > 0 && (
-          <div>
-            <h2 className="text-xl font-bold text-purple-900 mb-4">Campeonato FutDelas</h2>
-            <div className="grid grid-cols-1 gap-6">
+          <div className="flex-1 flex flex-col">
+            <h2 className="text-2xl font-extrabold text-[#F06292] mb-2">Campeonato FutDelas</h2>
+            <div className="grid grid-cols-1 gap-3 flex-1 h-full">
               {campeonatos.map((ev) => (
                 <div
                   key={ev.id}
-                  className="bg-pink-400 rounded-xl shadow-md p-8 hover:shadow-xl transition flex flex-col items-center justify-center cursor-pointer w-full border-4 border-pink-600"
+                  className="rounded-lg shadow-md p-4 text-center text-white cursor-pointer border-2 border-[#003B5C] flex-1 flex flex-col justify-between"
+                  style={{ backgroundColor: "#F06292" }}
                   onClick={() => setEventoAberto(ev)}
                 >
-                  <div className="text-5xl mb-4">{ev.emoji}</div>
-                  <h2 className="font-bold text-3xl text-white text-center">{ev.titulo}</h2>
-                  <p className="mt-1 text-white/90 text-center">{ev.dia}</p>
-                  <span className="mt-2 text-white font-semibold">Campeonato</span>
-                  <p className="mt-2 text-sm text-center text-white">
-                    Inscritas: {ev.inscritos?.length || 0} / {ev.vagas} vagas
-                  </p>
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="text-4xl">{ev.emoji}</div>
+                    <h2 className="font-extrabold text-2xl">{ev.titulo}</h2>
+                    <p className="text-white/90 text-base">{ev.dia}</p>
+                    <span className="text-white font-semibold text-base">Campeonato</span>
+                  </div>
+                  <p className="text-white font-semibold text-sm mt-2">{ev.inscritos?.length || 0} / {ev.vagas} vagas</p>
                 </div>
               ))}
             </div>
           </div>
         )}
 
-        {/* SEÇÃO ENCONTROS SEMANAIS */}
+        {/* Encontros Semanais */}
         {encontrosSemanais.length > 0 && (
-          <div>
-            <h2 className="text-xl font-bold text-purple-900 mb-4">Encontros Semanais</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex-1 flex flex-col">
+            <h2 className="text-2xl font-bold text-[#F06292] mb-2">Encontros Semanais</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 flex-1 h-full">
               {renderCards(encontrosSemanais)}
             </div>
           </div>
         )}
 
-        {/* SEÇÃO PENEIRAS */}
+        {/* Peneiras */}
         {peneiras.length > 0 && (
-          <div>
-            <h2 className="text-xl font-bold text-purple-900 mb-4">Peneiras</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex-1 flex flex-col">
+            <h2 className="text-2xl font-bold text-[#F06292] mb-2">Peneiras</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 flex-1 h-full">
               {renderCards(peneiras)}
             </div>
           </div>
         )}
       </div>
 
-      {/* MODAL DE EVENTO */}
+      {/* MODAL */}
       {eventoAberto && (
         <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
           <div className="bg-white rounded-xl shadow-lg p-6 w-2/3 max-h-[80vh] overflow-y-auto relative">
             <button
               onClick={() => setEventoAberto(null)}
-              className="cursor-pointer absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-xl"
+              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-xl"
             >
               ❌
             </button>
-            <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col items-center gap-3">
               <div className="text-6xl">{eventoAberto.emoji}</div>
-              <h2 className="font-bold text-2xl text-pink-600">{eventoAberto.titulo}</h2>
-              <p className="text-gray-500 text-lg">{eventoAberto.dia}</p>
+              <h2 className="font-bold text-2xl text-[#F06292]">{eventoAberto.titulo}</h2>
+              <p className="text-gray-500">{eventoAberto.dia}</p>
               {eventoAberto.tipo === "semanal" && <span className="text-yellow-700 font-semibold">Semanal</span>}
               {eventoAberto.tipo === "peneira" && <span className="text-blue-700 font-semibold">Peneira</span>}
-              {eventoAberto.tipo === "campeonato" && <span className="text-pink-600 font-semibold">Campeonato</span>}
+              {eventoAberto.tipo === "campeonato" && <span className="text-[#F06292] font-semibold">Campeonato</span>}
               <p className="mt-4 text-gray-800 text-center">{eventoAberto.descricao}</p>
               <p className="mt-2 text-gray-800 text-center">
                 Inscritas: {eventoAberto.inscritos?.length || 0} / {eventoAberto.vagas} vagas
@@ -249,10 +260,10 @@ const Eventos = () => {
                     alert("Erro ao se inscrever.");
                   }
                 }}
-                className={`mt-4 px-6 py-2 rounded-lg transition ${
+                className={`mt-4 px-6 py-2 rounded-lg transition w-full ${
                   (eventoAberto.inscritos?.length || 0) >= eventoAberto.vagas
                     ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-purple-900 text-white hover:bg-pink-600"
+                    : "bg-[#003B5C] text-white hover:bg-[#5a8ca6]"
                 }`}
                 disabled={(eventoAberto.inscritos?.length || 0) >= eventoAberto.vagas}
               >

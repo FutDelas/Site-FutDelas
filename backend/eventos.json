@@ -8,8 +8,26 @@
     "descricao": "Treino comunitário aberto para todas as jogadoras da cidade.",
     "vagas": 15,
     "inscritos": [
-      { "nome": "Giovanna Alves", "email": "gioalves@email.com" },
-      { "nome": "Ágatha Melissa", "email": "agatha@email.com" }
+      {
+        "nome": "Giovanna Alves",
+        "email": "gioalves@email.com"
+      },
+      {
+        "nome": "Ágatha Melissa",
+        "email": "agatha@email.com"
+      },
+      {
+        "nome": "Luísa Pacheco",
+        "email": "luisa@email.com"
+      },
+      {
+        "nome": "Isabela Martins",
+        "email": "isabela.martins@email.com"
+      },
+      {
+        "nome": "Beatriz Nunes",
+        "email": "bea.nunes@email.com"
+      }
     ]
   },
   {
@@ -21,13 +39,65 @@
     "descricao": "Treino com foco em técnicas de passe e finalização.",
     "vagas": 15,
     "inscritos": [
-      { "nome": "Luísa Pacheco", "email": "luisa@email.com" },
-      { "nome": "Isabela Martins", "email": "isabela.martins@email.com" },
-      { "nome": "Beatriz Nunes", "email": "bea.nunes@email.com" }
+      {
+        "nome": "Luísa Pacheco",
+        "email": "luisa@email.com"
+      },
+      {
+        "nome": "Isabela Martins",
+        "email": "isabela.martins@email.com"
+      },
+      {
+        "nome": "Beatriz Nunes",
+        "email": "bea.nunes@email.com"
+      },
+      {
+        "nome": "Camila Rocha",
+        "email": "camila.rocha@email.com"
+      },
+      {
+        "nome": "Helena Duarte",
+        "email": "helena.duarte@email.com"
+      }
     ]
   },
   {
     "id": 3,
+    "titulo": "Encontro Semanal - Sexta",
+    "dia": "Sexta-feira",
+    "emoji": "📅",
+    "tipo": "semanal",
+    "descricao": "Treino focado em resistência física e controle de bola.",
+    "vagas": 15,
+    "inscritos": [
+      {
+        "nome": "Giovanna Alves",
+        "email": "gioalves@email.com"
+      },
+      {
+        "nome": "Sofia Cardoso",
+        "email": "sofia.cardoso@email.com"
+      },
+      {
+        "nome": "Júlia Ferreira",
+        "email": "julia.ferreira@email.com"
+      },
+      {
+        "nome": "Larissa Mendes",
+        "email": "lari.mendes@email.com"
+      },
+      {
+        "nome": "Mariana Torres",
+        "email": "mariana.torres@email.com"
+      },
+      {
+        "nome": "Luísa Pacheco",
+        "email": "luisa@email.com"
+      }
+    ]
+  },
+  {
+    "id": 4,
     "titulo": "Peneira FutDelas - Regional",
     "dia": "Sábado",
     "emoji": "⚽",
@@ -35,25 +105,92 @@
     "descricao": "Seleção de novas jogadoras para as equipes da região.",
     "vagas": 20,
     "inscritos": [
-      { "nome": "Camila Rocha", "email": "camila.rocha@email.com" },
-      { "nome": "Helena Duarte", "email": "helena.duarte@email.com" }
+      {
+        "nome": "Camila Rocha",
+        "email": "camila.rocha@email.com"
+      },
+      {
+        "nome": "Helena Duarte",
+        "email": "helena.duarte@email.com"
+      },
+      {
+        "nome": "Luísa Pacheco",
+        "email": "luisa@email.com"
+      },
+      {
+        "nome": "Ágatha Melissa",
+        "email": "agatha@email.com"
+      },
+      {
+        "nome": "Beatriz Nunes",
+        "email": "bea.nunes@email.com"
+      },
+      {
+        "nome": "Giovanna Alves",
+        "email": "gioalves@email.com"
+      }
     ]
   },
   {
-    "id": 4,
-    "titulo": "Peneira FutDelas - Estadual",
+    "id": 5,
+    "titulo": "Peneira FutDelas - Estadual A",
     "dia": "Domingo",
     "emoji": "⚽",
     "tipo": "peneira",
     "descricao": "Peneira para formação de equipes estaduais do FutDelas.",
     "vagas": 20,
     "inscritos": [
-      { "nome": "Larissa Mendes", "email": "lari.mendes@email.com" },
-      { "nome": "Mariana Torres", "email": "mariana.torres@email.com" }
+      {
+        "nome": "Larissa Mendes",
+        "email": "lari.mendes@email.com"
+      },
+      {
+        "nome": "Mariana Torres",
+        "email": "mariana.torres@email.com"
+      },
+      {
+        "nome": "Clara Lima",
+        "email": "clara.lima@email.com"
+      },
+      {
+        "nome": "Júlia Ferreira",
+        "email": "julia.ferreira@email.com"
+      },
+      {
+        "nome": "Luísa Pacheco",
+        "email": "luisa@email.com"
+      }
     ]
   },
   {
-    "id": 5,
+    "id": 6,
+    "titulo": "Peneira FutDelas - Estadual B",
+    "dia": "Domingo",
+    "emoji": "⚽",
+    "tipo": "peneira",
+    "descricao": "Peneira para formação de equipes estaduais do FutDelas.",
+    "vagas": 20,
+    "inscritos": [
+      {
+        "nome": "Clara Lima",
+        "email": "clara.lima@email.com"
+      },
+      {
+        "nome": "Sofia Cardoso",
+        "email": "sofia.cardoso@email.com"
+      },
+      {
+        "nome": "Giovanna Alves",
+        "email": "gioalves@email.com"
+      },
+      {
+        "nome": "Luísa Pacheco",
+        "email": "luisa@email.com"
+      }
+    ]
+  },
+  {
+    "id": 7,
     "titulo": "Campeonato FutDelas 2025",
     "dia": "De 10 a 20 de Novembro",
     "emoji": "🏆",
@@ -61,9 +198,26 @@
     "descricao": "Campeonato oficial do FutDelas com equipes de todo o país.",
     "vagas": 8,
     "inscritos": [
-      { "nome": "Clara Lima", "email": "clara.lima@email.com" },
-      { "nome": "Júlia Ferreira", "email": "julia.ferreira@email.com" },
-      { "nome": "Sofia Cardoso", "email": "sofia.cardoso@email.com" }
+      {
+        "nome": "Clara Lima",
+        "email": "clara.lima@email.com"
+      },
+      {
+        "nome": "Júlia Ferreira",
+        "email": "julia.ferreira@email.com"
+      },
+      {
+        "nome": "Sofia Cardoso",
+        "email": "sofia.cardoso@email.com"
+      },
+      {
+        "nome": "Luísa Pacheco",
+        "email": "luisa@email.com"
+      },
+      {
+        "nome": "Giovanna Alves",
+        "email": "gioalves@email.com"
+      }
     ]
   }
 ]
