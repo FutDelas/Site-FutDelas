@@ -6,6 +6,7 @@ const PerfilJogadora = () => {
   const [jogadora, setJogadora] = useState(null);
   const [midias, setMidias] = useState([]);
   const [portfolio, setPortfolio] = useState([]);
+  const [midiaSelecionada, setMidiaSelecionada] = useState(null);
   const [postsJogadora, setPostsJogadora] = useState([]);
   const [mostrarBotoesApagar, setMostrarBotoesApagar] = useState(false);
 
@@ -144,78 +145,149 @@ const PerfilJogadora = () => {
         </div>
 
         {/* Seção Portfólio */}
-        <div>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold text-[#0A192F]">Portfólio</h2>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setMostrarBotoesApagar((prev) => !prev)}
-                className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-800 transition font-semibold text-sm"
-              >
-                Apagar
-              </button>
-              {midias.length > 0 && (
-                <button
-                  onClick={enviarMidias}
-                  className="bg-[#F06292] text-white px-3 py-1 rounded hover:bg-[#E65A7F] transition font-semibold text-sm"
-                >
-                  Enviar
-                </button>
+<div>
+  <div className="flex justify-between items-center mb-4">
+    <h2 className="text-2xl font-bold text-[#0A192F]">Portfólio</h2>
+
+    <div className="flex gap-2 items-center">
+      {/* Botão dinâmico: Apagar/Cancelar/Remover Prévia */}
+      {midias.length > 0 ? (
+        <button
+          onClick={() => setMidias([])}
+          className="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded transition font-semibold text-sm"
+        >
+          Remover Prévia
+        </button>
+      ) : (
+        <button
+          onClick={() => setMostrarBotoesApagar((prev) => !prev)}
+          className={`${
+            mostrarBotoesApagar
+              ? "bg-gray-500 hover:bg-gray-600"
+              : "bg-red-600 hover:bg-red-800"
+          } text-white px-3 py-1 rounded transition font-semibold text-sm`}
+        >
+          {mostrarBotoesApagar ? "Cancelar" : "Apagar"}
+        </button>
+      )}
+
+      {/* Botão Adicionar / Enviar */}
+      {midias.length > 0 ? (
+        <button
+          onClick={enviarMidias}
+          className="bg-[#F06292] text-white px-3 py-1 rounded hover:bg-[#E65A7F] transition font-semibold text-sm"
+        >
+          Enviar
+        </button>
+      ) : (
+        <label className="cursor-pointer bg-[#1E3A5F] text-white px-4 py-1 rounded hover:bg-[#0A192F] transition font-semibold text-sm">
+          Adicionar Mídia
+          <input
+            type="file"
+            accept="image/*,video/*"
+            multiple
+            onChange={handleMidiaChange}
+            className="hidden"
+          />
+        </label>
+      )}
+    </div>
+  </div>
+
+  {/* Pré-visualização de mídias selecionadas */}
+  {midias.length > 0 && (
+    <div className="mb-6">
+      <div className="grid grid-cols-3 gap-4">
+        {midias.map((arquivo, index) => {
+          const url = URL.createObjectURL(arquivo);
+          const tipo = arquivo.type.startsWith("video") ? "video" : "image";
+          return (
+            <div key={index} className="relative group">
+              {tipo === "video" ? (
+                <video
+                  src={url}
+                  controls
+                  className="rounded-xl w-full h-40 object-cover cursor-pointer"
+                />
+              ) : (
+                <img
+                  src={url}
+                  alt="Prévia"
+                  className="rounded-xl w-full h-40 object-cover cursor-pointer"
+                />
               )}
             </div>
-          </div>
+          );
+        })}
+      </div>
+    </div>
+  )}
 
-          <div className="mb-4">
-            <label className="cursor-pointer bg-[#1E3A5F] text-white px-4 py-2 rounded hover:bg-[#0A192F] transition font-semibold text-sm">
-              Adicionar Mídia
-              <input
-                type="file"
-                accept="image/*,video/*"
-                multiple
-                onChange={handleMidiaChange}
-                className="hidden"
-              />
-            </label>
-          </div>
+  {/* Grade de mídias já enviadas */}
+  <div className="grid grid-cols-3 gap-4">
+    {portfolio.map((m, i) => (
+      <div key={i} className="relative group">
+        {m.tipo === "video" ? (
+          <video
+            src={m.url}
+            controls
+            onClick={() => !mostrarBotoesApagar && setMidiaSelecionada(m)}
+            className="rounded-xl w-full h-40 object-cover cursor-pointer"
+          />
+        ) : (
+          <img
+            src={m.url}
+            alt="Portfólio"
+            onClick={() => !mostrarBotoesApagar && setMidiaSelecionada(m)}
+            className="rounded-xl w-full h-40 object-cover cursor-pointer"
+          />
+        )}
 
-          <div className="grid grid-cols-3 gap-4">
-            {portfolio.map((m, i) =>
-              m.tipo === "video" ? (
-                <div key={i} className="relative group">
-                  <video
-                    src={m.url}
-                    controls
-                    className="rounded-xl w-full h-40 object-cover cursor-pointer"
-                  />
-                  {mostrarBotoesApagar && (
-                    <button
-                      onClick={() => deletarMidia(m.url)}
-                      className="absolute top-1 right-1 bg-red-600 text-white px-2 py-1 text-xs rounded"
-                    >
-                      X
-                    </button>
-                  )}
-                </div>
-              ) : (
-                <div key={i} className="relative group">
-                  <img
-                    src={m.url}
-                    alt="Portfólio"
-                    className="rounded-xl w-full h-40 object-cover cursor-pointer"
-                  />
-                  {mostrarBotoesApagar && (
-                    <button
-                      onClick={() => deletarMidia(m.url)}
-                      className="absolute top-1 right-1 bg-red-600 text-white px-2 py-1 text-xs rounded"
-                    >
-                      X
-                    </button>
-                  )}
-                </div>
-              )
-            )}
-          </div>
-        </div>
+        {mostrarBotoesApagar && (
+          <button
+            onClick={() => deletarMidia(m.url)}
+            className="absolute top-1 right-1 bg-red-600 text-white px-2 py-1 text-xs rounded"
+          >
+            X
+          </button>
+        )}
+      </div>
+    ))}
+  </div>
+
+  {/* Modal de visualização em tela cheia */}
+  {midiaSelecionada && (
+    <div
+      className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
+      onClick={() => setMidiaSelecionada(null)}
+    >
+      <div className="relative max-w-4xl w-full flex justify-center">
+        <button
+          onClick={() => setMidiaSelecionada(null)}
+          className="absolute top-4 right-4 bg-red-600 text-white rounded-full px-3 py-1 text-sm font-bold hover:bg-red-700 transition"
+        >
+          X
+        </button>
+
+        {midiaSelecionada.tipo === "video" ? (
+          <video
+            src={midiaSelecionada.url}
+            controls
+            autoPlay
+            className="max-h-[80vh] rounded-xl shadow-lg"
+          />
+        ) : (
+          <img
+            src={midiaSelecionada.url}
+            alt="Visualização"
+            className="max-h-[80vh] rounded-xl shadow-lg"
+          />
+        )}
+      </div>
+    </div>
+  )}
+</div>
+
 
         {/* Seção Posts da Jogadora */}
         <div>

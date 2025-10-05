@@ -37,7 +37,7 @@
   {
     "id": "250a1814-63db-4812-8e8b-b1bd1c51eac9",
     "nome": "Ágatha Melissa",
-    "dataNascimento": "2013-09-03",
+    "dataNascimento": "2016-09-03",
     "email": "agatha@email.com",
     "senha": "melissa123",
     "tipo": "jogadora",
@@ -51,6 +51,11 @@
       "Drible curto",
       "Passe preciso",
       "Visão de jogo"
+    ],
+    "midias": [
+      "uploads/1759673398541-encontro1.jpg",
+      "uploads/1759673409265-encontro2.jpg",
+      "uploads/1759673418860-video-portifolio.mp4"
     ]
   },
   {
@@ -73,8 +78,8 @@
     ],
     "midias": [
       "uploads/1759634021619-encontro1.jpg",
-      "uploads/1759634034021-encontro2.jpg",
-      "uploads/1759634140602-encontro3.jpg"
+      "uploads/1759671849097-encontro2.jpg",
+      "uploads/1759672199925-video-portifolio.mp4"
     ]
   },
   {
@@ -84,7 +89,7 @@
     "email": "isabela.martins@email.com",
     "senha": "isa123",
     "tipo": "jogadora",
-    "foto": "",
+    "foto": "uploads/1759672269774-isabela-martins.avif",
     "posicao": "Meia defensiva",
     "altura": "1.69",
     "peso": "63",
@@ -103,7 +108,7 @@
     "email": "bea.nunes@email.com",
     "senha": "bea123",
     "tipo": "jogadora",
-    "foto": "",
+    "foto": "uploads/1759672307002-beatriz-nunes.avif",
     "posicao": "Goleira",
     "altura": "1.79",
     "peso": "72",
@@ -122,7 +127,7 @@
     "email": "camila.rocha@email.com",
     "senha": "camila123",
     "tipo": "jogadora",
-    "foto": "",
+    "foto": "uploads/1759672334996-camila-rocha.jpeg",
     "posicao": "Lateral-direita",
     "altura": "1.66",
     "peso": "60",
@@ -151,16 +156,20 @@
       "Desarme",
       "Passe curto",
       "Cobertura"
+    ],
+    "midias": [
+      "uploads/1759675094131-encontro1.jpg",
+      "uploads/1759675105303-video-portifolio.mp4"
     ]
   },
   {
     "id": "4b6612b2-8cd5-4c5f-9a4a-44fce30f3221",
     "nome": "Larissa Mendes",
-    "dataNascimento": "2012-03-11",
+    "dataNascimento": "2011-03-11",
     "email": "lari.mendes@email.com",
     "senha": "larissa123",
     "tipo": "jogadora",
-    "foto": "",
+    "foto": "uploads/1759672369384-larissa-mendes.jpeg",
     "posicao": "Ponta-direita",
     "altura": "1.62",
     "peso": "54",
@@ -179,7 +188,7 @@
     "email": "mariana.torres@email.com",
     "senha": "mari123",
     "tipo": "jogadora",
-    "foto": "",
+    "foto": "uploads/1759672393315-mariana-torres.jpeg",
     "posicao": "Meia central",
     "altura": "1.68",
     "peso": "61",
@@ -194,11 +203,11 @@
   {
     "id": "6aa8e4d3-b0fb-4d24-bc89-6b87c67a92e9",
     "nome": "Clara Lima",
-    "dataNascimento": "2007-01-19",
+    "dataNascimento": "2018-01-19",
     "email": "clara.lima@email.com",
     "senha": "clara123",
     "tipo": "jogadora",
-    "foto": "",
+    "foto": "uploads/1759672417514-clara-lima.jpeg",
     "posicao": "Lateral-esquerda",
     "altura": "1.60",
     "peso": "52",
@@ -208,6 +217,10 @@
       "Velocidade",
       "Cruzamento",
       "Resistência"
+    ],
+    "midias": [
+      "uploads/1759674092428-encontro1.jpg",
+      "uploads/1759674105895-encontro2.jpg"
     ]
   },
   {
@@ -236,7 +249,7 @@
     "email": "sofia.cardoso@email.com",
     "senha": "sofia123",
     "tipo": "jogadora",
-    "foto": "",
+    "foto": "uploads/1759672452598-sofia-cardoso.jpeg",
     "posicao": "Centroavante",
     "altura": "1.74",
     "peso": "68",
@@ -246,6 +259,11 @@
       "Finalização",
       "Movimentação",
       "Controle de bola"
+    ],
+    "midias": [
+      "uploads/1759672937888-encontro1.jpg",
+      "uploads/1759672951898-encontro2.jpg",
+      "uploads/1759673298383-video-portifolio.mp4"
     ]
   }
 ]

@@ -62,6 +62,7 @@ const salvarPosts = (data) => {
   }
 };
 
+
 // Inicializar arrays
 let perfis = lerPerfis();
 let posts = lerPosts();
