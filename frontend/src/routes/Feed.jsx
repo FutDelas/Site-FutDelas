@@ -8,7 +8,6 @@ const Feed = () => {
   const [publicacaoAberta, setPublicacaoAberta] = useState(null);
   const navigate = useNavigate();
 
-  // Carrega usuário logado e todos os posts do backend
   useEffect(() => {
     const logado = JSON.parse(localStorage.getItem("usuarioLogado"));
     if (!logado || logado.tipo !== "jogadora") {
@@ -19,9 +18,9 @@ const Feed = () => {
 
     const carregarPosts = async () => {
       try {
-        const res = await fetch("http://localhost:3001/posts"); // agora pega todos os posts
+        const res = await fetch("http://localhost:3001/posts");
         const data = await res.json();
-        setPublicacoes(data.reverse()); // mostra os mais recentes primeiro
+        setPublicacoes(data.reverse());
       } catch (err) {
         console.error("Erro ao carregar posts:", err);
       }
@@ -30,7 +29,6 @@ const Feed = () => {
     carregarPosts();
   }, [navigate]);
 
-  // Criar nova publicação
   const handlePostar = async () => {
     if (!novaPublicacao.trim()) return;
 
@@ -58,7 +56,6 @@ const Feed = () => {
     }
   };
 
-  // Curtir / descurtir
   const curtirPost = async (id) => {
     const atualizado = publicacoes.map((p) => {
       if (p.id === id) {
@@ -77,7 +74,6 @@ const Feed = () => {
     }
   };
 
-  // Adicionar comentário
   const adicionarComentario = (id, comentario) => {
     if (!comentario.trim()) return;
     const atualizado = publicacoes.map((p) =>
@@ -89,7 +85,6 @@ const Feed = () => {
     }
   };
 
-  // Excluir postagem
   const deletarPostagem = (postId) => {
     const post = publicacoes.find((p) => p.id === postId);
     if (!post || post.autorEmail !== usuario.email) {
@@ -113,44 +108,62 @@ const Feed = () => {
 
   return (
     <div className="min-h-screen bg-[#F0F4F8] flex gap-6 p-6">
-      {/* SIDEBAR PERFIL */}
-      <div className="w-1/4 flex flex-col gap-4">
-        <div className="bg-white rounded-xl shadow-md p-4 border-l-4 border-pink-500 flex flex-col items-center">
-          <img
-            src={usuario.foto ? `http://localhost:3001/${usuario.foto}` : "https://via.placeholder.com/150"}
-            alt="Foto de perfil"
-            className="w-24 h-24 rounded-full object-cover"
-          />
-          <h2 className="text-center text-xl font-bold mt-2 text-pink-600">{usuario.nome}</h2>
-          <p className="text-center text-gray-500">{usuario.posicao || ""}</p>
-          <button
-            onClick={() => navigate("/perfil-jogadora")}
-            className="cursor-pointer block w-full mt-4 bg-purple-900 text-white py-2 rounded-lg hover:bg-pink-600 transition"
-          >
-            Ver Perfil Completo
-          </button>
-        </div>
+      {/* SIDEBAR FIXA - PALLETA FUTDELAS */}
+<div className="w-1/4 flex flex-col gap-4 sticky top-6 self-start h-screen">
+  {/* PERFIL */}
+  <div className="bg-[#FFFFFF] rounded-xl shadow-md p-4 border-l-4 border-[#F06292] flex flex-col items-center">
+    <img
+      src={usuario.foto ? `http://localhost:3001/${usuario.foto}` : "https://via.placeholder.com/150"}
+      alt="Foto de perfil"
+      className="w-20 h-20 rounded-full object-cover border-2 border-[#1E3A5F]"
+    />
+    <h2 className="text-center text-lg font-bold mt-2 text-[#0A192F]">{usuario.nome}</h2>
+    <p className="text-center text-gray-600 text-sm">{usuario.posicao || ""}</p>
+    <button
+      onClick={() => navigate("/perfil-jogadora")}
+      className="mt-3 w-full py-2 bg-[#F06292] text-white rounded-lg font-semibold hover:bg-[#E65A7F] transition"
+    >
+      Ver Perfil
+    </button>
+  </div>
 
-        <div className="bg-white rounded-xl shadow-md p-4 border-l-4 border-pink-500">
-          <h2 className="text-purple-900 text-lg font-bold mb-2">Próximos Eventos</h2>
-          <ul className="space-y-2">
-            <li className="p-2 bg-gray-100 rounded-lg">🏆 Torneio Feminino - Sábado</li>
-            <li className="p-2 bg-gray-100 rounded-lg">📅 Treino Comunitário - Segunda</li>
-            <li className="p-2 bg-gray-100 rounded-lg">🎓 Workshop de Técnicas - Quarta</li>
-          </ul>
-          <button
-    onClick={() => navigate("/eventos")}
-    className="w-full p-3 bg-purple-900 text-white rounded-lg hover:bg-pink-600 transition text-center mt-2"
-  >
-    Ver todos os eventos
-  </button>
-          
-        </div>
-      </div>
+  {/* EVENTOS */}
+  <div className="bg-[#FFFFFF] rounded-xl shadow-md p-4 border-l-4 border-[#1E3A5F] flex flex-col">
+    <h2 className="text-[#0A192F] text-lg font-bold mb-2">Próximos Eventos</h2>
+    <ul className="space-y-1 text-sm max-h-36 overflow-auto">
+      <li className="p-1 bg-[#E0E4E8] rounded-lg text-[#1E3A5F]">🏆 Torneio Feminino - Sábado</li>
+      <li className="p-1 bg-[#E0E4E8] rounded-lg text-[#1E3A5F]">📅 Treino Comunitário - Segunda</li>
+      <li className="p-1 bg-[#E0E4E8] rounded-lg text-[#1E3A5F]">🎓 Workshop de Técnicas - Quarta</li>
+    </ul>
+    <button
+      onClick={() => navigate("/eventos")}
+      className="mt-2 w-full py-2 bg-[#1E3A5F] text-white rounded-lg font-semibold hover:bg-[#5a8ca6] transition"
+    >
+      Ver Eventos
+    </button>
+  </div>
+
+  {/* RECOMPENSAS */}
+  <div className="bg-[#FFFFFF] rounded-xl shadow-md p-4 border-l-4 border-bg-purple-900 flex flex-col">
+    <h2 className="text-[#0A192F] text-lg font-bold mb-2">Recompensas</h2>
+    <ul className="space-y-1 text-sm max-h-36 overflow-auto">
+      <li className="p-1 bg-[#E0E4E8] rounded-lg text-[#1E3A5F]">🏅 Medalha - 10 pontos</li>
+      <li className="p-1 bg-[#E0E4E8] rounded-lg text-[#1E3A5F]">🎯 Melhor Jogadora - 50 pontos</li>
+      <li className="p-1 bg-[#E0E4E8] rounded-lg text-[#1E3A5F]">💎 Recompensa Especial - 100 pontos</li>
+    </ul>
+    <button
+      onClick={() => navigate("/recompensas")}
+      className="mt-2 w-full py-2 bg-purple-900 text-white rounded-lg font-semibold hover:bg-[#E65A7F] transition"
+    >
+      Ver Recompensas
+    </button>
+  </div>
+</div>
+
 
       {/* FEED */}
-      <div className="w-3/4">
-        <div className="bg-white rounded-xl shadow-md p-4 mb-4">
+      <div className="w-3/4 flex flex-col gap-6">
+        <div className="bg-white rounded-xl shadow-md p-4">
           <textarea
             placeholder="Compartilhe algo..."
             value={novaPublicacao}
