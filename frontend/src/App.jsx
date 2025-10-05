@@ -15,6 +15,7 @@ import Feed from './routes/Feed';
 import PerfilOlheiro from './routes/PerfilOlheiro';
 import Atletas from './routes/Atletas';
 import PerfilJogadoraOlheiro from './routes/PerfilJogadoraOlheiro';
+import Eventos from './routes/Eventos';
 import Recompensas from './routes/Recompensas';
 import Escolinhas from "./routes/Escolinhas";
 
@@ -43,6 +44,7 @@ function App() {
           {/* Outras rotas */}
           <Route path="/mapa" element={<Mapa/>}/>
           <Route path="/encontros" element={<Encontros/>}/>
+          <Route path="/eventos" element={<Eventos/>} />
           <Route path="/canal-de-pais-e-responsaveis" element={<CanalDePaiseResponsaveis/>}/>
           <Route path="/recompensas" element={<Recompensas/>}/>
           <Route path="/escolinhas" element={<Escolinhas />} />

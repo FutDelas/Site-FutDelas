@@ -138,6 +138,13 @@ const Feed = () => {
             <li className="p-2 bg-gray-100 rounded-lg">📅 Treino Comunitário - Segunda</li>
             <li className="p-2 bg-gray-100 rounded-lg">🎓 Workshop de Técnicas - Quarta</li>
           </ul>
+          <button
+    onClick={() => navigate("/eventos")}
+    className="w-full p-3 bg-purple-900 text-white rounded-lg hover:bg-pink-600 transition text-center mt-2"
+  >
+    Ver todos os eventos
+  </button>
+          
         </div>
       </div>
 

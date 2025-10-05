@@ -1,0 +1,69 @@
+[
+  {
+    "id": 1,
+    "titulo": "Encontro Semanal - Segunda",
+    "dia": "Segunda-feira",
+    "emoji": "📅",
+    "tipo": "semanal",
+    "descricao": "Treino comunitário aberto para todas as jogadoras da cidade.",
+    "vagas": 15,
+    "inscritos": [
+      { "nome": "Giovanna Alves", "email": "gioalves@email.com" },
+      { "nome": "Ágatha Melissa", "email": "agatha@email.com" }
+    ]
+  },
+  {
+    "id": 2,
+    "titulo": "Encontro Semanal - Quarta",
+    "dia": "Quarta-feira",
+    "emoji": "📅",
+    "tipo": "semanal",
+    "descricao": "Treino com foco em técnicas de passe e finalização.",
+    "vagas": 15,
+    "inscritos": [
+      { "nome": "Luísa Pacheco", "email": "luisa@email.com" },
+      { "nome": "Isabela Martins", "email": "isabela.martins@email.com" },
+      { "nome": "Beatriz Nunes", "email": "bea.nunes@email.com" }
+    ]
+  },
+  {
+    "id": 3,
+    "titulo": "Peneira FutDelas - Regional",
+    "dia": "Sábado",
+    "emoji": "⚽",
+    "tipo": "peneira",
+    "descricao": "Seleção de novas jogadoras para as equipes da região.",
+    "vagas": 20,
+    "inscritos": [
+      { "nome": "Camila Rocha", "email": "camila.rocha@email.com" },
+      { "nome": "Helena Duarte", "email": "helena.duarte@email.com" }
+    ]
+  },
+  {
+    "id": 4,
+    "titulo": "Peneira FutDelas - Estadual",
+    "dia": "Domingo",
+    "emoji": "⚽",
+    "tipo": "peneira",
+    "descricao": "Peneira para formação de equipes estaduais do FutDelas.",
+    "vagas": 20,
+    "inscritos": [
+      { "nome": "Larissa Mendes", "email": "lari.mendes@email.com" },
+      { "nome": "Mariana Torres", "email": "mariana.torres@email.com" }
+    ]
+  },
+  {
+    "id": 5,
+    "titulo": "Campeonato FutDelas 2025",
+    "dia": "De 10 a 20 de Novembro",
+    "emoji": "🏆",
+    "tipo": "campeonato",
+    "descricao": "Campeonato oficial do FutDelas com equipes de todo o país.",
+    "vagas": 8,
+    "inscritos": [
+      { "nome": "Clara Lima", "email": "clara.lima@email.com" },
+      { "nome": "Júlia Ferreira", "email": "julia.ferreira@email.com" },
+      { "nome": "Sofia Cardoso", "email": "sofia.cardoso@email.com" }
+    ]
+  }
+]

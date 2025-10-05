@@ -231,6 +231,53 @@ app.delete("/post/:id", (req, res) => {
   res.json({ message: "Post deletado com sucesso" });
 });
 
+// Rota para retornar todos os eventos
+app.get("/eventos", (req, res) => {
+  const filePath = path.join(__dirname, "eventos.json");
+  fs.readFile(filePath, "utf-8", (err, data) => {
+    if (err) return res.status(500).json({ erro: "Não foi possível carregar os eventos" });
+    res.json(JSON.parse(data));
+  });
+});
+
+// Supondo Express
+app.get("/publicacoes/:usuarioId", (req, res) => {
+  const usuarioId = req.params.usuarioId;
+  const todasPublicacoes = JSON.parse(fs.readFileSync("publicacoes.json", "utf-8"));
+  const publicacoesUsuario = todasPublicacoes.filter(p => p.usuarioId === usuarioId);
+  res.json(publicacoesUsuario);
+});
+
+
+// Rota para inscrição de jogadora
+app.post("/eventos/:id/inscrever", (req, res) => {
+  const filePath = path.join(__dirname, "eventos.json");
+  fs.readFile(filePath, "utf-8", (err, data) => {
+    if (err) return res.status(500).json({ erro: "Erro ao ler eventos" });
+
+    const eventos = JSON.parse(data);
+    const evento = eventos.find(e => e.id === parseInt(req.params.id));
+    if (!evento) return res.status(404).json({ erro: "Evento não encontrado" });
+
+    const { nome, email } = req.body;
+    if (!evento.inscritos) evento.inscritos = [];
+
+    if (evento.inscritos.find(i => i.email === email)) {
+      return res.status(400).json({ erro: "Jogadora já inscrita" });
+    }
+
+    // Adiciona inscrição
+    evento.inscritos.push({ nome, email });
+
+    // Salva de volta no JSON
+    fs.writeFile(filePath, JSON.stringify(eventos, null, 2), (err) => {
+      if (err) return res.status(500).json({ erro: "Não foi possível salvar inscrição" });
+      res.json({ sucesso: true, mensagem: "Inscrição realizada com sucesso" });
+    });
+  });
+});
+
+
 // ===== INICIALIZAÇÃO DO SERVIDOR =====
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT} 🚀`);
