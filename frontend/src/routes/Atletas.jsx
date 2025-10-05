@@ -66,6 +66,7 @@ const Atletas = () => {
     if (!filtroAno || !dataNascimento) return true;
     const ano = parseInt(dataNascimento.split("-")[0]);
     switch(filtroAno) {
+      case "1990-2000": return ano >= 1990 && ano <= 2000;
       case "2001-2010": return ano >= 2001 && ano <= 2010;
       case "2011-2020": return ano >= 2011 && ano <= 2020;
       default: return true;
@@ -135,6 +136,7 @@ const Atletas = () => {
 
             <select value={filtroAno} onChange={(e) => setFiltroAno(e.target.value)} className="p-2 border rounded">
               <option value="">Todas as faixas</option>
+              <option value="1990-2000">1990-2000</option>
               <option value="2001-2010">2001-2010</option>
               <option value="2011-2020">2011-2020</option>
             </select>

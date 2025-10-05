@@ -21,9 +21,7 @@ const Feed = () => {
         localizacao: logado.localizacao || "",
         sobre: logado.sobre || "",
         habilidades: logado.habilidades ? logado.habilidades.join(", ") : "",
-        fotoPerfil: logado.fotoPerfil || "",
-        galeriasFotos: logado.galeriasFotos || [],
-        galeriasVideos: logado.galeriasVideos || [],
+        foto: logado.foto || "",
       });
     } else {
       window.location.href = "/login";
@@ -39,7 +37,7 @@ const Feed = () => {
     const novoPost = {
       id: Date.now(),
       autor: usuario.nome,
-      fotoPerfil: usuario.fotoPerfil,
+      foto: usuario.foto,
       texto: novaPublicacao,
       data: new Date().toLocaleString("pt-BR"),
       curtidas: 0,
@@ -57,19 +55,9 @@ const Feed = () => {
     const atualizado = publicacoes.map((p) => {
       if (p.id === id) {
         if (p.curtidoPor.includes(usuario.nome)) {
-          // Descurtir
-          return {
-            ...p,
-            curtidas: p.curtidas - 1,
-            curtidoPor: p.curtidoPor.filter((nome) => nome !== usuario.nome),
-          };
+          return { ...p, curtidas: p.curtidas - 1, curtidoPor: p.curtidoPor.filter((n) => n !== usuario.nome) };
         } else {
-          // Curtir
-          return {
-            ...p,
-            curtidas: p.curtidas + 1,
-            curtidoPor: [...p.curtidoPor, usuario.nome],
-          };
+          return { ...p, curtidas: p.curtidas + 1, curtidoPor: [...p.curtidoPor, usuario.nome] };
         }
       }
       return p;
@@ -78,7 +66,6 @@ const Feed = () => {
     setPublicacoes(atualizado);
     localStorage.setItem("publicacoes", JSON.stringify(atualizado));
 
-    // Atualiza também a publicação aberta, se for o mesmo post
     if (publicacaoAberta && publicacaoAberta.id === id) {
       const postAtualizado = atualizado.find((p) => p.id === id);
       setPublicacaoAberta(postAtualizado);
@@ -89,14 +76,11 @@ const Feed = () => {
   const adicionarComentario = (id, comentario) => {
     if (!comentario.trim()) return;
     const atualizado = publicacoes.map((p) =>
-      p.id === id
-        ? { ...p, comentarios: [...p.comentarios, { texto: comentario, autor: usuario.nome }] }
-        : p
+      p.id === id ? { ...p, comentarios: [...p.comentarios, { texto: comentario, autor: usuario.nome }] } : p
     );
     setPublicacoes(atualizado);
     localStorage.setItem("publicacoes", JSON.stringify(atualizado));
 
-    // Atualiza também a publicação aberta se for a mesma
     if (publicacaoAberta && publicacaoAberta.id === id) {
       const postAtualizado = atualizado.find((p) => p.id === id);
       setPublicacaoAberta(postAtualizado);
@@ -106,9 +90,7 @@ const Feed = () => {
   // Excluir publicação
   const deletarPostagem = (postId) => {
     const atualizado = publicacoes.filter((p) => {
-      if (p.id === postId) {
-        return p.autor !== usuario.nome;
-      }
+      if (p.id === postId) return p.autor !== usuario.nome;
       return true;
     });
     if (atualizado.length === publicacoes.length) {
@@ -126,27 +108,24 @@ const Feed = () => {
     <div className="min-h-screen bg-[#F0F4F8] flex gap-6 p-6">
       {/* SIDEBAR PERFIL */}
       <div className="w-1/4 flex flex-col gap-4">
-        <div className="bg-white rounded-xl shadow-md p-4 border-l-4 border-pink-500">
-          <div className="relative flex flex-col items-center">
-            <img
-              src={formData.fotoPerfil || ""}
-              alt="Foto de perfil"
-              className="w-24 h-24 rounded-full object-cover"
-            />
-            <h2 className="text-center text-xl font-bold mt-2 text-pink-600">{usuario.nome}</h2>
-            <p className="text-center text-gray-500">{usuario.posicao || ""}</p>
-            <p className="text-center text-gray-500">{usuario.sobre || ""}</p>
-            <p className="text-center text-gray-500">{usuario.habilidades || ""}</p>
-            <button
-              onClick={() => navigate("/perfil-jogadora")}
-              className="cursor-pointer block w-full mt-4 bg-purple-900 text-white py-2 rounded-lg hover:bg-pink-600 transition"
-            >
-              Ver Perfil Completo
-            </button>
-          </div>
+        {/* Card de Perfil */}
+        <div className="bg-white rounded-xl shadow-md p-4 border-l-4 border-pink-500 flex flex-col items-center">
+          <img
+            src={usuario.foto ? `http://localhost:3001/${usuario.foto}` : "https://via.placeholder.com/150"}
+            alt="Foto de perfil"
+            className="w-24 h-24 rounded-full object-cover"
+          />
+          <h2 className="text-center text-xl font-bold mt-2 text-pink-600">{usuario.nome}</h2>
+          <p className="text-center text-gray-500">{usuario.posicao || ""}</p>
+          <button
+            onClick={() => navigate("/perfil-jogadora")}
+            className="cursor-pointer block w-full mt-4 bg-purple-900 text-white py-2 rounded-lg hover:bg-pink-600 transition"
+          >
+            Ver Perfil Completo
+          </button>
         </div>
 
-        {/* EVENTOS */}
+        {/* Eventos */}
         <div className="bg-white rounded-xl shadow-md p-4 border-l-4 border-pink-500">
           <h2 className="text-purple-900 text-lg font-bold mb-2">Próximos Eventos</h2>
           <ul className="space-y-2">
@@ -192,7 +171,7 @@ const Feed = () => {
                 {/* Cabeçalho */}
                 <div className="flex gap-4 items-center">
                   <img
-                    src={pub.fotoPerfil || ""}
+                    src={pub.foto ? `http://localhost:3001/${pub.foto}` : "https://via.placeholder.com/150"}
                     alt="Autor"
                     className="w-12 h-12 rounded-full object-cover"
                   />
@@ -251,7 +230,6 @@ const Feed = () => {
       {publicacaoAberta && (
         <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
           <div className="bg-white rounded-xl shadow-lg p-6 w-2/3 max-h-[80vh] overflow-y-auto relative">
-            {/* Fechar */}
             <button
               onClick={() => setPublicacaoAberta(null)}
               className="cursor-pointer absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-xl"
@@ -259,10 +237,9 @@ const Feed = () => {
               ❌
             </button>
 
-            {/* Autor */}
             <div className="flex gap-4 items-center">
               <img
-                src={publicacaoAberta.fotoPerfil || ""}
+                src={publicacaoAberta.foto ? `http://localhost:3001/${publicacaoAberta.foto}` : "https://via.placeholder.com/150"}
                 alt="Autor"
                 className="w-12 h-12 rounded-full object-cover"
               />
@@ -272,10 +249,8 @@ const Feed = () => {
               </div>
             </div>
 
-            {/* Texto */}
             <p className="mt-4 text-gray-800">{publicacaoAberta.texto}</p>
 
-            {/* Curtir / Descurtir + excluir */}
             <div className="mt-4 flex gap-6 items-center">
               <button
                 onClick={() => curtirPost(publicacaoAberta.id)}
@@ -298,7 +273,6 @@ const Feed = () => {
               )}
             </div>
 
-            {/* Comentários */}
             <div className="mt-4">
               {publicacaoAberta.comentarios.map((c, i) => (
                 <p key={i} className="text-sm text-purple-900 bg-gray-50 p-2 rounded-lg mb-2">
