@@ -9,7 +9,6 @@ const PerfilJogadora = () => {
   const [postsJogadora, setPostsJogadora] = useState([]);
   const [mostrarBotoesApagar, setMostrarBotoesApagar] = useState(false);
 
-  // Carregar perfil, portfólio e posts
   useEffect(() => {
     const logado = JSON.parse(localStorage.getItem("usuarioLogado"));
     if (!logado || logado.tipo !== "jogadora") {
@@ -18,7 +17,6 @@ const PerfilJogadora = () => {
     }
     setJogadora(logado);
 
-    // Carregar portfólio
     const carregarMidias = async () => {
       try {
         const res = await fetch("http://localhost:3001/perfis");
@@ -36,10 +34,8 @@ const PerfilJogadora = () => {
         console.error("Erro ao carregar mídias:", err);
       }
     };
-
     carregarMidias();
 
-    // Carregar posts da jogadora
     const carregarPosts = async () => {
       try {
         const res = await fetch(`http://localhost:3001/posts/${logado.email}`);
@@ -49,7 +45,6 @@ const PerfilJogadora = () => {
         console.error("Erro ao carregar posts:", err);
       }
     };
-
     carregarPosts();
   }, [navigate]);
 
@@ -110,53 +105,48 @@ const PerfilJogadora = () => {
 
   if (!jogadora)
     return (
-      <p className="text-center mt-10 text-purple-900 font-semibold">
+      <p className="text-center mt-10 text-[#F06292] font-semibold">
         Carregando perfil...
       </p>
     );
 
   return (
-    <div className="min-h-screen bg-[#F0F4F8] p-6 flex justify-center">
-      <div className="w-full max-w-4xl bg-white rounded-2xl shadow-lg p-8">
-        <h1 className="text-3xl font-bold text-center text-purple-900 mb-6">
-          Perfil 👤
-        </h1>
+    <div className="min-h-screen bg-[#FFFFFF] p-6 flex justify-center">
+      <div className="w-full max-w-5xl bg-[#E0E4E8] rounded-2xl shadow-lg p-8 space-y-10">
 
-        {/* Foto e botão editar */}
-        <div className="flex flex-col items-center mb-8">
+        {/* Cabeçalho: Foto + Informações no mesmo card */}
+        <div className="flex flex-col md:flex-row items-center gap-6 p-6 rounded-2xl shadow-md bg-gradient-to-r from-[#0A192F] to-[#1E3A5F] text-white">
+          {/* Foto da jogadora */}
           <img
-            src={
-              jogadora.foto
-                ? `http://localhost:3001/${jogadora.foto}`
-                : "https://via.placeholder.com/150"
-            }
+            src={jogadora.foto ? `http://localhost:3001/${jogadora.foto}` : "https://via.placeholder.com/150"}
             alt={jogadora.nome}
-            className="w-32 h-32 rounded-full object-cover mb-4"
+            className="w-36 h-36 rounded-full object-cover border-4 border-[#F06292]"
           />
-          <button
-            onClick={() => navigate("/editar-jogadora")}
-            className="cursor-pointer bg-purple-900 text-white px-6 py-2 rounded-xl hover:bg-pink-600 transition font-semibold"
-          >
-            Editar Perfil
-          </button>
-        </div>
 
-        {/* Informações básicas */}
-        <div className="space-y-4 mb-8">
-          <div><strong>Email:</strong> {jogadora.email}</div>
-          <div><strong>Nome:</strong> {jogadora.nome}</div>
-          <div><strong>Posição:</strong> {jogadora.posicao || "-"}</div>
-          <div><strong>Altura:</strong> {jogadora.altura ? `${jogadora.altura} cm` : "-"}</div>
-          <div><strong>Peso:</strong> {jogadora.peso ? `${jogadora.peso} kg` : "-"}</div>
-          <div><strong>Localização:</strong> {jogadora.localizacao || "-"}</div>
-          <div><strong>Sobre:</strong> {jogadora.sobre || "-"}</div>
-          <div><strong>Habilidades:</strong> {jogadora.habilidades?.join(", ") || "-"}</div>
+          {/* Informações à direita */}
+          <div className="flex-1 flex flex-col justify-center gap-2">
+            <h1 className="text-4xl font-extrabold">{jogadora.nome}</h1>
+            <p className="text-[#F06292] text-lg">{jogadora.posicao || "-"}</p>
+
+            <div className="grid grid-cols-2 gap-2 mt-4 text-white">
+              <div><strong>Localização:</strong> {jogadora.localizacao || "-"}</div>
+              <div className="col-span-2"><strong>Sobre:</strong> {jogadora.sobre || "-"}</div>
+              <div className="col-span-2"><strong>Habilidades:</strong> {jogadora.habilidades?.join(", ") || "-"}</div>
+            </div>
+
+            <button
+              onClick={() => navigate("/editar-jogadora")}
+              className="mt-4 bg-[#F06292] hover:bg-[#E65A7F] text-white font-semibold px-6 py-2 rounded-xl transition-colors w-max"
+            >
+              Editar Perfil
+            </button>
+          </div>
         </div>
 
         {/* Seção Portfólio */}
-        <div className="mt-10">
+        <div>
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold text-purple-900">Portfólio</h2>
+            <h2 className="text-2xl font-bold text-[#0A192F]">Portfólio</h2>
             <div className="flex gap-2">
               <button
                 onClick={() => setMostrarBotoesApagar((prev) => !prev)}
@@ -164,20 +154,19 @@ const PerfilJogadora = () => {
               >
                 Apagar
               </button>
-              {midias.length > 0 ? (
+              {midias.length > 0 && (
                 <button
                   onClick={enviarMidias}
-                  className="bg-pink-600 text-white px-3 py-1 rounded hover:bg-purple-900 transition font-semibold text-sm"
+                  className="bg-[#F06292] text-white px-3 py-1 rounded hover:bg-[#E65A7F] transition font-semibold text-sm"
                 >
                   Enviar
                 </button>
-              ) : null}
+              )}
             </div>
           </div>
 
-          {/* Upload */}
           <div className="mb-4">
-            <label className="cursor-pointer bg-purple-900 text-white px-4 py-2 rounded hover:bg-pink-600 transition font-semibold text-sm">
+            <label className="cursor-pointer bg-[#1E3A5F] text-white px-4 py-2 rounded hover:bg-[#0A192F] transition font-semibold text-sm">
               Adicionar Mídia
               <input
                 type="file"
@@ -189,7 +178,6 @@ const PerfilJogadora = () => {
             </label>
           </div>
 
-          {/* Mídias do portfólio */}
           <div className="grid grid-cols-3 gap-4">
             {portfolio.map((m, i) =>
               m.tipo === "video" ? (
@@ -230,22 +218,22 @@ const PerfilJogadora = () => {
         </div>
 
         {/* Seção Posts da Jogadora */}
-        <div className="mt-10">
-          <h2 className="text-2xl font-bold text-purple-900 mb-4">Publicações</h2>
+        <div>
+          <h2 className="text-2xl font-bold text-[#0A192F] mb-4">Publicações</h2>
           {postsJogadora.length === 0 ? (
-            <p className="text-gray-500">Ainda não há posts.</p>
+            <p className="text-[#1E3A5F]">Ainda não há posts.</p>
           ) : (
             postsJogadora.map((post) => (
-              <div key={post.id} className="bg-white rounded-xl shadow-md p-4 mb-4">
+              <div key={post.id} className="bg-[#FFFFFF] rounded-xl shadow-md p-4 mb-4">
                 <div className="flex items-center gap-2">
                   <img
                     src={post.foto ? `http://localhost:3001/${post.foto}` : "https://via.placeholder.com/150"}
                     className="w-10 h-10 rounded-full"
                   />
-                  <span className="font-bold text-purple-900">{post.autor}</span>
-                  <span className="text-gray-400 text-xs">{post.data}</span>
+                  <span className="font-bold text-[#0A192F]">{post.autor}</span>
+                  <span className="text-[#1E3A5F] text-xs">{post.data}</span>
                 </div>
-                <p className="mt-2 text-gray-800">{post.texto}</p>
+                <p className="mt-2 text-[#1E3A5F]">{post.texto}</p>
               </div>
             ))
           )}

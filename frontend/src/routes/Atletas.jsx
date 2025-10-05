@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Atletas = () => {
+  const navigate = useNavigate();
   const [usuario, setUsuario] = useState(null);
   const [jogadoras, setJogadoras] = useState([]);
-  const [selecionada, setSelecionada] = useState(null);
 
   const [filtroPosicao, setFiltroPosicao] = useState("");
   const [filtroAno, setFiltroAno] = useState("");
@@ -16,7 +17,24 @@ const Atletas = () => {
     "Atacantes": ["Centroavante", "Ponta-direita"]
   };
 
-  const cidadeParaRegiao = (estado) => {
+  const cidadeParaEstado = {
+    "São Paulo": "SP",
+    "Curitiba": "PR",
+    "Belo Horizonte": "MG",
+    "Natal": "RN",
+    "Recife": "PE",
+    "Fortaleza": "CE",
+    "Brasília": "DF",
+    "Campinas": "SP",
+    "Porto Alegre": "RS",
+    "Salvador": "BA",
+    "Florianópolis": "SC"
+  };
+
+  const cidadeParaRegiao = (cidade) => {
+    const estado = cidadeParaEstado[cidade];
+    if (!estado) return null;
+
     const regioes = {
       "Norte": ["AM","PA","RO","RR","AP","AC","TO"],
       "Nordeste": ["BA","PE","CE","RN","PI","AL","SE","MA","PB"],
@@ -24,10 +42,11 @@ const Atletas = () => {
       "Sudeste": ["SP","RJ","MG","ES"],
       "Sul": ["RS","PR","SC"]
     };
+
     for (const reg in regioes) {
       if (regioes[reg].includes(estado)) return reg;
     }
-    return estado;
+    return null;
   };
 
   const eventos = [
@@ -42,7 +61,7 @@ const Atletas = () => {
     if (logado && logado.tipo === "olheiro") {
       setUsuario(logado);
     } else {
-      window.location.href = "/login";
+      navigate("/login");
       return;
     }
 
@@ -58,7 +77,7 @@ const Atletas = () => {
     };
 
     carregarJogadoras();
-  }, []);
+  }, [navigate]);
 
   if (!usuario) return <p className="text-center mt-10">Carregando...</p>;
 
@@ -77,8 +96,12 @@ const Atletas = () => {
     const atendePosicao = filtroPosicao
       ? categoriasPosicao[filtroPosicao]?.includes(j.posicao)
       : true;
+
     const atendeAno = atendeFaixaAno(j.dataNascimento);
-    const atendeRegiao = filtroRegiao ? cidadeParaRegiao(j.localizacao) === filtroRegiao : true;
+
+    const regiaoJogadora = cidadeParaRegiao(j.localizacao);
+    const atendeRegiao = filtroRegiao ? regiaoJogadora === filtroRegiao : true;
+
     return atendePosicao && atendeAno && atendeRegiao;
   });
 
@@ -100,14 +123,14 @@ const Atletas = () => {
             <p><strong>Local de atuação:</strong> {usuario.localAtuacao || "Não informado"}</p>
             <p><strong>Experiência:</strong> {usuario.experiencia || "Não informada"}</p>
             <button
-              onClick={() => window.location.href = "/perfil-olheiro"}
+              onClick={() => navigate("/perfil-olheiro")}
               className="mt-4 w-full bg-[#003B5C] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#00527A] transition"
             >
               Ver meu perfil
             </button>
           </div>
 
-          {/* Seção de Eventos (abaixo do Olheiro) */}
+          {/* Seção de Eventos */}
           <div className="bg-white rounded-2xl shadow-lg p-4">
             <h2 className="text-xl font-bold text-[#003B5C] mb-4 text-center">Eventos</h2>
             <div className="flex flex-col gap-3">
@@ -159,8 +182,7 @@ const Atletas = () => {
               {jogadorasFiltradas.map((jogadora, i) => (
                 <div
                   key={i}
-                  className="bg-white rounded-2xl shadow p-4 cursor-pointer hover:shadow-xl transition"
-                  onClick={() => setSelecionada(jogadora)}
+                  className="bg-white rounded-2xl shadow p-4 hover:shadow-xl transition relative"
                 >
                   <img
                     src={jogadora.foto ? `http://localhost:3001/${jogadora.foto}` : "https://via.placeholder.com/150"}
@@ -173,43 +195,23 @@ const Atletas = () => {
                   <p><strong>Estado:</strong> {jogadora.localizacao || "-"}</p>
                   <p><strong>Altura:</strong> {jogadora.altura ? `${jogadora.altura} cm` : "-"}</p>
                   <p><strong>Peso:</strong> {jogadora.peso ? `${jogadora.peso} kg` : "-"}</p>
+
+                  {/* Botão para ir ao perfil da jogadora */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation(); // evita abrir modal
+                      navigate(`/perfil-jogadora-olheiro/${jogadora.id}`);
+                    }}
+                    className="mt-3 w-full bg-[#6a1838] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#8a2050] transition"
+                  >
+                    Ver Perfil
+                  </button>
                 </div>
               ))}
             </div>
           )}
         </div>
       </div>
-
-      {/* Modal com detalhes */}
-      {selecionada && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-2xl w-11/12 md:w-3/4 max-w-3xl relative shadow-lg">
-            <button
-              onClick={() => setSelecionada(null)}
-              className="absolute top-2 right-2 font-bold text-xl text-gray-600 hover:text-gray-900"
-            >
-              ×
-            </button>
-            <div className="flex flex-col md:flex-row gap-4">
-              <img
-                src={selecionada.foto ? `http://localhost:3001/${selecionada.foto}` : "https://via.placeholder.com/150"}
-                alt={selecionada.nome}
-                className="w-48 h-48 object-cover rounded-lg"
-              />
-              <div className="flex-1">
-                <h2 className="text-2xl font-bold mb-2">{selecionada.nome}</h2>
-                <p><strong>Posição:</strong> {selecionada.posicao || "Não informada"}</p>
-                <p><strong>Ano de Nascimento:</strong> {selecionada.dataNascimento?.split("-")[0] || "Não informado"}</p>
-                <p><strong>Estado:</strong> {selecionada.localizacao || "Não informado"}</p>
-                <p><strong>Altura:</strong> {selecionada.altura ? `${selecionada.altura} cm` : "-"}</p>
-                <p><strong>Peso:</strong> {selecionada.peso ? `${selecionada.peso} kg` : "-"}</p>
-                <p><strong>Sobre:</strong> {selecionada.sobre || "Não informado"}</p>
-                <p><strong>Habilidades:</strong> {selecionada.habilidades?.length ? selecionada.habilidades.join(", ") : "Nenhuma habilidade cadastrada"}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

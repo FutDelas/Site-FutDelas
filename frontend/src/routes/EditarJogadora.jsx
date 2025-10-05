@@ -79,7 +79,7 @@ const EditarJogadora = () => {
   return (
     <div className="min-h-screen bg-[#F0F4F8] p-6 flex justify-center">
       <div className="w-full max-w-3xl bg-white rounded-2xl shadow-lg p-8">
-        <h1 className="text-3xl font-bold text-center text-purple-900 mb-6">Perfil 👤</h1>
+        <h1 className="text-3xl font-bold text-center text-purple-900 mb-6">Perfil </h1>
 
         {/* Foto e botão editar */}
         <div className="flex flex-col items-center mb-8">

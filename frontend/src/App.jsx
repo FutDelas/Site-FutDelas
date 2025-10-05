@@ -14,6 +14,7 @@ import EditarJogadora from './routes/EditarJogadora';
 import Feed from './routes/Feed';
 import PerfilOlheiro from './routes/PerfilOlheiro';
 import Atletas from './routes/Atletas';
+import PerfilJogadoraOlheiro from './routes/PerfilJogadoraOlheiro';
 import Recompensas from './routes/Recompensas';
 import Escolinhas from "./routes/Escolinhas";
 
@@ -37,6 +38,7 @@ function App() {
           <Route path="/feed" element={<Feed/>}/>
           <Route path="/perfil-olheiro" element={<PerfilOlheiro/>}/>
           <Route path="/atletas" element={<Atletas/>}/>
+          <Route path="/perfil-jogadora-olheiro/:id" element={<PerfilJogadoraOlheiro/>}/>
 
           {/* Outras rotas */}
           <Route path="/mapa" element={<Mapa/>}/>
