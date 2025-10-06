@@ -13,24 +13,24 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // Serve fotos e vídeos
 
+// ===== Caminhos dos arquivos JSON =====
 const perfisCaminho = path.join(__dirname, "perfis.json");
 const postsCaminho = path.join(__dirname, "posts.json");
+const relatoriosCaminho = path.join(__dirname, "relatorios.json");
 
-// Função para ler perfis
+// ===== Funções utilitárias =====
+
+// Perfis
 const lerPerfis = () => {
   try {
-    if (!fs.existsSync(perfisCaminho)) {
-      fs.writeFileSync(perfisCaminho, "[]", "utf-8");
-    }
-    const data = fs.readFileSync(perfisCaminho, "utf-8");
-    return JSON.parse(data);
+    if (!fs.existsSync(perfisCaminho)) fs.writeFileSync(perfisCaminho, "[]", "utf-8");
+    return JSON.parse(fs.readFileSync(perfisCaminho, "utf-8"));
   } catch (error) {
     console.error("Erro ao ler perfis:", error);
     return [];
   }
 };
 
-// Função para salvar perfis
 const salvarPerfis = (data) => {
   try {
     fs.writeFileSync(perfisCaminho, JSON.stringify(data, null, 2), "utf-8");
@@ -39,21 +39,17 @@ const salvarPerfis = (data) => {
   }
 };
 
-// Função para ler posts
+// Posts
 const lerPosts = () => {
   try {
-    if (!fs.existsSync(postsCaminho)) {
-      fs.writeFileSync(postsCaminho, "[]", "utf-8");
-    }
-    const data = fs.readFileSync(postsCaminho, "utf-8");
-    return JSON.parse(data);
+    if (!fs.existsSync(postsCaminho)) fs.writeFileSync(postsCaminho, "[]", "utf-8");
+    return JSON.parse(fs.readFileSync(postsCaminho, "utf-8"));
   } catch (err) {
     console.error("Erro ao ler posts.json:", err);
     return [];
   }
 };
 
-// Função para salvar posts
 const salvarPosts = (data) => {
   try {
     fs.writeFileSync(postsCaminho, JSON.stringify(data, null, 2), "utf-8");
@@ -62,12 +58,31 @@ const salvarPosts = (data) => {
   }
 };
 
+// Relatórios
+const lerRelatorios = () => {
+  try {
+    if (!fs.existsSync(relatoriosCaminho)) fs.writeFileSync(relatoriosCaminho, "[]", "utf-8");
+    return JSON.parse(fs.readFileSync(relatoriosCaminho, "utf-8"));
+  } catch (err) {
+    console.error("Erro ao ler relatorios.json:", err);
+    return [];
+  }
+};
+
+const salvarRelatorios = (data) => {
+  try {
+    fs.writeFileSync(relatoriosCaminho, JSON.stringify(data, null, 2), "utf-8");
+  } catch (err) {
+    console.error("Erro ao salvar relatorios.json:", err);
+  }
+};
 
 // Inicializar arrays
 let perfis = lerPerfis();
 let posts = lerPosts();
+let relatorios = lerRelatorios();
 
-// Configuração do multer
+// ===== Configuração do multer =====
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const dir = "uploads/";
@@ -85,9 +100,8 @@ const upload = multer({ storage });
 // Criar perfil
 app.post("/perfil", (req, res) => {
   const { nome, dataNascimento, email, senha, tipo } = req.body;
-  if (!nome || !dataNascimento || !email || !senha || !tipo) {
+  if (!nome || !dataNascimento || !email || !senha || !tipo)
     return res.status(400).json({ message: "Todos os campos são obrigatórios" });
-  }
 
   const novoPerfil = {
     id: uuid(),
@@ -170,11 +184,9 @@ app.delete("/perfil/delete-midia", (req, res) => {
 
   const caminhoArquivo = perfis[perfilIndex].midias[midiaIndex];
 
-  // Remove do array
   perfis[perfilIndex].midias.splice(midiaIndex, 1);
   salvarPerfis(perfis);
 
-  // Remove do servidor
   fs.unlink(caminhoArquivo, (err) => { if (err) console.error(err); });
 
   res.json({ message: "Mídia deletada com sucesso!" });
@@ -185,9 +197,8 @@ app.delete("/perfil/delete-midia", (req, res) => {
 // Criar post
 app.post("/post", (req, res) => {
   const { autorEmail, autorNome, texto, foto } = req.body;
-  if (!autorEmail || !autorNome || !texto) {
+  if (!autorEmail || !autorNome || !texto)
     return res.status(400).json({ message: "Campos obrigatórios ausentes" });
-  }
 
   const novoPost = {
     id: uuid(),
@@ -214,7 +225,7 @@ app.get("/posts/:email", (req, res) => {
   res.json(postsUsuario);
 });
 
-// **Nova rota para pegar todos os posts**
+// Todos os posts
 app.get("/posts", (req, res) => {
   res.json(posts);
 });
@@ -231,7 +242,7 @@ app.delete("/post/:id", (req, res) => {
   res.json({ message: "Post deletado com sucesso" });
 });
 
-// Rota para retornar todos os eventos
+// ===== ROTAS EVENTOS =====
 app.get("/eventos", (req, res) => {
   const filePath = path.join(__dirname, "eventos.json");
   fs.readFile(filePath, "utf-8", (err, data) => {
@@ -240,16 +251,6 @@ app.get("/eventos", (req, res) => {
   });
 });
 
-// Supondo Express
-app.get("/publicacoes/:usuarioId", (req, res) => {
-  const usuarioId = req.params.usuarioId;
-  const todasPublicacoes = JSON.parse(fs.readFileSync("publicacoes.json", "utf-8"));
-  const publicacoesUsuario = todasPublicacoes.filter(p => p.usuarioId === usuarioId);
-  res.json(publicacoesUsuario);
-});
-
-
-// Rota para inscrição de jogadora
 app.post("/eventos/:id/inscrever", (req, res) => {
   const filePath = path.join(__dirname, "eventos.json");
   fs.readFile(filePath, "utf-8", (err, data) => {
@@ -262,14 +263,11 @@ app.post("/eventos/:id/inscrever", (req, res) => {
     const { nome, email } = req.body;
     if (!evento.inscritos) evento.inscritos = [];
 
-    if (evento.inscritos.find(i => i.email === email)) {
+    if (evento.inscritos.find(i => i.email === email))
       return res.status(400).json({ erro: "Jogadora já inscrita" });
-    }
 
-    // Adiciona inscrição
     evento.inscritos.push({ nome, email });
 
-    // Salva de volta no JSON
     fs.writeFile(filePath, JSON.stringify(eventos, null, 2), (err) => {
       if (err) return res.status(500).json({ erro: "Não foi possível salvar inscrição" });
       res.json({ sucesso: true, mensagem: "Inscrição realizada com sucesso" });
@@ -277,6 +275,56 @@ app.post("/eventos/:id/inscrever", (req, res) => {
   });
 });
 
+// ===== ROTAS RELATÓRIOS =====
+
+// Criar relatório
+app.post("/relatorios", (req, res) => {
+  const { jogadoraId, eventoId, pontosFortes, pontosAMelhorar, nota, olheiro } = req.body;
+
+  if (!jogadoraId || !pontosFortes || !nota || !olheiro)
+    return res.status(400).json({ message: "Campos obrigatórios faltando" });
+
+  const novoRelatorio = {
+    id: uuid(),
+    jogadoraId,
+    eventoId: eventoId || null,
+    pontosFortes,
+    pontosAMelhorar: pontosAMelhorar || "",
+    nota,
+    olheiro,
+    data: new Date().toISOString()
+  };
+
+  relatorios.push(novoRelatorio);
+  salvarRelatorios(relatorios);
+
+  res.status(201).json(novoRelatorio);
+});
+
+// Pegar todos relatórios
+app.get("/relatorios", (req, res) => {
+  res.json(relatorios);
+});
+
+// Pegar relatórios de uma jogadora com dados do olheiro
+app.get("/relatorios/:jogadoraId", (req, res) => {
+  const { jogadoraId } = req.params;
+  const relatoriosJogadora = relatorios
+    .filter(r => r.jogadoraId === jogadoraId)
+    .map(r => {
+      const olheiro = perfis.find(p => p.id === r.olheiro) || {};
+      return {
+        ...r,
+        olheiro: {
+          id: olheiro.id,
+          nome: olheiro.nome,
+          foto: olheiro.foto || null,
+          email: olheiro.email || null
+        }
+      };
+    });
+  res.json(relatoriosJogadora);
+});
 
 // ===== INICIALIZAÇÃO DO SERVIDOR =====
 app.listen(PORT, () => {

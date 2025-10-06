@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { MdDateRange, MdLocationOn } from "react-icons/md";
 
 const Atletas = () => {
   const navigate = useNavigate();
@@ -105,12 +106,21 @@ const Atletas = () => {
     return atendePosicao && atendeAno && atendeRegiao;
   });
 
+  // Ordenar eventos pela data mais próxima e pegar 4
+  const eventosProximos = eventos
+    .sort((a, b) => {
+      const [diaA, mesA, anoA] = a.data.split("/");
+      const [diaB, mesB, anoB] = b.data.split("/");
+      return new Date(`${anoA}-${mesA}-${diaA}`) - new Date(`${anoB}-${mesB}-${diaB}`);
+    })
+    .slice(0, 4);
+
   return (
     <div className="min-h-screen bg-white p-6 text-[#0A192F]">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6">
 
-        {/* Coluna esquerda: Olheiro + Eventos */}
-        <div className="md:w-1/4 flex flex-col gap-6">
+        {/* Coluna esquerda fixa */}
+        <div className="md:w-1/4 flex flex-col gap-6 sticky top-6 self-start">
 
           {/* Perfil do Olheiro */}
           <div className="bg-white border border-gray-200 rounded-2xl shadow-lg p-6 flex flex-col items-center">
@@ -120,8 +130,7 @@ const Atletas = () => {
               className="w-28 h-28 object-cover rounded-full mb-4 border-4 border-[#1E3A5F]"
             />
             <h1 className="text-2xl font-bold text-[#1E3A5F] mb-2 text-center">{usuario.nome}</h1>
-            <p className= "text-center"><strong>Local de atuação:</strong> <br /> {usuario.localAtuacao || "Não informado"}</p>
-            <p className= "text-center"><strong>Experiência:</strong> <br /> {usuario.experiencia || "Não informada"}</p>
+            <p className="text-center"><strong>Local de atuação:</strong> <br /> {usuario.localAtuacao || "Não informado"}</p>
             <button
               onClick={() => navigate("/perfil-olheiro")}
               className="cursor-pointer mt-4 w-full bg-[#1E3A5F] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#0A192F] transition"
@@ -130,18 +139,18 @@ const Atletas = () => {
             </button>
           </div>
 
-          {/* Seção de Eventos */}
-          <div className="bg-white border border-gray-200 rounded-2xl shadow-lg p-4">
-            <h2 className="text-xl font-bold text-[#1E3A5F] mb-4 text-center">Eventos</h2>
-            <div className="flex flex-col gap-3">
-              {eventos.map((evento, i) => (
-                <div key={i} className="bg-gray-100 p-3 rounded-lg">
-                  <h3 className="font-semibold text-[#F06292]">{evento.titulo}</h3>
-                  <p className="text-sm text-[#1E3A5F]"><strong>Data:</strong> {evento.data}</p>
-                  <p className="text-sm text-[#1E3A5F]"><strong>Local:</strong> {evento.local}</p>
-                </div>
-              ))}
-            </div>
+          {/* Card simplificado Eventos e Relatórios */}
+          <div className="bg-white border border-gray-200 rounded-2xl shadow-lg p-6 text-center">
+            <h2 className="text-2xl font-bold text-pink-500 mb-4">Eventos e Relatórios</h2>
+            <p className="text-gray-700 mb-6">
+              Acesse os próximos eventos e acompanhe os relatórios das jogadoras em um só lugar.
+            </p>
+            <button
+              onClick={() => navigate("/eventos-olheiro")}
+              className="w-full bg-[#1E3A5F] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#0A192F] transition"
+            >
+              Ir para a seção
+            </button>
           </div>
         </div>
 
@@ -201,7 +210,7 @@ const Atletas = () => {
                       e.stopPropagation();
                       navigate(`/perfil-jogadora-olheiro/${jogadora.id}`);
                     }}
-                    className="cursor-pointer mt-3 w-full bg-[#F06292] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#d94d7c] transition"
+                    className="cursor-pointer mt-3 w-full bg-pink-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-pink-600 transition"
                   >
                     Ver Perfil
                   </button>
@@ -210,6 +219,7 @@ const Atletas = () => {
             </div>
           )}
         </div>
+
       </div>
     </div>
   );

@@ -5,6 +5,8 @@
     "dia": "Segunda-feira",
     "emoji": "📅",
     "tipo": "semanal",
+    "data": "30/09/2025",
+    "local": "Ginásio Municipal",
     "descricao": "Treino comunitário aberto para todas as jogadoras da cidade.",
     "vagas": 15,
     "inscritos": [
@@ -19,14 +21,6 @@
       {
         "nome": "Luísa Pacheco",
         "email": "luisa@email.com"
-      },
-      {
-        "nome": "Isabela Martins",
-        "email": "isabela.martins@email.com"
-      },
-      {
-        "nome": "Beatriz Nunes",
-        "email": "bea.nunes@email.com"
       }
     ]
   },
@@ -36,6 +30,8 @@
     "dia": "Quarta-feira",
     "emoji": "📅",
     "tipo": "semanal",
+    "data": "08/10/2025",
+    "local": "Campo do Clube Central",
     "descricao": "Treino com foco em técnicas de passe e finalização.",
     "vagas": 15,
     "inscritos": [
@@ -46,18 +42,6 @@
       {
         "nome": "Isabela Martins",
         "email": "isabela.martins@email.com"
-      },
-      {
-        "nome": "Beatriz Nunes",
-        "email": "bea.nunes@email.com"
-      },
-      {
-        "nome": "Camila Rocha",
-        "email": "camila.rocha@email.com"
-      },
-      {
-        "nome": "Helena Duarte",
-        "email": "helena.duarte@email.com"
       }
     ]
   },
@@ -67,6 +51,8 @@
     "dia": "Sexta-feira",
     "emoji": "📅",
     "tipo": "semanal",
+    "data": "10/10/2025",
+    "local": "Centro Esportivo Municipal",
     "descricao": "Treino focado em resistência física e controle de bola.",
     "vagas": 15,
     "inscritos": [
@@ -77,22 +63,6 @@
       {
         "nome": "Sofia Cardoso",
         "email": "sofia.cardoso@email.com"
-      },
-      {
-        "nome": "Júlia Ferreira",
-        "email": "julia.ferreira@email.com"
-      },
-      {
-        "nome": "Larissa Mendes",
-        "email": "lari.mendes@email.com"
-      },
-      {
-        "nome": "Mariana Torres",
-        "email": "mariana.torres@email.com"
-      },
-      {
-        "nome": "Luísa Pacheco",
-        "email": "luisa@email.com"
       }
     ]
   },
@@ -102,6 +72,8 @@
     "dia": "Sábado",
     "emoji": "⚽",
     "tipo": "peneira",
+    "data": "05/10/2025",
+    "local": "Estádio Regional",
     "descricao": "Seleção de novas jogadoras para as equipes da região.",
     "vagas": 20,
     "inscritos": [
@@ -112,22 +84,6 @@
       {
         "nome": "Helena Duarte",
         "email": "helena.duarte@email.com"
-      },
-      {
-        "nome": "Luísa Pacheco",
-        "email": "luisa@email.com"
-      },
-      {
-        "nome": "Ágatha Melissa",
-        "email": "agatha@email.com"
-      },
-      {
-        "nome": "Beatriz Nunes",
-        "email": "bea.nunes@email.com"
-      },
-      {
-        "nome": "Giovanna Alves",
-        "email": "gioalves@email.com"
       }
     ]
   },
@@ -137,6 +93,8 @@
     "dia": "Domingo",
     "emoji": "⚽",
     "tipo": "peneira",
+    "data": "18/10/2025",
+    "local": "Estádio Estadual A",
     "descricao": "Peneira para formação de equipes estaduais do FutDelas.",
     "vagas": 20,
     "inscritos": [
@@ -147,18 +105,6 @@
       {
         "nome": "Mariana Torres",
         "email": "mariana.torres@email.com"
-      },
-      {
-        "nome": "Clara Lima",
-        "email": "clara.lima@email.com"
-      },
-      {
-        "nome": "Júlia Ferreira",
-        "email": "julia.ferreira@email.com"
-      },
-      {
-        "nome": "Luísa Pacheco",
-        "email": "luisa@email.com"
       }
     ]
   },
@@ -168,6 +114,8 @@
     "dia": "Domingo",
     "emoji": "⚽",
     "tipo": "peneira",
+    "data": "25/10/2025",
+    "local": "Estádio Estadual B",
     "descricao": "Peneira para formação de equipes estaduais do FutDelas.",
     "vagas": 20,
     "inscritos": [
@@ -178,14 +126,6 @@
       {
         "nome": "Sofia Cardoso",
         "email": "sofia.cardoso@email.com"
-      },
-      {
-        "nome": "Giovanna Alves",
-        "email": "gioalves@email.com"
-      },
-      {
-        "nome": "Luísa Pacheco",
-        "email": "luisa@email.com"
       }
     ]
   },
@@ -195,6 +135,8 @@
     "dia": "De 10 a 20 de Novembro",
     "emoji": "🏆",
     "tipo": "campeonato",
+    "data": "15/11/2025",
+    "local": "Arena Nacional",
     "descricao": "Campeonato oficial do FutDelas com equipes de todo o país.",
     "vagas": 8,
     "inscritos": [
@@ -205,22 +147,6 @@
       {
         "nome": "Júlia Ferreira",
         "email": "julia.ferreira@email.com"
-      },
-      {
-        "nome": "Sofia Cardoso",
-        "email": "sofia.cardoso@email.com"
-      },
-      {
-        "nome": "Luísa Pacheco",
-        "email": "luisa@email.com"
-      },
-      {
-        "nome": "Giovanna Alves",
-        "email": "gioalves@email.com"
-      },
-      {
-        "nome": "Beatriz Nunes",
-        "email": "bea.nunes@email.com"
       }
     ]
   }
