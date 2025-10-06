@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import medalha from "../assets/medalha.png";
+import garrafinha from "../assets/garrafinha.png";
+import camiseta from "../assets/camiseta.png";
+import ingresso from "../assets/ingresso.png";
 
 export default function Recompensas() {
   const navigate = useNavigate();
+  const [usuario, setUsuario] = useState(null);
   const [pontos, setPontos] = useState(0);
 
   // Verifica se usuário está logado
@@ -12,125 +15,115 @@ export default function Recompensas() {
     if (!user) {
       alert("Você precisa fazer login para acessar as recompensas!");
       navigate("/login");
+    } else {
+      setUsuario(JSON.parse(user));
     }
   }, [navigate]);
 
-  // ---------------- QUIZ 1 ----------------
-  const perguntasQuiz1 = [
-    { pergunta: "Quem é considerada a maior jogadora da história do futebol feminino brasileiro?", resposta: "marta" },
-    { pergunta: "Qual seleção venceu a Copa do Mundo Feminina de 2019?", resposta: "estados unidos" },
-  ];
-  const pontosQuiz1 = 50;
-
-  const [respostasQuiz1, setRespostasQuiz1] = useState(Array(perguntasQuiz1.length).fill(""));
-  const [quiz1Concluido, setQuiz1Concluido] = useState(false);
-
-  const verificarQuiz1 = () => {
-    let acertos = 0;
-    respostasQuiz1.forEach((resp, i) => {
-      if (resp.toLowerCase().trim() === perguntasQuiz1[i].resposta) acertos++;
-    });
-
-    const pontosGanhos = Math.round((pontosQuiz1 / perguntasQuiz1.length) * acertos);
-    setPontos((prev) => prev + pontosGanhos);
-    alert(`Você acertou ${acertos} de ${perguntasQuiz1.length} e ganhou ${pontosGanhos} pontos 🏆`);
-    setQuiz1Concluido(true);
-  };
-
-  // ---------------- QUIZ 2 ----------------
-  const perguntasQuiz2 = [
-    { pergunta: "Em que ano aconteceu a primeira Copa do Mundo de Futebol Feminino?", resposta: "1991" },
-    { pergunta: "Quem fez o gol mais rápido da história da Copa do Mundo Feminina (2023)?", resposta: "linda caicedo" },
-    { pergunta: "Qual país sediou a primeira Copa do Mundo Feminina?", resposta: "china" },
-  ];
-  const pontosQuiz2 = 75;
-
-  const [respostasQuiz2, setRespostasQuiz2] = useState(Array(perguntasQuiz2.length).fill(""));
-  const [quiz2Concluido, setQuiz2Concluido] = useState(false);
-
-  const verificarQuiz2 = () => {
-    let acertos = 0;
-    respostasQuiz2.forEach((resp, i) => {
-      if (resp.toLowerCase().trim() === perguntasQuiz2[i].resposta) acertos++;
-    });
-
-    const pontosGanhos = Math.round((pontosQuiz2 / perguntasQuiz2.length) * acertos);
-    setPontos((prev) => prev + pontosGanhos);
-    alert(`Você acertou ${acertos} de ${perguntasQuiz2.length} e ganhou ${pontosGanhos} pontos ⚽`);
-    setQuiz2Concluido(true);
-  };
+  // Cálculo de pontos baseado em engajamento (exemplo)
+  useEffect(() => {
+    const curtidas = usuario?.curtidas || 20;
+    const comentarios = usuario?.comentarios || 10;
+    const pontosCalculados = curtidas * 2 + comentarios * 3;
+    setPontos(pontosCalculados);
+  }, [usuario]);
 
   return (
-    <div className="min-h-screen bg-[#0A192F] flex justify-center items-center py-10">
+    <div className="min-h-screen bg-[#0A192F] text-white flex flex-col items-center py-12 px-4">
+      {/* --- Cabeçalho e vídeo --- */}
+      <section className="w-full max-w-5xl flex flex-col items-center text-center mb-10">
+        <h1 className="text-4xl font-bold mb-6 text-[#F06292]">Recompensas</h1>
 
-      <div className="bg-[#FAD1DF] shadow-2xl rounded-2xl p-8 w-full max-w-2xl flex flex-col items-center">
-        
-        <h1 className="text-3xl font-bold mb-6 text-[#0A192F]">Recompensas</h1>
-        
-        <img src={medalha} alt="medalha" className="w-16 h-16 mb-6" />
-        
-        <p className="mb-6 text-lg text-[#0A192F]">Seus pontos: <strong>{pontos}</strong></p>
+        <p className="text-lg text-gray-300 max-w-3xl mb-8 leading-relaxed">
+          O <strong>Programa de Recompensas Passa Bola x Futdelas</strong> é a forma de reconhecer
+          quem mais participa da nossa comunidade. A cada curtida, comentário e interação, 
+          você acumula pontos que podem ser trocados por prêmios incríveis — como
+          camisetas exclusivas, garrafinhas personalizadas e até descontos em jogos! ⚽
+        </p>
 
-        {/* QUIZ 1 */}
-        <div className="bg-white shadow-md p-6 rounded-xl w-full mb-6">
-          <h2 className="text-xl font-semibold mb-4 text-[#0A192F]">Quiz 1 - (50 pontos)</h2>
-          {perguntasQuiz1.map((q, i) => (
-            <div key={i} className="mb-4">
-              <p className="text-[#0A192F]">{q.pergunta}</p>
-              <input
-                type="text"
-                value={respostasQuiz1[i]}
-                onChange={(e) => {
-                  const novasRespostas = [...respostasQuiz1];
-                  novasRespostas[i] = e.target.value;
-                  setRespostasQuiz1(novasRespostas);
-                }}
-                className="border p-2 w-full rounded focus:outline-[#F06292]"
-                disabled={quiz1Concluido}
-              />
-            </div>
-          ))}
+        <div className="w-full aspect-video max-w-4xl rounded-2xl overflow-hidden shadow-2xl border-4 border-[#F06292]">
+          <iframe
+            src="https://www.youtube.com/embed/B8iMVIwiVe8?si=fqPhWWEWCe7Jihwe"
+            title="Vídeo explicativo"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full"
+          ></iframe>
+        </div>
+      </section>
+
+      {/* --- Pontuação do usuário --- */}
+      <section className="bg-white text-[#0A192F] rounded-2xl px-8 py-6 mb-12 shadow-xl flex flex-col items-center border-b-4 border-[#F06292]">
+        <h2 className="text-2xl font-semibold mb-2">Seus Pontos</h2>
+        <p className="text-lg">
+          Você possui <strong>{pontos}</strong> pontos com base no seu engajamento 🔥
+        </p>
+      </section>
+
+      {/* --- Lista de recompensas --- */}
+      <section className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Recompensa 1 - Camiseta */}
+        <div className="border-b-4 border-[#F06292] bg-white text-[#0A192F] rounded-2xl shadow-2xl p-6 flex flex-col items-center hover:scale-105 transition">
+          <img
+            src={camiseta}
+            alt="Camiseta Passa Bola"
+            className="w-56 h-56 object-contain mb-4 rounded-xl border-2 border-[#FAD1DF] shadow-md"
+          />
+          <h3 className="text-xl font-bold mb-2">Camiseta Passa Bola</h3>
+          <p className="text-gray-600 mb-3">Resgate com 500 pontos</p>
           <button
-            onClick={verificarQuiz1}
-            disabled={quiz1Concluido}
-            className={`px-4 py-2 rounded text-white ${
-              quiz1Concluido ? "bg-gray-400" : "bg-[#F06292] hover:bg-[#E65A7F]"
+            className={`px-4 py-2 rounded text-white font-medium ${
+              pontos >= 500
+                ? "cursor-pointer bg-[#F06292] hover:bg-[#E65A7F]"
+                : "bg-gray-400 cursor-not-allowed"
             }`}
           >
-            Finalizar Quiz
+            {pontos >= 500 ? "Resgatar" : "Pontos insuficientes"}
           </button>
         </div>
 
-        {/* QUIZ 2 */}
-        <div className="bg-white shadow-md p-6 rounded-xl w-full mb-6">
-          <h2 className="text-xl font-semibold mb-4 text-[#0A192F]">Quiz 2 - (75 pontos)</h2>
-          {perguntasQuiz2.map((q, i) => (
-            <div key={i} className="mb-4">
-              <p className="text-[#0A192F]">{q.pergunta}</p>
-              <input
-                type="text"
-                value={respostasQuiz2[i]}
-                onChange={(e) => {
-                  const novasRespostas = [...respostasQuiz2];
-                  novasRespostas[i] = e.target.value;
-                  setRespostasQuiz2(novasRespostas);
-                }}
-                className="border p-2 w-full rounded focus:outline-[#F06292]"
-                disabled={quiz2Concluido}
-              />
-            </div>
-          ))}
+        {/* Recompensa 2 - Garrafinha */}
+        <div className="border-b-4 border-[#F06292] bg-white text-[#0A192F] rounded-2xl shadow-2xl p-6 flex flex-col items-center hover:scale-105 transition">
+          <img
+            src={garrafinha}
+            alt="Garrafinha exclusiva"
+            className="w-48 h-56 object-contain mb-4 rounded-xl border-2 border-[#FAD1DF] shadow-md"
+          />
+          <h3 className="text-xl font-bold mb-2">Garrafinha exclusiva</h3>
+          <p className="text-gray-600 mb-3">Resgate com 300 pontos</p>
           <button
-            onClick={verificarQuiz2}
-            disabled={quiz2Concluido}
-            className={`px-4 py-2 rounded text-white ${
-              quiz2Concluido ? "bg-gray-400" : "bg-[#F06292] hover:bg-[#E65A7F]"
+            className={`px-4 py-2 rounded text-white font-medium ${
+              pontos >= 300
+                ? "cursor-pointer bg-[#F06292] hover:bg-[#E65A7F]"
+                : "bg-gray-400 cursor-not-allowed"
             }`}
           >
-            Finalizar Quiz
+            {pontos >= 300 ? "Resgatar" : "Pontos insuficientes"}
           </button>
         </div>
-      </div>
+
+        {/* Recompensa 3 - Ingresso */}
+        <div className="border-b-4 border-[#F06292] bg-white text-[#0A192F] rounded-2xl shadow-2xl p-6 flex flex-col items-center hover:scale-105 transition">
+          <img
+            src={ingresso}
+            alt="Ingresso com desconto"
+            className="w-60 h-48 object-contain mb-4 rounded-xl border-2 border-[#FAD1DF] shadow-md"
+          />
+          <h3 className="text-center text-xl font-bold mb-2">
+            Ingressos com desconto de 25%
+          </h3>
+          <p className="text-gray-600 mb-3">Resgate com 800 pontos</p>
+          <button
+            className={`px-4 py-2 rounded text-white font-medium ${
+              pontos >= 800
+                ? "cursor-pointer bg-[#F06292] hover:bg-[#E65A7F]"
+                : "bg-gray-400 cursor-not-allowed"
+            }`}
+          >
+            {pontos >= 800 ? "Resgatar" : "Pontos insuficientes"}
+          </button>
+        </div>
+      </section>
     </div>
   );
 }
