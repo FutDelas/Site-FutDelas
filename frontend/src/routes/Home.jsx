@@ -26,71 +26,56 @@ const Home = () => {
     pauseOnFocus={false}
     className="h-full"
   >
-    {/* SLIDE 1 - Mostre seu Talento (fundo rosa) */}
-    <div className="relative h-[60vh] flex justify-center items-center text-white bg-[#6a1838] overflow-hidden">
-      {/* Bolhas rosa mais claras */}
-      <div className="absolute w-80 h-80 bg-[#F48FB1] rounded-full blur-3xl opacity-25 top-0 right-10 animate-pulse"></div>
-      <div className="absolute w-64 h-64 bg-[#F8BBD0] rounded-full blur-3xl opacity-30 bottom-10 left-16 animate-pulse"></div>
-
-      <div className="relative z-10 w-full h-full flex flex-col justify-center items-center text-center px-4">
+     {/* SLIDE 1 - Conecte-se ao Futebol Feminino (rosa) */}
+    <div className="h-[60vh] flex justify-center items-center text-white bg-gradient-to-r from-[#6a1838] to-[#F06292]">
+      <div className="w-full h-full flex flex-col justify-center items-center text-center px-4">
         <h1 className="text-3xl md:text-4xl font-extrabold mb-3 drop-shadow-lg">
-          ✨ Mostre Seu Talento!
+          ⚽ Conecte-se ao Futebol Feminino
         </h1>
         <p className="text-base md:text-lg mb-4 max-w-xl">
-          Conecte-se com olheiros, compartilhe suas conquistas e brilhe dentro e fora de campo.
-          Cada jogadora tem sua história — destaque a sua! 🌟
+          Encontre peneiras, torneios e eventos perto de você e faça parte de uma rede que fortalece o esporte feminino.
         </p>
         <button
-          onClick={() => navigate("/cadastro")}
+          onClick={() => navigate("/mapa")}
           className="cursor-pointer bg-[#F06292] text-white font-bold py-2 px-5 rounded-full hover:bg-[#E65A7F] transition transform hover:scale-105 shadow-lg"
         >
-          Quero me Cadastrar
+          Ver Peneiras
         </button>
       </div>
     </div>
 
-    {/* SLIDE 2 - Recompensas (azul) */}
-    <div className="relative h-[60vh] flex justify-center items-center text-white bg-[#1E3A5F] overflow-hidden">
-      {/* Bolhas azul mais claras */}
-      <div className="absolute w-64 h-64 bg-[#5A8CA6] rounded-full blur-3xl opacity-25 top-5 right-5 animate-pulse"></div>
-      <div className="absolute w-80 h-80 bg-[#7FB3C8] rounded-full blur-3xl opacity-25 bottom-10 left-10 animate-pulse"></div>
-
-      <div className="relative z-10 w-full h-full flex flex-col justify-center items-center text-center px-4">
+    {/* SLIDE 2 - Mostre seu Talento (azul) */}
+    <div className="h-[60vh] flex justify-center items-center text-white bg-gradient-to-r from-[#0A192F] to-[#1E3A5F]">
+      <div className="w-full h-full flex flex-col justify-center items-center text-center px-4">
         <h1 className="text-3xl md:text-4xl font-extrabold mb-3 drop-shadow-lg">
-          💫 Ganhe Recompensas com o Futdelas!
+          🌟 Mostre seu Talento
         </h1>
         <p className="text-base md:text-lg mb-4 max-w-xl">
-          Participe de treinos, eventos e desafios da comunidade e troque suas conquistas por prêmios exclusivos.
-          Mostre seu talento dentro e fora de campo! ⚽
+          Participe de peneiras, envie seus vídeos e conquiste oportunidades em clubes e projetos esportivos.
         </p>
         <button
-          onClick={() => navigate("/recompensas")}
-          className="cursor-pointer bg-white text-[#0A192F] font-bold py-2 px-5 rounded-full hover:bg-[#FCE4EC] transition transform hover:scale-105 shadow-lg"
+          onClick={() => navigate("/talentos")}
+          className="cursor-pointer bg-white text-[#1E3A5F] font-bold py-2 px-5 rounded-full hover:bg-[#FCE4EC] transition transform hover:scale-105 shadow-lg"
         >
-          Ver Recompensas
+          Enviar Vídeo
         </button>
       </div>
     </div>
 
-    {/* SLIDE 3 - Peneiras (roxo) */}
-    <div className="relative h-[60vh] flex justify-center items-center text-white bg-[#4A2C4F] overflow-hidden">
-      {/* Bolhas roxo mais claras */}
-      <div className="absolute w-72 h-72 bg-[#7B4D7E] rounded-full blur-3xl opacity-25 top-8 left-10 animate-pulse"></div>
-      <div className="absolute w-64 h-64 bg-[#9C6AB0] rounded-full blur-3xl opacity-20 bottom-12 right-8 animate-pulse"></div>
-      <div className="absolute w-48 h-48 bg-[#B584D1] rounded-full blur-3xl opacity-15 top-20 right-20 animate-pulse"></div>
-
-      <div className="relative z-10 w-full h-full flex flex-col justify-center items-center text-center px-4">
+    {/* SLIDE 3 - Pais e Responsáveis Juntos (roxo com mistura do rosa e azul originais) */}
+    <div className="h-[60vh] flex justify-center items-center text-white bg-gradient-to-r from-[#F06292] to-[#1E3A5F]">
+      <div className="w-full h-full flex flex-col justify-center items-center text-center px-4">
         <h1 className="text-3xl md:text-4xl font-extrabold mb-3 drop-shadow-lg">
-          🔥 Fique por Dentro das Peneiras!
+          🤝 Pais e Responsáveis Juntos
         </h1>
         <p className="text-base md:text-lg mb-4 max-w-xl">
-          Descubra os próximos eventos e treinos abertos do Futdelas. Conheça novas jogadoras e dê o próximo passo na sua jornada no futebol feminino. 💪⚽
+          Acompanhe o progresso das atletas, veja seus resultados e fortaleça o apoio dentro e fora de campo.
         </p>
         <button
-          onClick={() => navigate("/eventos")}
+          onClick={() => navigate("/canal-de-pais-e-responsaveis")}
           className="cursor-pointer bg-[#F06292] text-white font-bold py-2 px-5 rounded-full hover:bg-[#E65A7F] transition transform hover:scale-105 shadow-lg"
         >
-          Ver Próximos Eventos
+          Acessar Canal dos Pais
         </button>
       </div>
     </div>

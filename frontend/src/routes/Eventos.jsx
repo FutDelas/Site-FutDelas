@@ -143,9 +143,9 @@ const Eventos = () => {
         </div>
 
         {/* Recompensas */}
-        <div className="rounded-lg shadow-md p-4 flex flex-col gap-2 flex-1 min-h-[180px] border-l-4 border-[#F06292]" style={{ backgroundColor: "#F06292", color: "#FFFFFF" }}>
-          <h2 className="text-lg font-bold mb-2">Recompensas</h2>
-          <ul className="text-sm space-y-1 flex-1">
+        <div className="rounded-lg shadow-md p-4 flex flex-col gap-3 flex-1 min-h-[220px] border-l-4 border-[#003B5C]"   style={{ backgroundColor: "#FFFFFF" }}>
+          <h2 className="text-lg font-bold text-[#003B5C]">Recompensas</h2>
+          <ul className="flex flex-col gap-2 flex-1 text-sm text-[#003B5C]">
             <li>🏅 Medalha - 10 pontos</li>
             <li>🎯 Melhor Jogadora - 50 pontos</li>
             <li>💎 Recompensa Especial - 100 pontos</li>
@@ -153,7 +153,7 @@ const Eventos = () => {
           <div className="mt-auto w-full">
             <button
               onClick={() => navigate("/recompensas")}
-              className="cursor-pointer w-full text-sm py-2 bg-white text-[#F06292] rounded hover:bg-[#E8E8E8] transition"
+              className="cursor-pointer w-full text-sm py-2 bg-[#003B5C] text-white rounded hover:bg-[#5a8ca6] transition"
             >
               Ver Recompensas
             </button>
