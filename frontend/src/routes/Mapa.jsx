@@ -11,7 +11,7 @@ const icon = L.icon({
 
 const Mapa = () => {
   return (
-    <div className="min-h-screen bg-[#FAD1DF] flex flex-col items-center justify-center text-[#0A192F] relative overflow-hidden">
+    <div className="min-h-screen bg-[#ffffff] flex flex-col items-center justify-center text-[#0A192F] relative overflow-hidden">
 
       {/* Conteúdo */}
       <div className="relative z-10 text-center px-6 w-full max-w-5xl">
@@ -63,7 +63,7 @@ const Mapa = () => {
         {/* Botão de voltar */}
         <button
           onClick={() => window.history.back()}
-          className="mt-8 cursor-pointer bg-[#0A192F] text-white font-bold py-3 px-6 rounded-full hover:bg-[#0A192F] transition transform hover:scale-105"
+          className="mt-8 cursor-pointer bg-[#0A192F] text-white font-bold py-3 px-6 rounded-full hover:bg-[#060f1d] transition transform hover:scale-105"
         >
           Voltar
         </button>

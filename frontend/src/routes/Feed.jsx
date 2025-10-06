@@ -104,62 +104,61 @@ const Feed = () => {
       .catch((err) => console.error(err));
   };
 
-  if (!usuario) return <p className="text-center mt-10">Carregando...</p>;
+  if (!usuario) return <p className="text-center mt-10 text-[#0A192F]">Carregando...</p>;
 
   return (
-    <div className="min-h-screen bg-[#F0F4F8] flex gap-6 p-6">
-      {/* SIDEBAR FIXA - PALLETA FUTDELAS */}
-<div className="w-1/4 flex flex-col gap-4 sticky top-6 self-start h-screen">
-  {/* PERFIL */}
-  <div className="bg-[#FFFFFF] rounded-xl shadow-md p-4 border-l-4 border-[#F06292] flex flex-col items-center">
-    <img
-      src={usuario.foto ? `http://localhost:3001/${usuario.foto}` : "https://via.placeholder.com/150"}
-      alt="Foto de perfil"
-      className="w-20 h-20 rounded-full object-cover border-2 border-[#1E3A5F]"
-    />
-    <h2 className="text-center text-lg font-bold mt-2 text-[#0A192F]">{usuario.nome}</h2>
-    <p className="text-center text-gray-600 text-sm">{usuario.posicao || ""}</p>
-    <button
-      onClick={() => navigate("/perfil-jogadora")}
-      className="mt-3 w-full py-2 bg-[#F06292] text-white rounded-lg font-semibold hover:bg-[#E65A7F] transition"
-    >
-      Ver Perfil
-    </button>
-  </div>
+    <div className="min-h-screen bg-white flex gap-6 p-6">
+      {/* SIDEBAR FIXA */}
+      <div className="w-1/4 flex flex-col gap-4 sticky top-6 self-start h-screen">
+        {/* PERFIL */}
+        <div className="bg-white rounded-xl shadow-md p-4 border-l-4 border-[#F06292] flex flex-col items-center">
+          <img
+            src={usuario.foto ? `http://localhost:3001/${usuario.foto}` : "https://via.placeholder.com/150"}
+            alt="Foto de perfil"
+            className="w-20 h-20 rounded-full object-cover border-2 border-[#1E3A5F]"
+          />
+          <h2 className="text-center text-lg font-bold mt-2 text-[#0A192F]">{usuario.nome}</h2>
+          <p className="text-center text-gray-600 text-sm">{usuario.posicao || ""}</p>
+          <button
+            onClick={() => navigate("/perfil-jogadora")}
+            className="cursor-pointer mt-3 w-full py-2 bg-[#F06292] text-white rounded-lg font-semibold hover:bg-[#993c54] transition"
+          >
+            Ver Perfil
+          </button>
+        </div>
 
-  {/* EVENTOS */}
-  <div className="bg-[#FFFFFF] rounded-xl shadow-md p-4 border-l-4 border-[#1E3A5F] flex flex-col">
-    <h2 className="text-[#0A192F] text-lg font-bold mb-2">Próximos Eventos</h2>
-    <ul className="space-y-1 text-sm max-h-36 overflow-auto">
-      <li className="p-1 bg-[#E0E4E8] rounded-lg text-[#1E3A5F]">🏆 Torneio Feminino - Sábado</li>
-      <li className="p-1 bg-[#E0E4E8] rounded-lg text-[#1E3A5F]">📅 Treino Comunitário - Segunda</li>
-      <li className="p-1 bg-[#E0E4E8] rounded-lg text-[#1E3A5F]">🎓 Workshop de Técnicas - Quarta</li>
-    </ul>
-    <button
-      onClick={() => navigate("/eventos")}
-      className="mt-2 w-full py-2 bg-[#1E3A5F] text-white rounded-lg font-semibold hover:bg-[#5a8ca6] transition"
-    >
-      Ver Eventos
-    </button>
-  </div>
+        {/* EVENTOS */}
+        <div className="bg-white rounded-xl shadow-md p-4 border-l-4 border-[#1E3A5F] flex flex-col">
+          <h2 className="text-[#0A192F] text-lg font-bold mb-2">Próximos Eventos</h2>
+          <ul className="space-y-1 text-sm max-h-36 overflow-auto">
+            <li className="p-1 bg-gray-100 rounded-lg text-[#1E3A5F]">🏆 Torneio Feminino - Sábado</li>
+            <li className="p-1 bg-gray-100 rounded-lg text-[#1E3A5F]">📅 Treino Comunitário - Segunda</li>
+            <li className="p-1 bg-gray-100 rounded-lg text-[#1E3A5F]">🎓 Workshop de Técnicas - Quarta</li>
+          </ul>
+          <button
+            onClick={() => navigate("/eventos")}
+            className="cursor-pointer mt-2 w-full py-2 bg-[#1E3A5F] text-white rounded-lg font-semibold hover:bg-[#0d1d35] transition"
+          >
+            Ver Eventos
+          </button>
+        </div>
 
-  {/* RECOMPENSAS */}
-  <div className="bg-[#FFFFFF] rounded-xl shadow-md p-4 border-l-4 border-bg-purple-900 flex flex-col">
-    <h2 className="text-[#0A192F] text-lg font-bold mb-2">Recompensas</h2>
-    <ul className="space-y-1 text-sm max-h-36 overflow-auto">
-      <li className="p-1 bg-[#E0E4E8] rounded-lg text-[#1E3A5F]">🏅 Medalha - 10 pontos</li>
-      <li className="p-1 bg-[#E0E4E8] rounded-lg text-[#1E3A5F]">🎯 Melhor Jogadora - 50 pontos</li>
-      <li className="p-1 bg-[#E0E4E8] rounded-lg text-[#1E3A5F]">💎 Recompensa Especial - 100 pontos</li>
-    </ul>
-    <button
-      onClick={() => navigate("/recompensas")}
-      className="mt-2 w-full py-2 bg-purple-900 text-white rounded-lg font-semibold hover:bg-[#E65A7F] transition"
-    >
-      Ver Recompensas
-    </button>
-  </div>
-</div>
-
+        {/* RECOMPENSAS */}
+        <div className="bg-white rounded-xl shadow-md p-4 border-l-4 border-[#F06292] flex flex-col">
+          <h2 className="text-[#0A192F] text-lg font-bold mb-2">Recompensas</h2>
+          <ul className="space-y-1 text-sm max-h-36 overflow-auto">
+            <li className="p-1 bg-gray-100 rounded-lg text-[#1E3A5F]">👕 Camiseta Passa Bola x FutDelas- 500 pontos</li>
+            <li className="p-1 bg-gray-100 rounded-lg text-[#1E3A5F]"> 💧 Garrafinha exclusiva - 300 pontos</li>
+            <li className="p-1 bg-gray-100 rounded-lg text-[#1E3A5F]"> 🎟 Ingresso com desconto - 800 pontos</li>
+          </ul>
+          <button
+            onClick={() => navigate("/recompensas")}
+            className="cursor-pointer mt-2 w-full py-2 bg-[#F06292] text-white rounded-lg font-semibold hover:bg-[#993c54] transition"
+          >
+            Ver Recompensas
+          </button>
+        </div>
+      </div>
 
       {/* FEED */}
       <div className="w-3/4 flex flex-col gap-6">
@@ -168,12 +167,12 @@ const Feed = () => {
             placeholder="Compartilhe algo..."
             value={novaPublicacao}
             onChange={(e) => setNovaPublicacao(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-lg mb-2 resize-none focus:outline-none focus:ring-2 focus:ring-pink-500"
+            className="w-full p-2 border border-gray-300 rounded-lg mb-2 resize-none focus:outline-none focus:ring-2 focus:ring-[#F06292]"
             rows={3}
           />
           <button
             onClick={handlePostar}
-            className="cursor-pointer bg-purple-900 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition"
+            className="cursor-pointer bg-[#F06292] text-white px-4 py-2 rounded-lg hover:bg-[#993c54] transition"
           >
             Publicar
           </button>
@@ -195,23 +194,23 @@ const Feed = () => {
                   <img
                     src={pub.foto ? `http://localhost:3001/${pub.foto}` : "https://via.placeholder.com/150"}
                     alt="Autor"
-                    className="w-12 h-12 rounded-full object-cover"
+                    className="w-12 h-12 rounded-full object-cover border-2 border-[#1E3A5F]"
                   />
                   <div>
-                    <h3 className="font-bold text-pink-600">{pub.autor}</h3>
+                    <h3 className="font-bold text-[#F06292]">{pub.autor}</h3>
                     <p className="text-xs text-gray-400">{pub.data || ""}</p>
                   </div>
                 </div>
 
-                <p className="mt-3 text-gray-800">{pub.texto}</p>
+                <p className="mt-3 text-[#0A192F]">{pub.texto}</p>
 
                 <div className="mt-3 flex items-center gap-6">
                   <button
                     onClick={(e) => { e.stopPropagation(); curtirPost(pub.id); }}
                     className={`cursor-pointer text-sm ${
                       pub.curtidoPor?.includes(usuario.nome)
-                        ? "text-purple-900 font-semibold"
-                        : "text-purple-900 hover:underline"
+                        ? "text-[#1E3A5F] font-semibold"
+                        : "text-[#1E3A5F] hover:underline"
                     }`}
                   >
                     {pub.curtidoPor?.includes(usuario.nome) ? "💜 Curtir" : "💜 Curtir"} ({pub.curtidas || 0})
@@ -238,23 +237,23 @@ const Feed = () => {
               <img
                 src={publicacaoAberta.foto ? `http://localhost:3001/${publicacaoAberta.foto}` : "https://via.placeholder.com/150"}
                 alt="Autor"
-                className="w-12 h-12 rounded-full object-cover"
+                className="w-12 h-12 rounded-full object-cover border-2 border-[#1E3A5F]"
               />
               <div>
-                <h3 className="font-bold text-pink-600">{publicacaoAberta.autor}</h3>
+                <h3 className="font-bold text-[#F06292]">{publicacaoAberta.autor}</h3>
                 <p className="text-xs text-gray-400">{publicacaoAberta.data}</p>
               </div>
             </div>
 
-            <p className="mt-4 text-gray-800">{publicacaoAberta.texto}</p>
+            <p className="mt-4 text-[#0A192F]">{publicacaoAberta.texto}</p>
 
             <div className="mt-4 flex gap-6 items-center">
               <button
                 onClick={() => curtirPost(publicacaoAberta.id)}
                 className={`cursor-pointer text-sm ${
                   publicacaoAberta.curtidoPor?.includes(usuario.nome)
-                    ? "text-purple-900 font-semibold"
-                    : "text-purple-900 hover:underline"
+                    ? "text-[#1E3A5F] font-semibold"
+                    : "text-[#1E3A5F] hover:underline"
                 }`}
               >
                 {publicacaoAberta.curtidoPor?.includes(usuario.nome) ? "💜 Curtir" : "💜 Curtir"} ({publicacaoAberta.curtidas || 0})
@@ -272,7 +271,7 @@ const Feed = () => {
 
             <div className="mt-4">
               {publicacaoAberta.comentarios?.map((c, i) => (
-                <p key={i} className="text-sm text-purple-900 bg-gray-50 p-2 rounded-lg mb-2">
+                <p key={i} className="text-sm text-[#1E3A5F] bg-gray-50 p-2 rounded-lg mb-2">
                   💬 <strong>{c.autor}:</strong> {c.texto}
                 </p>
               ))}
@@ -285,7 +284,7 @@ const Feed = () => {
                     e.target.value = "";
                   }
                 }}
-                className="w-full border border-pink-600 p-2 rounded-lg text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full border border-[#F06292] p-2 rounded-lg text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-[#F06292]"
               />
             </div>
           </div>

@@ -63,18 +63,20 @@ export default function Recompensas() {
       {/* --- Lista de recompensas --- */}
       <section className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Recompensa 1 - Camiseta */}
-        <div className="border-b-4 border-[#F06292] bg-white text-[#0A192F] rounded-2xl shadow-2xl p-6 flex flex-col items-center hover:scale-105 transition">
-          <img
-            src={camiseta}
-            alt="Camiseta Passa Bola"
-            className="w-56 h-56 object-contain mb-4 rounded-xl border-2 border-[#FAD1DF] shadow-md"
-          />
+        <div className="bg-white text-[#0A192F] rounded-2xl shadow-2xl p-6 flex flex-col items-center hover:scale-105 transition">
+          <div className="w-60 h-60 bg-[#f9f9f9] rounded-xl border-2 border-[#FAD1DF] shadow-md mb-4 flex items-center justify-center overflow-hidden">
+            <img
+              src={camiseta}
+              alt="Camiseta Passa Bola"
+              className="w-full h-full object-cover"
+            />
+          </div>
           <h3 className="text-xl font-bold mb-2">Camiseta Passa Bola</h3>
           <p className="text-gray-600 mb-3">Resgate com 500 pontos</p>
           <button
             className={`px-4 py-2 rounded text-white font-medium ${
               pontos >= 500
-                ? "cursor-pointer bg-[#F06292] hover:bg-[#E65A7F]"
+                ? "bg-[#F06292] hover:bg-[#E65A7F]"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >
@@ -83,18 +85,20 @@ export default function Recompensas() {
         </div>
 
         {/* Recompensa 2 - Garrafinha */}
-        <div className="border-b-4 border-[#F06292] bg-white text-[#0A192F] rounded-2xl shadow-2xl p-6 flex flex-col items-center hover:scale-105 transition">
-          <img
-            src={garrafinha}
-            alt="Garrafinha exclusiva"
-            className="w-48 h-56 object-contain mb-4 rounded-xl border-2 border-[#FAD1DF] shadow-md"
-          />
+        <div className="bg-white text-[#0A192F] rounded-2xl shadow-2xl p-6 flex flex-col items-center hover:scale-105 transition">
+          <div className="w-60 h-60 bg-[#f9f9f9] rounded-xl border-2 border-[#FAD1DF] shadow-md mb-4 flex items-center justify-center overflow-hidden">
+            <img
+              src={garrafinha}
+              alt="Garrafinha exclusiva"
+              className="w-full h-full object-cover"
+            />
+          </div>
           <h3 className="text-xl font-bold mb-2">Garrafinha exclusiva</h3>
           <p className="text-gray-600 mb-3">Resgate com 300 pontos</p>
           <button
             className={`px-4 py-2 rounded text-white font-medium ${
               pontos >= 300
-                ? "cursor-pointer bg-[#F06292] hover:bg-[#E65A7F]"
+                ? "bg-[#F06292] hover:bg-[#E65A7F]"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >
@@ -103,20 +107,22 @@ export default function Recompensas() {
         </div>
 
         {/* Recompensa 3 - Ingresso */}
-        <div className="border-b-4 border-[#F06292] bg-white text-[#0A192F] rounded-2xl shadow-2xl p-6 flex flex-col items-center hover:scale-105 transition">
-          <img
-            src={ingresso}
-            alt="Ingresso com desconto"
-            className="w-60 h-48 object-contain mb-4 rounded-xl border-2 border-[#FAD1DF] shadow-md"
-          />
+        <div className="bg-white text-[#0A192F] rounded-2xl shadow-2xl p-6 flex flex-col items-center hover:scale-105 transition">
+          <div className="w-60 h-60 bg-[#f9f9f9] rounded-xl border-2 border-[#FAD1DF] shadow-md mb-4 flex items-center justify-center overflow-hidden">
+            <img
+              src={ingresso}
+              alt="Ingresso com desconto"
+              className="w-full h-full object-cover"
+            />
+          </div>
           <h3 className="text-center text-xl font-bold mb-2">
-            Ingressos com desconto de 25%
+            Ingresso com desconto de 25%
           </h3>
           <p className="text-gray-600 mb-3">Resgate com 800 pontos</p>
           <button
             className={`px-4 py-2 rounded text-white font-medium ${
               pontos >= 800
-                ? "cursor-pointer bg-[#F06292] hover:bg-[#E65A7F]"
+                ? "bg-[#F06292] hover:bg-[#E65A7F]"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >

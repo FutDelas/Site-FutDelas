@@ -165,7 +165,7 @@ const PerfilJogadora = () => {
             mostrarBotoesApagar
               ? "bg-gray-500 hover:bg-gray-600"
               : "bg-red-600 hover:bg-red-800"
-          } text-white px-3 py-1 rounded transition font-semibold text-sm`}
+          } text-white px-3 py-1 rounded transition font-semibold text-sm cursor-pointer`}
         >
           {mostrarBotoesApagar ? "Cancelar" : "Apagar"}
         </button>
@@ -246,7 +246,7 @@ const PerfilJogadora = () => {
         {mostrarBotoesApagar && (
           <button
             onClick={() => deletarMidia(m.url)}
-            className="absolute top-1 right-1 bg-red-600 text-white px-2 py-1 text-xs rounded"
+            className="cursor-pointer absolute top-1 right-1 bg-red-600 text-white px-2 py-1 text-xs rounded"
           >
             X
           </button>
