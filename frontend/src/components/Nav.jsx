@@ -23,7 +23,7 @@ const Nav = ({ fixo }) => {
             Login
           </Link>
           <Link
-            to="/cadastro-organizador"
+            to="/administrador"
             className="hover:text-[#F06292] font-bold transition-colors cursor-pointer"
           >
             Painel dos organizadores

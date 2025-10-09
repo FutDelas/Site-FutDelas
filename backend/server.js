@@ -17,6 +17,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // Serve f
 const perfisCaminho = path.join(__dirname, "perfis.json");
 const postsCaminho = path.join(__dirname, "posts.json");
 const relatoriosCaminho = path.join(__dirname, "relatorios.json");
+const eventosPath = path.join(__dirname, "data", "eventos.json");
 
 // ===== Funções utilitárias =====
 
@@ -325,6 +326,65 @@ app.get("/relatorios/:jogadoraId", (req, res) => {
     });
   res.json(relatoriosJogadora);
 });
+
+// ===== ROTAS EVENTOS =====
+
+// Buscar todos os eventos
+app.get("/eventos", (req, res) => {
+  try {
+    const data = fs.readFileSync(eventosPath, "utf-8");
+    const eventos = JSON.parse(data);
+    res.json(eventos);
+  } catch (error) {
+    console.error("Erro ao ler eventos:", error);
+    res.status(500).json({ erro: "Erro ao carregar eventos" });
+  }
+});
+
+// Adicionar novo evento
+app.post("/eventos", (req, res) => {
+  try {
+    const data = fs.readFileSync(eventosPath, "utf-8");
+    const eventos = JSON.parse(data);
+    const novoEvento = { id: Date.now(), ...req.body }; // ID numérico
+    eventos.push(novoEvento);
+    fs.writeFileSync(eventosPath, JSON.stringify(eventos, null, 2));
+    res.status(201).json(novoEvento);
+  } catch (error) {
+    console.error("Erro ao adicionar evento:", error);
+    res.status(500).json({ erro: "Erro ao salvar evento" });
+  }
+});
+
+// ===== DELETE EVENTO =====
+app.delete("/eventos/:id", (req, res) => {
+  try {
+    const idParam = req.params.id; // pega o id como string
+
+    const data = fs.readFileSync(eventosPath, "utf-8");
+    let eventos = JSON.parse(data);
+
+    // Verifica se o evento existe
+    const index = eventos.findIndex(e => e.id.toString() === idParam);
+    if (index === -1) {
+      return res.status(404).json({ erro: "Evento não encontrado" });
+    }
+
+    // Remove do array
+    eventos.splice(index, 1);
+
+    // Salva de volta no JSON
+    fs.writeFileSync(eventosPath, JSON.stringify(eventos, null, 2));
+
+    res.json({ mensagem: "Evento removido com sucesso" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ erro: "Erro ao remover evento" });
+  }
+});
+
+
+
 
 // ===== INICIALIZAÇÃO DO SERVIDOR =====
 app.listen(PORT, () => {
