@@ -84,8 +84,9 @@ const Home = () => {
 
   {/* SEÇÃO DE ENCONTROS */}
    <section className="bg-[#0A192F] py-16 mx-auto px-4">
-  <div className="max-w-6xl w-full flex items-center justify-center mx-auto gap-8">
-    <div className="md:w-1/2 flex flex-col items-start">
+  <div className="max-w-6xl w-full flex flex-col md:flex-row items-center md:items-start mx-auto gap-8">
+    {/* Conteúdo principal */}
+    <div className="w-full md:w-1/2 flex flex-col items-center md:items-start">
       <h3 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: "#F06292" }}>
         Encontro FutDelas
       </h3>
@@ -103,7 +104,8 @@ const Home = () => {
       </button>
     </div>
 
-    <div className="md:w-1/2 flex flex-col items-center">
+    {/* Card do Próximo Encontro */}
+    <div className="w-full md:w-1/2 flex flex-col items-center md:items-start">
       <div className="p-8 rounded-xl shadow-lg transition transform hover:scale-105 border-t-4 flex flex-col justify-center h-full w-full"
            style={{ backgroundColor: "#fff", color: "#0A192F", borderColor: "#F06292" }}>
         <h4 className="font-bold text-2xl mb-4">Próximo Encontro</h4>
@@ -114,6 +116,7 @@ const Home = () => {
     </div>
   </div>
 </section>
+
 
             {/* SEÇÃO DE ESCOLINHAS */}
       <section className="py-16 text-center" style={{ backgroundColor: "#fff", color: "#0A192F" }}>

@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import Home from './routes/Home';
-import Cadastro from './routes/Cadastro';
+import CadastroJogadora from './routes/CadastroJogadora';
 import CadastroOlheiro from './routes/CadastroOlheiro';
 import Error from './routes/Error';
 import Mapa from './routes/Mapa';
@@ -29,7 +29,7 @@ function App() {
           <Route path="/" element={<Home/>}/>
 
           {/* Cadastros */}
-          <Route path="/cadastro" element={<Cadastro/>}/>
+          <Route path="/cadastro-jogadora" element={<CadastroJogadora/>}/>
           <Route path="/cadastro-olheiro" element={<CadastroOlheiro/>}/>
 
           <Route path="/login" element={<Login/>}/>
