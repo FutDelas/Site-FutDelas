@@ -22,12 +22,6 @@ const Nav = ({ fixo }) => {
           <Link to="/login" className="hover:text-[#F06292] font-bold transition-colors cursor-pointer">
             Login
           </Link>
-          <Link
-            to="/administrador"
-            className="hover:text-[#F06292] font-bold transition-colors cursor-pointer"
-          >
-            Painel dos organizadores
-          </Link>
         </div>
       </div>
     </nav>

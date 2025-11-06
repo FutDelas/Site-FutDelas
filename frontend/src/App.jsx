@@ -4,7 +4,6 @@ import Footer from './components/Footer';
 import Home from './routes/Home';
 import Cadastro from './routes/Cadastro';
 import CadastroOlheiro from './routes/CadastroOlheiro';
-import Administrador from './routes/Administrador';
 import Error from './routes/Error';
 import Mapa from './routes/Mapa';
 import Encontros from './routes/Encontros';
@@ -43,7 +42,6 @@ function App() {
           <Route path="/atletas" element={<Atletas/>}/>
           <Route path="/perfil-jogadora-olheiro/:id" element={<PerfilJogadoraOlheiro/>}/>
           <Route path="/eventos-olheiro" element={<EventosOlheiro/>} />
-          <Route path="/administrador" element={<Administrador/>} />
 
           {/* Outras rotas */}
           <Route path="/mapa" element={<Mapa/>}/>

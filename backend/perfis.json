@@ -265,5 +265,21 @@
       "uploads/1759672951898-encontro2.jpg",
       "uploads/1759673298383-video-portifolio.mp4"
     ]
+  },
+  {
+    "id": "fa69c38a-3123-4a11-bdb6-353503f44faa",
+    "nome": "Rayssa",
+    "dataNascimento": "2011-07-13",
+    "email": "rayssa@email.com",
+    "senha": "ray123",
+    "tipo": "jogadora",
+    "foto": "",
+    "posicao": "",
+    "altura": "",
+    "peso": "",
+    "localizacao": "",
+    "sobre": "",
+    "habilidades": [],
+    "midias": []
   }
 ]

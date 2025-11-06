@@ -82,42 +82,41 @@ const Home = () => {
   </Slider>
 </section>
 
+  {/* SEÇÃO DE ENCONTROS */}
+   <section className="bg-[#0A192F] py-16 mx-auto px-4">
+  <div className="max-w-6xl w-full flex items-center justify-center mx-auto gap-8">
+    <div className="md:w-1/2 flex flex-col items-start">
+      <h3 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: "#F06292" }}>
+        Encontro FutDelas
+      </h3>
+      <p className="text-xl md:text-1xl mb-6" style={{ color: "#fff" }}>
+        São momentos especiais para mulheres de todas as idades e níveis se divertirem,
+        praticarem futebol e conhecerem novas amigas que também amam o esporte.
+        Venha jogar, aprender e celebrar o futebol feminino com a gente!
+      </p>
+      <button
+        onClick={() => navigate("/encontros")}
+        className="cursor-pointer py-3 px-6 rounded-full transition transform hover:scale-105"
+        style={{ backgroundColor: "#F06292", color: "#FFFFFF" }}
+      >
+        Se inscreva!
+      </button>
+    </div>
 
-      {/* SEÇÃO DE ENCONTROS */}
-      <section className="py-16 max-w-6xl mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
-          <div className="md:w-1/2 flex flex-col items-start">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: "#F06292" }}>
-              Encontro FutDelas
-            </h3>
-            <p className="text-xl md:text-1xl mb-6" style={{ color: "#0A192F" }}>
-              São momentos especiais para mulheres de todas as idades e níveis se divertirem,
-              praticarem futebol e conhecerem novas amigas que também amam o esporte. 
-              Venha jogar, aprender e celebrar o futebol feminino com a gente!
-            </p>
-            <button
-              onClick={() => navigate("/encontros")}
-              className="cursor-pointer py-3 px-6 rounded-full transition transform hover:scale-105"
-              style={{ backgroundColor: "#F06292", color: "#FFFFFF" }}
-            >
-              Se inscreva!
-            </button>
-          </div>
-
-          <div className="md:w-1/2 flex flex-col items-center">
-            <div className="p-8 rounded-xl shadow-lg transition transform hover:scale-105 border-t-4 flex flex-col justify-center h-full w-full" 
-                 style={{ backgroundColor: "#E0E4E8", color: "#0A192F", borderColor: "#F06292" }}>
-              <h4 className="font-bold text-2xl mb-4">Próximo Encontro</h4>
-              <p className="text-lg mb-2 flex items-center gap-2" style={{ color: "#1E3A5F" }}><MdLocationOn /> Av. dos Campeões, 45 – Centro</p>
-              <p className="text-lg mb-2 flex items-center gap-2" style={{ color: "#1E3A5F" }}><MdDateRange /> 18/09</p>
-              <p className="text-lg flex items-center gap-2" style={{ color: "#1E3A5F" }}><MdAccessTime /> 20:00 - 23:00</p>
-            </div>
-          </div>
-        </div>
-      </section>
+    <div className="md:w-1/2 flex flex-col items-center">
+      <div className="p-8 rounded-xl shadow-lg transition transform hover:scale-105 border-t-4 flex flex-col justify-center h-full w-full"
+           style={{ backgroundColor: "#fff", color: "#0A192F", borderColor: "#F06292" }}>
+        <h4 className="font-bold text-2xl mb-4">Próximo Encontro</h4>
+        <p className="text-lg mb-2 flex items-center gap-2" style={{ color: "#1E3A5F" }}><MdLocationOn /> Av. dos Campeões, 45 – Centro</p>
+        <p className="text-lg mb-2 flex items-center gap-2" style={{ color: "#1E3A5F" }}><MdDateRange /> 18/09</p>
+        <p className="text-lg flex items-center gap-2" style={{ color: "#1E3A5F" }}><MdAccessTime /> 20:00 - 23:00</p>
+      </div>
+    </div>
+  </div>
+</section>
 
             {/* SEÇÃO DE ESCOLINHAS */}
-      <section className="py-16 text-center" style={{ backgroundColor: "#E0E4E8", color: "#0A192F" }}>
+      <section className="py-16 text-center" style={{ backgroundColor: "#fff", color: "#0A192F" }}>
         <h3 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: "#F06292" }}>
           Escolinhas de Futebol
         </h3>
@@ -129,27 +128,27 @@ const Home = () => {
         {/* GRID DE CARDS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
           {/* Card 1 */}
-          <div className="bg-white rounded-2xl shadow-lg p-6 text-left hover:shadow-2xl transition transform hover:scale-105 border-l-4 border-[#F06292]">
+          <div className="bg-[#0A192F] rounded-2xl shadow-lg p-6 text-left hover:shadow-2xl transition transform hover:scale-105 border-l-4 border-[#F06292]">
             <h4 className="text-xl font-bold mb-2" style={{ color: "#F06292" }}>Escolinha Bola de Ouro</h4>
-            <p className="mb-1">📍 Centro - São Paulo</p>
-            <p className="mb-1">👧 Faixa etária: 8 a 15 anos</p>
-            <p className="mb-1">⚽ Foco: Formação de base</p>
+            <p className="mb-1 text-white">📍 Centro - São Paulo</p>
+            <p className="mb-1 text-white">👧 Faixa etária: 8 a 15 anos</p>
+            <p className="mb-1 text-white">⚽ Foco: Formação de base</p>
           </div>
 
           {/* Card 2 */}
-          <div className="bg-white rounded-2xl shadow-lg p-6 text-left hover:shadow-2xl transition transform hover:scale-105 border-l-4 border-[#F06292]">
+          <div className="bg-[#0A192F] rounded-2xl shadow-lg p-6 text-left hover:shadow-2xl transition transform hover:scale-105 border-l-4 border-[#F06292]">
             <h4 className="text-xl font-bold mb-2" style={{ color: "#F06292" }}>Academia Estrelas</h4>
-            <p className="mb-1">📍 Vila Olímpica - Rio de Janeiro</p>
-            <p className="mb-1">👧 Faixa etária: 10 a 18 anos</p>
-            <p className="mb-1">🏆 Foco: Desenvolvimento competitivo</p>
+            <p className="mb-1 text-white">📍 Vila Olímpica - Rio de Janeiro</p>
+            <p className="mb-1 text-white">👧 Faixa etária: 10 a 18 anos</p>
+            <p className="mb-1 text-white">🏆 Foco: Desenvolvimento competitivo</p>
           </div>
 
           {/* Card 3 */}
-          <div className="bg-white rounded-2xl shadow-lg p-6 text-left hover:shadow-2xl transition transform hover:scale-105 border-l-4 border-[#F06292]">
+          <div className="bg-[#0A192F] rounded-2xl shadow-lg p-6 text-left hover:shadow-2xl transition transform hover:scale-105 border-l-4 border-[#F06292]">
             <h4 className="text-xl font-bold mb-2" style={{ color: "#F06292" }}>Futuro Feminino</h4>
-            <p className="mb-1">📍 Bairro Industrial - Belo Horizonte</p>
-            <p className="mb-1">👧 Faixa etária: 6 a 14 anos</p>
-            <p className="mb-1">💪 Foco: Iniciação esportiva</p>
+            <p className="mb-1 text-white">📍 Bairro Industrial - Belo Horizonte</p>
+            <p className="mb-1 text-white">👧 Faixa etária: 6 a 14 anos</p>
+            <p className="mb-1 text-white">💪 Foco: Iniciação esportiva</p>
           </div>
         </div>
 
