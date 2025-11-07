@@ -107,7 +107,7 @@ const Feed = () => {
   if (!usuario) return <p className="text-center mt-10 text-[#0A192F]">Carregando...</p>;
 
   return (
-    <div className="min-h-screen bg-white flex gap-6 p-6">
+    <div className="min-h-screen bg-[#F4F0F8] flex gap-6 p-6">
       {/* SIDEBAR FIXA */}
       <div className="w-1/4 flex flex-col gap-4 sticky top-6 self-start h-screen">
         {/* PERFIL */}

@@ -119,7 +119,7 @@ const Home = () => {
 
 
             {/* SEÇÃO DE ESCOLINHAS */}
-      <section className="py-16 text-center" style={{ backgroundColor: "#fff", color: "#0A192F" }}>
+      <section className="py-16 text-center" style={{ backgroundColor: "#F4F0F8", color: "#0A192F" }}>
         <h3 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: "#F06292" }}>
           Escolinhas de Futebol
         </h3>
@@ -131,27 +131,27 @@ const Home = () => {
         {/* GRID DE CARDS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
           {/* Card 1 */}
-          <div className="bg-[#0A192F] rounded-2xl shadow-lg p-6 text-left hover:shadow-2xl transition transform hover:scale-105 border-l-4 border-[#F06292]">
+          <div className="bg-[#FFF] rounded-2xl shadow-lg p-6 text-left hover:shadow-2xl transition transform hover:scale-105 border-l-4 border-[#F06292]">
             <h4 className="text-xl font-bold mb-2" style={{ color: "#F06292" }}>Escolinha Bola de Ouro</h4>
-            <p className="mb-1 text-white">📍 Centro - São Paulo</p>
-            <p className="mb-1 text-white">👧 Faixa etária: 8 a 15 anos</p>
-            <p className="mb-1 text-white">⚽ Foco: Formação de base</p>
+            <p className="mb-1 text-[#0A192F]">📍 Centro - São Paulo</p>
+            <p className="mb-1 text-[#0A192F]">👧 Faixa etária: 8 a 15 anos</p>
+            <p className="mb-1 text-[#0A192F]">⚽ Foco: Formação de base</p>
           </div>
 
           {/* Card 2 */}
-          <div className="bg-[#0A192F] rounded-2xl shadow-lg p-6 text-left hover:shadow-2xl transition transform hover:scale-105 border-l-4 border-[#F06292]">
+          <div className="bg-[#FFF] rounded-2xl shadow-lg p-6 text-left hover:shadow-2xl transition transform hover:scale-105 border-l-4 border-[#F06292]">
             <h4 className="text-xl font-bold mb-2" style={{ color: "#F06292" }}>Academia Estrelas</h4>
-            <p className="mb-1 text-white">📍 Vila Olímpica - Rio de Janeiro</p>
-            <p className="mb-1 text-white">👧 Faixa etária: 10 a 18 anos</p>
-            <p className="mb-1 text-white">🏆 Foco: Desenvolvimento competitivo</p>
+            <p className="mb-1 text-[#0A192F]">📍 Vila Olímpica - Rio de Janeiro</p>
+            <p className="mb-1 text-[#0A192F]">👧 Faixa etária: 10 a 18 anos</p>
+            <p className="mb-1 text-[#0A192F]">🏆 Foco: Desenvolvimento competitivo</p>
           </div>
 
           {/* Card 3 */}
-          <div className="bg-[#0A192F] rounded-2xl shadow-lg p-6 text-left hover:shadow-2xl transition transform hover:scale-105 border-l-4 border-[#F06292]">
+          <div className="bg-[#FFF] rounded-2xl shadow-lg p-6 text-left hover:shadow-2xl transition transform hover:scale-105 border-l-4 border-[#F06292]">
             <h4 className="text-xl font-bold mb-2" style={{ color: "#F06292" }}>Futuro Feminino</h4>
-            <p className="mb-1 text-white">📍 Bairro Industrial - Belo Horizonte</p>
-            <p className="mb-1 text-white">👧 Faixa etária: 6 a 14 anos</p>
-            <p className="mb-1 text-white">💪 Foco: Iniciação esportiva</p>
+            <p className="mb-1 text-[#0A192F]">📍 Bairro Industrial - Belo Horizonte</p>
+            <p className="mb-1 text-[#0A192F]">👧 Faixa etária: 6 a 14 anos</p>
+            <p className="mb-1 text-[#0A192F]">💪 Foco: Iniciação esportiva</p>
           </div>
         </div>
 

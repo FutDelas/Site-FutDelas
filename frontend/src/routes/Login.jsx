@@ -68,7 +68,7 @@ const Login = () => {
           <div className="flex justify-center gap-4 mt-2 text-sm">
             <span
               className="cursor-pointer text-[#F06292] hover:underline"
-              onClick={() => navigate("/cadastro-jogadora")}
+              onClick={() => navigate("/cadastro")}
             >
               Cadastre-se como Jogadora
             </span>

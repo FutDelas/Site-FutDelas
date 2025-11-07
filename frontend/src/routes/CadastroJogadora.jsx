@@ -47,8 +47,8 @@ const CadastroJogadora = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAD1DF] flex items-center justify-center">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 border border-[#F06292]">
+    <div className=" bg-[#FAD1DF] flex items-center justify-center my-6">
+      <div className="w-full max-w-md bg-white  rounded-2xl shadow-xl p-8 border border-[#F06292]">
         <h1 className="text-3xl font-bold text-center text-[#0A192F] mb-6">Cadastro Jogadora</h1>
         <form onSubmit={handleCadastro} className="flex flex-col gap-4">
           <input type="text" placeholder="Nome completo" value={nome} onChange={e => setNome(e.target.value)} required className="border border-[#F06292] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F06292]" />

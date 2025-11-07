@@ -79,7 +79,7 @@ const EditarJogadora = () => {
   return (
     <div className="min-h-screen bg-[#F0F4F8] p-6 flex justify-center">
       <div className="w-full max-w-3xl bg-white rounded-2xl shadow-lg p-8">
-        <h1 className="text-3xl font-bold text-center text-purple-900 mb-6">Perfil </h1>
+        <h1 className="text-3xl font-bold text-center text-[#0A192F] mb-6">Perfil </h1>
 
         {/* Foto e botão editar */}
         <div className="flex flex-col items-center mb-8">
@@ -98,7 +98,7 @@ const EditarJogadora = () => {
           )}
           <button
             onClick={() => (editando ? salvarPerfil() : setEditando(true))}
-            className="cursor-pointer bg-purple-900 text-white px-6 py-2 rounded-xl hover:bg-pink-600 transition font-semibold"
+            className="cursor-pointer bg-[#0A192F] text-white px-6 py-2 rounded-xl hover:bg-pink-600 transition font-semibold"
           >
             {editando ? "Salvar" : "Editar Perfil"}
           </button>
@@ -107,12 +107,12 @@ const EditarJogadora = () => {
         {/* Informações */}
         <div className="space-y-6">
           <div className="flex flex-col md:flex-row gap-4 items-start">
-            <strong className="text-purple-900 w-32">Email:</strong>
+            <strong className="text-[#0A192F] w-32">Email:</strong>
             <span>{usuario.email}</span>
           </div>
 
           <div className="flex flex-col md:flex-row gap-4 items-start">
-            <strong className="text-purple-900 w-32">Nome:</strong>
+            <strong className="text-[#0A192F] w-32">Nome:</strong>
             {editando ? (
               <input
                 type="text"
@@ -127,7 +127,7 @@ const EditarJogadora = () => {
           </div>
 
           <div className="flex flex-col md:flex-row gap-4 items-start">
-            <strong className="text-purple-900 w-32">Posição:</strong>
+            <strong className="text-[#0A192F] w-32">Posição:</strong>
             {editando ? (
               <input
                 type="text"
@@ -142,7 +142,7 @@ const EditarJogadora = () => {
           </div>
 
           <div className="flex flex-col md:flex-row gap-4 items-start">
-            <strong className="text-purple-900 w-32">Altura:</strong>
+            <strong className="text-[#0A192F] w-32">Altura:</strong>
             {editando ? (
               <input
                 type="number"
@@ -157,7 +157,7 @@ const EditarJogadora = () => {
           </div>
 
           <div className="flex flex-col md:flex-row gap-4 items-start">
-            <strong className="text-purple-900 w-32">Peso:</strong>
+            <strong className="text-[#0A192F] w-32">Peso:</strong>
             {editando ? (
               <input
                 type="number"
@@ -172,7 +172,7 @@ const EditarJogadora = () => {
           </div>
 
           <div className="flex flex-col md:flex-row gap-4 items-start">
-            <strong className="text-purple-900 w-32">Localização:</strong>
+            <strong className="text-[#0A192F] w-32">Localização:</strong>
             {editando ? (
               <input
                 type="text"
@@ -187,7 +187,7 @@ const EditarJogadora = () => {
           </div>
 
           <div className="flex flex-col md:flex-row gap-4 items-start">
-            <strong className="text-purple-900 w-32">Sobre:</strong>
+            <strong className="text-[#0A192F] w-32">Sobre:</strong>
             {editando ? (
               <textarea
                 name="sobre"
@@ -201,7 +201,7 @@ const EditarJogadora = () => {
           </div>
 
           <div className="flex flex-col md:flex-row gap-4 items-start">
-            <strong className="text-purple-900 w-32">Habilidades:</strong>
+            <strong className="text-[#0A192F] w-32">Habilidades:</strong>
             {editando ? (
               <input
                 type="text"

@@ -11,7 +11,7 @@ const Cadastro = () => {
     dataNascimento: "",
     email: "",
     senha: "",
-    tipo: "",
+    tipo: "jogadora",
   });
 
   const cadastrarPerfil = async () => {
@@ -19,8 +19,7 @@ const Cadastro = () => {
       !novoPerfil.nome ||
       !novoPerfil.dataNascimento ||
       !novoPerfil.email ||
-      !novoPerfil.senha ||
-      !novoPerfil.tipo
+      !novoPerfil.senha
     ) {
       alert("Todos os campos são obrigatórios");
       return;
@@ -29,19 +28,16 @@ const Cadastro = () => {
     try {
       const response = await axios.post(API_URL, novoPerfil);
 
-      // Mensagem de sucesso
-      alert(`Usuário ${response.data.nome} cadastrado com sucesso!`);
+      alert(`Usuária ${response.data.nome} cadastrada com sucesso!`);
 
-      // Limpa o formulário
       setNovoPerfil({
         nome: "",
         dataNascimento: "",
         email: "",
         senha: "",
-        tipo: "",
+        tipo: "jogadora",
       });
 
-      // Redireciona para a página de login
       navigate("/login");
     } catch (error) {
       console.log("Erro ao cadastrar perfil", error);
@@ -101,20 +97,7 @@ const Cadastro = () => {
             }
             className="border border-[#F06292] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F06292]"
           />
-          <select
-            value={novoPerfil.tipo}
-            onChange={(e) =>
-              setNovoPerfil({ ...novoPerfil, tipo: e.target.value })
-            }
-            className="border border-[#F06292] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F06292] text-[#0A192F]"
-          >
-            <option value="" disabled>
-              Selecione o tipo de conta
-            </option>
-            <option value="jogadora">Jogadora</option>
-            <option value="treinador">Treinador</option>
-            <option value="empresa/patrocinador">Empresa/Patrocinador</option>
-          </select>
+
           <button
             type="submit"
             className="cursor-pointer bg-[#F06292] text-white font-semibold py-3 rounded-lg hover:bg-[#d94d7f] transition"

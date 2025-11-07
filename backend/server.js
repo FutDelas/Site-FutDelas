@@ -327,9 +327,6 @@ app.get("/relatorios/:jogadoraId", (req, res) => {
   res.json(relatoriosJogadora);
 });
 
-
-
-
 // ===== INICIALIZAÇÃO DO SERVIDOR =====
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT} 🚀`);

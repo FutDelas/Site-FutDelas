@@ -102,7 +102,7 @@ const EventosOlheiro = () => {
 
         {/* Coluna esquerda: Relatórios recentes */}
         <div className="md:w-5/12 flex flex-col gap-6 justify-start">
-          <h2 className="text-2xl font-bold text-pink-500">Relatórios Recentes</h2>
+          <h2 className="text-2xl font-bold text-[#0A192F]">Relatórios Recentes</h2>
 
           {relatoriosRecentes.length === 0 ? (
             <p className="text-gray-500">Nenhum relatório registrado ainda.</p>
@@ -139,7 +139,7 @@ const EventosOlheiro = () => {
         <div className="md:w-7/12 flex flex-col gap-6">
           {passadosProximos.length > 0 && (
             <div>
-              <h1 className="text-2xl font-bold text-pink-500 mb-6">Eventos Passados</h1>
+              <h1 className="text-2xl font-bold text-[#0A192F] mb-6">Eventos Passados</h1>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {passadosProximos.map((evento) => (
                   <div key={evento.id} className="bg-white border border-gray-200 rounded-xl p-4 shadow-md hover:shadow-lg transition flex flex-col justify-between">
@@ -150,7 +150,7 @@ const EventosOlheiro = () => {
                     </div>
                     <button
                       onClick={() => setRelatorioAberto(evento)}
-                      className="mt-3 flex items-center justify-center gap-2 bg-pink-500 text-white font-semibold py-2 rounded hover:bg-pink-600 transition"
+                      className="mt-3 flex items-center justify-center gap-2 bg-[#F06292] text-white font-semibold py-2 rounded hover:bg-pink-600 transition"
                     >
                       <FaClipboardList /> Fazer Relatório
                     </button>
@@ -162,7 +162,7 @@ const EventosOlheiro = () => {
 
           {futurosProximos.length > 0 && (
             <div>
-              <h1 className="text-2xl font-bold text-pink-500 mb-3">Próximos Eventos</h1>
+              <h1 className="text-2xl font-bold text-[#0A192F] mb-3">Próximos Eventos</h1>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {futurosProximos.map((evento) => (
                   <div key={evento.id} className="bg-white border border-gray-200 rounded-xl p-4 shadow-md hover:shadow-lg transition flex flex-col justify-between">

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
+import Dashboard from "../components/Dashboard";
+
 
 const PerfilJogadora = () => {
   const navigate = useNavigate();
@@ -157,6 +160,8 @@ const PerfilJogadora = () => {
           </div>
         </div>
 
+
+
         {/* Portfólio */}
         <div>
           <div className="flex justify-between items-center mb-4">
@@ -276,7 +281,30 @@ const PerfilJogadora = () => {
           )}
         </div>
 
-        {/* Relatórios do Olheiro */}
+
+        {/* Seção Posts */}
+        <div>
+          <h2 className="text-2xl font-bold text-[#0A192F] mb-4">Publicações</h2>
+          {postsJogadora.length === 0 ? (
+            <p className="text-[#1E3A5F]">Ainda não há posts.</p>
+          ) : (
+            postsJogadora.map((post) => (
+              <div key={post.id} className="bg-[#FFFFFF] rounded-xl shadow-md p-4 mb-4">
+                <div className="flex items-center gap-2">
+                  <img
+                    src={post.foto ? `http://localhost:3001/${post.foto}` : "https://via.placeholder.com/150"}
+                    className="w-10 h-10 rounded-full"
+                  />
+                  <span className="font-bold text-[#0A192F]">{post.autor}</span>
+                  <span className="text-[#1E3A5F] text-xs">{post.data}</span>
+                </div>
+                <p className="mt-2 text-[#1E3A5F]">{post.texto}</p>
+              </div>
+            ))
+          )}
+        </div>
+
+         {/* Relatórios do Olheiro */}
         <div>
           <h2 className="text-2xl font-bold text-[#0A192F] mb-4">Relatórios do Olheiro</h2>
           {relatorios.length === 0 ? (
@@ -305,29 +333,17 @@ const PerfilJogadora = () => {
           )}
         </div>
 
-        {/* Seção Posts */}
-        <div>
-          <h2 className="text-2xl font-bold text-[#0A192F] mb-4">Publicações</h2>
-          {postsJogadora.length === 0 ? (
-            <p className="text-[#1E3A5F]">Ainda não há posts.</p>
-          ) : (
-            postsJogadora.map((post) => (
-              <div key={post.id} className="bg-[#FFFFFF] rounded-xl shadow-md p-4 mb-4">
-                <div className="flex items-center gap-2">
-                  <img
-                    src={post.foto ? `http://localhost:3001/${post.foto}` : "https://via.placeholder.com/150"}
-                    className="w-10 h-10 rounded-full"
-                  />
-                  <span className="font-bold text-[#0A192F]">{post.autor}</span>
-                  <span className="text-[#1E3A5F] text-xs">{post.data}</span>
-                </div>
-                <p className="mt-2 text-[#1E3A5F]">{post.texto}</p>
-              </div>
-            ))
-          )}
-        </div>
+ <h2 className="text-2xl font-bold mb-1 text-[#0A192F] ">
+          Temperatura Corporal durante o jogo
+        </h2>
+
+        <Dashboard />
+
       </div>
     </div>
+
+
+
   );
 };
 

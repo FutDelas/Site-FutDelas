@@ -52,19 +52,19 @@ const Eventos = () => {
   const renderCards = (lista) => {
     return lista.map((ev) => {
       let bgColor = "#FFFFFF";
-      let textColor = "#003B5C";
+      let textColor = "#0A192F";
 
       if (ev.tipo === "semanal") {
-        bgColor = "#FBC02D";
-        textColor = "#003B5C";
+        bgColor = "#FFF";
+        textColor = "#0A192F";
       }
       if (ev.tipo === "peneira") {
-        bgColor = "#5a8ca6";
+        bgColor = "#0A192F";
         textColor = "#FFFFFF";
       }
       if ((ev.inscritos?.length || 0) >= ev.vagas) {
         bgColor = "#E8E8E8";
-        textColor = "#003B5C";
+        textColor = "#0A192F";
       }
 
       return (
@@ -92,7 +92,7 @@ const Eventos = () => {
       {/* SIDEBAR */}
       <div className="w-1/4 flex flex-col gap-4 h-full">
         {/* Perfil */}
-        <div className="rounded-lg shadow-md p-4 flex flex-col items-center flex-1 min-h-[220px] border-l-4 border-[#F06292]" style={{ backgroundColor: "#FFFFFF" }}>
+        <div className="rounded-lg shadow-md p-4 flex flex-col items-center flex-1 min-h-[220px] border-l-4 border-[#0A192F]" style={{ backgroundColor: "#FFFFFF" }}>
           <img
             src={usuario.foto ? `http://localhost:3001/${usuario.foto}` : "https://via.placeholder.com/150"}
             alt="Foto de perfil"
@@ -103,7 +103,7 @@ const Eventos = () => {
           <div className="mt-auto w-full">
             <button
               onClick={() => navigate("/perfil-jogadora")}
-              className="cursor-pointer w-full text-sm py-2 bg-[#003B5C] text-white rounded hover:bg-[#5a8ca6] transition"
+              className="cursor-pointer w-full text-sm py-2 bg-[#003B5C] text-white rounded hover:bg-[#0A192F] transition"
             >
               Ver Perfil
             </button>
@@ -111,8 +111,8 @@ const Eventos = () => {
         </div>
 
         {/* Última Publicação */}
-        <div className="rounded-lg shadow-md p-4 flex flex-col gap-3 flex-1 min-h-[220px] border-l-4 border-[#FBC02D]" style={{ backgroundColor: "#FFFFFF" }}>
-          <h2 className="text-lg font-bold text-[#FBC02D]">Última Publicação</h2>
+        <div className="rounded-lg shadow-md p-4 flex flex-col gap-3 flex-1 min-h-[220px] border-l-4 border-[#0A192F]" style={{ backgroundColor: "#FFFFFF" }}>
+          <h2 className="text-lg font-bold text-[#F06292]">Última Publicação</h2>
           {publicacoes.length > 0 ? (
             <div className="flex flex-col gap-2 flex-1">
               <div className="flex items-start gap-3">
@@ -129,7 +129,7 @@ const Eventos = () => {
               <div className="mt-auto">
                 <button
                   onClick={() => navigate("/feed")}
-                  className="cursor-pointer w-full text-sm py-2 bg-[#003B5C] text-white rounded hover:bg-[#5a8ca6] transition"
+                  className="cursor-pointer w-full text-sm py-2 bg-[#16365F] text-white rounded hover:bg-[#0A192F] transition"
                 >
                   Ver no Feed
                 </button>
@@ -143,8 +143,8 @@ const Eventos = () => {
         </div>
 
         {/* Recompensas */}
-        <div className="rounded-lg shadow-md p-4 flex flex-col gap-3 flex-1 min-h-[220px] border-l-4 border-[#003B5C]"   style={{ backgroundColor: "#FFFFFF" }}>
-          <h2 className="text-lg font-bold text-[#003B5C]">Recompensas</h2>
+        <div className="rounded-lg shadow-md p-4 flex flex-col gap-3 flex-1 min-h-[220px] border-l-4 border-[#0A192F]"   style={{ backgroundColor: "#FFFFFF" }}>
+          <h2 className="text-lg font-bold text-[#F06292]">Recompensas</h2>
           <ul className="flex flex-col gap-2 flex-1 text-sm text-[#003B5C]">
             <li>🏅 Medalha - 10 pontos</li>
             <li>🎯 Melhor Jogadora - 50 pontos</li>
@@ -153,7 +153,7 @@ const Eventos = () => {
           <div className="mt-auto w-full">
             <button
               onClick={() => navigate("/recompensas")}
-              className="cursor-pointer w-full text-sm py-2 bg-[#003B5C] text-white rounded hover:bg-[#5a8ca6] transition"
+              className="cursor-pointer w-full text-sm py-2 bg-[#003B5C] text-white rounded hover:bg-[#0A192F] transition"
             >
               Ver Recompensas
             </button>
@@ -171,7 +171,7 @@ const Eventos = () => {
               {campeonatos.map((ev) => (
                 <div
                   key={ev.id}
-                  className="rounded-lg shadow-md p-4 text-center text-white cursor-pointer border-2 border-[#003B5C] flex-1 flex flex-col justify-between"
+                  className="rounded-lg shadow-md p-4 text-center text-white cursor-pointer   flex-1 flex flex-col justify-between"
                   style={{ backgroundColor: "#F06292" }}
                   onClick={() => setEventoAberto(ev)}
                 >
@@ -223,9 +223,7 @@ const Eventos = () => {
               <div className="text-6xl">{eventoAberto.emoji}</div>
               <h2 className="font-bold text-2xl text-[#F06292]">{eventoAberto.titulo}</h2>
               <p className="text-gray-500">{eventoAberto.dia}</p>
-              {eventoAberto.tipo === "semanal" && <span className="text-yellow-700 font-semibold">Semanal</span>}
-              {eventoAberto.tipo === "peneira" && <span className="text-blue-700 font-semibold">Peneira</span>}
-              {eventoAberto.tipo === "campeonato" && <span className="text-[#F06292] font-semibold">Campeonato</span>}
+              
               <p className="mt-4 text-gray-800 text-center">{eventoAberto.descricao}</p>
               <p className="mt-2 text-gray-800 text-center">
                 Inscritas: {eventoAberto.inscritos?.length || 0} / {eventoAberto.vagas} vagas
@@ -263,7 +261,7 @@ const Eventos = () => {
                 className={`mt-4 px-6 py-2 rounded-lg transition w-full ${
                   (eventoAberto.inscritos?.length || 0) >= eventoAberto.vagas
                     ? "bg-gray-400 cursor-not-allowed"
-                    : "cursor-pointer bg-[#003B5C] text-white hover:bg-[#5a8ca6]"
+                    : "cursor-pointer bg-[#003B5C] text-white hover:bg-[#0A192F]"
                 }`}
                 disabled={(eventoAberto.inscritos?.length || 0) >= eventoAberto.vagas}
               >
